@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="boticordpy",
-    version="1.2",
+    version="1.2.1",
     description="Simple Python Module for boticord api",
     long_description=README,
     long_description_content_type="text/markdown",

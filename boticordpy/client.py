@@ -11,6 +11,8 @@ class BoticordClient:
         "Users"
     )
 
+    bot : discord.Client
+
     def __init__(self, bot, **kwargs):
         token = kwargs.get('token')
         loop = kwargs.get('loop') or asyncio.get_event_loop()

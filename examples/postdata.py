@@ -1,6 +1,6 @@
-from boticordpy import BoticordClient
-import discord
 from discord.ext import commands
+
+from boticordpy import BoticordClient
 
 bot = commands.Bot(command_prefix="!")
 boticord = BoticordClient(bot, token="your-boticord-token")

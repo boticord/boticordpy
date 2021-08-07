@@ -1,6 +1,11 @@
+import asyncio
+
 import aiohttp
 import discord
-import asyncio
+from discord.ext import commands
+
+from types import Union
+
 from .modules import bots, servers, users
 
 
@@ -11,7 +16,7 @@ class BoticordClient:
         "Users"
     )
 
-    bot : discord.Client
+    bot: Union[discord.Client, discord.AutoShardedClient, commands.Bot, commands.AutoShardedBot]
 
     def __init__(self, bot, **kwargs):
         token = kwargs.get('token')

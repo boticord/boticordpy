@@ -24,11 +24,11 @@ class BoticordClient:
     Attributes
     ----------
         Bots : :class:`modules.bots.Bots`
-            :class:`modules.bots.Bots` with all the parameters filled.
+            :class:`modules.bots.Bots` with all arguments filled.
         Servers : :class:`modules.servers.Servers`
-           :class:`modules.servers.Servers` with all the parameters filled.
+           :class:`modules.servers.Servers` with all arguments filled.
         Users : :class:`modules.users.Users`
-            :class:`modules.users.Users` with all the parameters filled.
+            :class:`modules.users.Users` with all arguments filled.
     """
 
     __slots__ = (

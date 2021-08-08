@@ -7,3 +7,8 @@
 Установка через pip (рекомендуется)
 
 `pip3 install boticordpy`
+
+### Ссылки
+
+[Документация](https://boticordpy.readthedocs.io/)
+[Boticord](https://boticord.top/)

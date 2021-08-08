@@ -19,8 +19,8 @@ sys.setrecursionlimit(1500)
 # -- Project information -----------------------------------------------------
 
 project = 'BoticordPy'
-copyright = '2021, KerdokuKot'
-author = 'KerdokuKot'
+copyright = '2021, Grey Cat'
+author = 'Grey Cat'
 
 # The full version, including alpha/beta/rc tags
 release = '1.2.2'

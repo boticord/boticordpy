@@ -15,6 +15,16 @@ async def _json_or_text(response: ClientResponse) -> Union[dict, str]:
 
 
 class Bots:
+
+    """
+    Class with methods to work with Boticord API Bots.
+
+    Parameters
+    ----------
+        bot : :class:`commands.Bot` | :class:`commands.AutoShardedBot`
+            The discord.py Bot instance
+    """
+
     def __init__(self, bot, **kwargs):
         self.bot = bot
         self.token = kwargs.get('token')
@@ -22,7 +32,14 @@ class Bots:
         self.session = kwargs.get('session') or aiohttp.ClientSession(loop=self.loop)
 
     async def getBotInfo(self, botID: int):
-        """Get Boticord Bot info"""
+        """
+        Returns information about discord bot with the given ID.
+
+        Parameters
+        ----------
+            botID : :class:`int`
+                Discord Bot's ID
+        """
         headers = {}
         async with self.session.get(f'{Config.general_api}/bot/{botID}', headers=headers) as resp:
             data = await _json_or_text(resp)
@@ -36,7 +53,14 @@ class Bots:
                 return data
 
     async def getBotComments(self, botID: int):
-        """Get Boticord Bot Comments"""
+        """
+        Returns comments of the discord bot with the given ID.
+
+        Parameters
+        ----------
+            botID : :class:`int`
+                Discord Bot's ID
+        """
         headers = {}
         async with self.session.get(f'{Config.general_api}/bot/{botID}/comments', headers=headers) as resp:
             data = await _json_or_text(resp)
@@ -49,8 +73,15 @@ class Bots:
             else:
                 return data
 
-    async def postStats(self, stats):
-        """Post Stats to Boticord"""
+    async def postStats(self, stats : dict):
+        """
+        Post stats to Boticord API.
+
+        Parameters
+        ----------
+            stats: :class:`dict`
+                A dictionary of {``guilds``: :class:`int`, ``shards``: :class:`int`, ``users``: :class:`int`}
+        """
         if not self.token:
             return "Require Authentication"
         headers = {"Authorization": self.token}

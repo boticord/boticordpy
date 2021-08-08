@@ -15,6 +15,16 @@ async def _json_or_text(response: ClientResponse) -> Union[dict, str]:
 
 
 class Servers:
+
+    """
+    Class with methods to work with Boticord API Servers.
+
+    Parameters
+    ----------
+        bot : :class:`commands.Bot` | :class:`commands.AutoShardedBot`
+            The discord.py Bot instance
+    """
+
     def __init__(self, bot, **kwargs):
         self.bot = bot
         self.token = kwargs.get('token')
@@ -22,7 +32,14 @@ class Servers:
         self.session = kwargs.get('session') or aiohttp.ClientSession(loop=self.loop)
 
     async def getServerInfo(self, serverID: int):
-        """Get Boticord Server info"""
+        """
+        Returns information about discord server with the given ID.
+
+        Parameters
+        ----------
+           serverID : :class:`int`
+                Discord Server's ID
+        """
         headers = {}
         async with self.session.get(f'{Config.general_api}/server/{serverID}', headers=headers) as resp:
             data = await _json_or_text(resp)
@@ -36,7 +53,14 @@ class Servers:
                 return data
 
     async def getServerComments(self, serverID: int):
-        """Get Boticord Server Comments"""
+        """
+        Returns comments of the discord server with the given ID.
+
+        Parameters
+        ----------
+            serverID : :class:`int`
+                Discord Server's ID
+        """
         headers = {}
         async with self.session.get(f'{Config.general_api}/server/{serverID}/comments', headers=headers) as resp:
             data = await _json_or_text(resp)

@@ -15,14 +15,25 @@ async def _json_or_text(response: ClientResponse) -> Union[dict, str]:
 
 
 class Users:
-    def __init__(self, bot, **kwargs):
-        self.bot = bot
+
+    """
+    Class with methods to work with Boticord API Users.
+    """
+
+    def __init__(self, **kwargs):
         self.token = kwargs.get('token')
         self.loop = kwargs.get('loop') or asyncio.get_event_loop()
         self.session = kwargs.get('session') or aiohttp.ClientSession(loop=self.loop)
 
     async def getUserInfo(self, userID: int):
-        """Get Boticord User info"""
+        """
+        Returns information about discord user with the given ID.
+
+        Parameters
+        ----------
+            userID : :class:`int`
+                Discord User's ID
+        """
         headers = {}
         async with self.session.get(f'{Config.general_api}/profile/{userID}', headers=headers) as resp:
             data = await _json_or_text(resp)
@@ -36,7 +47,14 @@ class Users:
                 return data
 
     async def getUserComments(self, userID: int):
-        """Get Boticord User Comments"""
+        """
+        Returns comments of discord user with the given ID.
+
+        Parameters
+        ----------
+            userID : :class:`int`
+                Discord User's ID
+        """
         headers = {}
         async with self.session.get(f'{Config.general_api}/profile/{userID}/comments', headers=headers) as resp:
             data = await _json_or_text(resp)
@@ -50,7 +68,14 @@ class Users:
                 return data
 
     async def getUserBots(self, userID: int):
-        """Get Boticord User Bots"""
+        """
+        Returns bots of discord user with the given ID.
+
+        Parameters
+        ----------
+            userID : :class:`int`
+                Discord User's ID
+        """
         headers = {}
         async with self.session.get(f'{Config.general_api}/bots/{userID}', headers=headers) as resp:
             data = await _json_or_text(resp)

@@ -36,7 +36,7 @@ import sphinx_rtd_theme
 
 extensions = [
     # 'sphinx.ext.autodoc',
-    'sphinxcontrib.napoleon',
+    'sphinx.ext.napoleon',
     'sphinx.ext.ifconfig',
     'sphinx_rtd_theme'
 ]

@@ -14,7 +14,7 @@ Bots
 
 Servers
 ------------
-.. autoclass:: boticordpy.modules.Servers
+.. autoclass:: boticordpy.boticordpy.modules.Servers
    :members:
 
 Users

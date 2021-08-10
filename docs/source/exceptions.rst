@@ -1,6 +1,6 @@
 .. currentmodule:: boticordpy
 
-.. modules:
+.. exceptions:
 
 Exceptions
 ==============

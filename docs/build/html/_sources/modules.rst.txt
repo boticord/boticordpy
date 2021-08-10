@@ -9,15 +9,15 @@ This page describes all the modules of boticordpy.
 
 Bots
 ------------
-.. autoclass:: modules.Bots
+.. autoclass:: boticordpy.modules.Bots
    :members:
 
 Servers
 ------------
-.. autoclass:: modules.Servers
+.. autoclass:: boticordpy.modules.Servers
    :members:
 
 Users
 ------------
-.. autoclass:: modules.Users
+.. autoclass:: boticordpy.modules.Users
    :members:

@@ -3,7 +3,7 @@ from typing import Union
 import asyncio
 import aiohttp
 
-from .modules import bots, servers, users
+import modules
 
 
 class BoticordClient:
@@ -39,6 +39,6 @@ class BoticordClient:
     def __init__(self, bot, token=None, **kwargs):
         loop = kwargs.get('loop') or asyncio.get_event_loop()
         session = kwargs.get('session') or aiohttp.ClientSession(loop=loop)
-        self.Bots = bots.Bots(bot, token=token, loop=loop, session=session)
-        self.Servers = servers.Servers(bot, token=token, loop=loop, session=session)
-        self.Users = users.Users(token=token, loop=loop, session=session)
+        self.Bots = modules.Bots(bot, token=token, loop=loop, session=session)
+        self.Servers = modules.Servers(bot, token=token, loop=loop, session=session)
+        self.Users = modules.Users(token=token, loop=loop, session=session)

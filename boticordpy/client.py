@@ -1,9 +1,7 @@
-import asyncio
-
-import aiohttp
 from discord.ext import commands
-
 from typing import Union
+import asyncio
+import aiohttp
 
 from .modules import bots, servers, users
 

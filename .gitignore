@@ -2,6 +2,7 @@
 /venv/
 .git
 .DS_Store
+/boticordpy/modules/__pycache__
 /boticordpy/__pycache__
 /boticordpy.egg-info
 /dist

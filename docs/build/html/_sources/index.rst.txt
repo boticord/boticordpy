@@ -17,6 +17,7 @@ This is a documentation for simple python module to work with the boticord api.
    quickstart
    main
    modules
+   exceptions
 
 Links
 =====

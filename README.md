@@ -10,5 +10,5 @@
 
 ### Ссылки
 
-[Документация](https://boticordpy.readthedocs.io/)
-[Boticord](https://boticord.top/)
+* [Документация](https://boticordpy.readthedocs.io/)
+* [Boticord](https://boticord.top/)

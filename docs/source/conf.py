@@ -23,7 +23,7 @@ copyright = '2021, Grey Cat'
 author = 'Grey Cat'
 
 # The full version, including alpha/beta/rc tags
-release = '1.3'
+release = '1.3.1'
 
 
 # -- General configuration ---------------------------------------------------

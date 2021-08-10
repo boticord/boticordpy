@@ -2,6 +2,7 @@ import aiohttp
 import asyncio
 from typing import Union
 import json
+import discord
 from aiohttp import ClientResponse
 from .. import exceptions
 from ..config import Config
@@ -63,6 +64,50 @@ class Servers:
         """
         headers = {}
         async with self.session.get(f'{Config.general_api}/server/{serverID}/comments', headers=headers) as resp:
+            data = await _json_or_text(resp)
+            if resp.status == 403:
+                raise exceptions.Forbidden(resp, data)
+            elif resp.status == 401:
+                raise exceptions.Unauthorized(resp, data)
+            elif resp.status == 404:
+                raise exceptions.NotFound(resp, data)
+            else:
+                return data
+
+    async def postServerStats(self, message: discord.Message, custom_stats: dict = None):
+        """
+        Post server stats to Boticord API.
+
+        Parameters
+        ----------
+            message: :class:`discord.Message`
+                Message object of used command.
+            custom_stats: :class:`dict`
+                Dict with custom server stats. (Optional)
+        """
+        if not self.token:
+            return "Require Authentication"
+
+        if custom_stats is None:
+            guild = message.guild
+            guild_owner = guild.owner
+
+            stats = {
+                "serverID": str(guild.id),
+                "up": 1,
+                "status": 1,
+                "serverName": guild.name,
+                "serverAvatar": str(guild.icon_url),
+                "serverMembersAllCount": guild.member_count,
+                "serverMembersOnlineCount": 0,
+                "serverOwnerTag": guild_owner.name + "#" + guild_owner.discriminator,
+                "serverOwnerID": str(guild_owner.id)
+            }
+        else:
+            stats = custom_stats
+
+        headers = {"Authorization": self.token}
+        async with self.session.post(f'{Config.general_api}/server', headers=headers, json=stats) as resp:
             data = await _json_or_text(resp)
             if resp.status == 403:
                 raise exceptions.Forbidden(resp, data)

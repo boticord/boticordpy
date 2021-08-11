@@ -7,4 +7,4 @@
 /boticordpy.egg-info
 /dist
 /__pycache__
-/docs/build
+/docs/_build

@@ -5,7 +5,6 @@ from typing import Union
 import aiohttp
 import asyncio
 
-from .. import exceptions
 from ..config import Config
 
 

@@ -1,4 +1,4 @@
-import exceptions
+from . import exceptions
 
 
 class Config:

@@ -6,7 +6,6 @@ import aiohttp
 import asyncio
 import discord
 
-from .. import exceptions
 from ..config import Config
 
 

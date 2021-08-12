@@ -1,8 +1,8 @@
-<h1 style="text-align:  center;">Boticordpy</h1>
+<h1 align="center">Boticordpy</h1>
 
-<p style="text-align: center">Модуль для работы с <a href="(https://boticord.top/">Boticord</a> API</p>
+<p align="center">Модуль для работы с <a href="(https://boticord.top/">Boticord</a> API</p>
 
-<p style="text-align: center;">
+<p align="center">
 
 <img src="https://img.shields.io/pypi/dm/boticordpy" alt="">
 </p>

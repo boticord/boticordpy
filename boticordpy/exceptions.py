@@ -48,5 +48,3 @@ class ToManyRequests(HTTPException):
 
 class ServerError(HTTPException):
     """Exception that's thrown when status code 500 or 503 occurs."""
-
-

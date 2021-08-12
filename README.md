@@ -1,14 +1,35 @@
-# Boticord Python Library
+<h1 style="text-align:  center;">Boticordpy</h1>
 
-Простой Python модуль для работы с Boticord API (не официальный).
+<p style="text-align: center">Модуль для работы с <a href="(https://boticord.top/">Boticord</a> API</p>
 
-### Установка
+<p style="text-align: center;">
 
-Установка через pip (рекомендуется)
+<img src="https://img.shields.io/pypi/dm/boticordpy" alt="">
+</p>
 
-`pip3 install boticordpy`
-
-### Ссылки
-
+---
 * [Документация](https://boticordpy.readthedocs.io/)
-* [Boticord](https://boticord.top/)
+* [Исходный код](https://github.com/grey-cat-1908/boticordpy)
+---
+
+### Примеры
+
+Публикуем статистику нашего бота в Boticord.
+
+```Python
+from discord.ext import commands
+
+from boticordpy import BoticordClient
+
+bot = commands.Bot(command_prefix="!")
+boticord = BoticordClient(bot, "your-boticord-token")
+
+
+@bot.event
+async def on_connect():
+    stats = {"servers": len(bot.guilds), "shards": bot.shard_count, "users": len(bot.users)}
+    await boticord.Bots.postStats(stats)
+
+
+bot.run("your-bot-token")
+```

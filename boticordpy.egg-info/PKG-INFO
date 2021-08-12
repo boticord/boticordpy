@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: boticordpy
+Version: 1.3.1.6
+Summary: Simple Python Module for boticord api
+Home-page: https://github.com/grey-cat-1908/boticordpy
+Author: KerdokuCat
+Author-email: support@kerdoku.top
+License: MIT
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+# Boticord Python Library
+
+Простой Python модуль для работы с Boticord API (не официальный).
+
+### Установка
+
+Установка через pip (рекомендуется)
+
+`pip3 install boticordpy`
+
+### Ссылки
+
+* [Документация](https://boticordpy.readthedocs.io/)
+* [Boticord](https://boticord.top/)
+
+

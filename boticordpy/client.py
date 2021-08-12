@@ -1,11 +1,9 @@
-import asyncio
-
-import aiohttp
 from discord.ext import commands
-
 from typing import Union
+import asyncio
+import aiohttp
 
-from .modules import bots, servers, users
+from .modules import Bots, Servers, Users
 
 
 class BoticordClient:
@@ -41,6 +39,6 @@ class BoticordClient:
     def __init__(self, bot, token=None, **kwargs):
         loop = kwargs.get('loop') or asyncio.get_event_loop()
         session = kwargs.get('session') or aiohttp.ClientSession(loop=loop)
-        self.Bots = bots.Bots(bot, token=token, loop=loop, session=session)
-        self.Servers = servers.Servers(bot, token=token, loop=loop, session=session)
-        self.Users = users.Users(token=token, loop=loop, session=session)
+        self.Bots = Bots(bot, token=token, loop=loop, session=session)
+        self.Servers = Servers(bot, token=token, loop=loop, session=session)
+        self.Users = Users(token=token, loop=loop, session=session)

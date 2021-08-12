@@ -1,9 +1,10 @@
+import json
+
+from aiohttp import ClientResponse
+from typing import Union
 import aiohttp
 import asyncio
-from typing import Union
-import json
-from aiohttp import ClientResponse
-from .. import exceptions
+
 from ..config import Config
 
 
@@ -43,14 +44,10 @@ class Bots:
         headers = {}
         async with self.session.get(f'{Config.general_api}/bot/{botID}', headers=headers) as resp:
             data = await _json_or_text(resp)
-            if resp.status == 403:
-                raise exceptions.Forbidden(resp, data)
-            elif resp.status == 401:
-                raise exceptions.Unauthorized(resp, data)
-            elif resp.status == 404:
-                raise exceptions.NotFound(resp, data)
-            else:
-                return data
+            status = Config.http_exceptions.get(resp.status)
+            if status is not None:
+                raise status
+            return data
 
     async def getBotComments(self, botID: int):
         """
@@ -64,14 +61,10 @@ class Bots:
         headers = {}
         async with self.session.get(f'{Config.general_api}/bot/{botID}/comments', headers=headers) as resp:
             data = await _json_or_text(resp)
-            if resp.status == 403:
-                raise exceptions.Forbidden(resp, data)
-            elif resp.status == 401:
-                raise exceptions.Unauthorized(resp, data)
-            elif resp.status == 404:
-                raise exceptions.NotFound(resp, data)
-            else:
-                return data
+            status = Config.http_exceptions.get(resp.status)
+            if status is not None:
+                raise status
+            return data
 
     async def postStats(self, stats : dict):
         """
@@ -87,11 +80,7 @@ class Bots:
         headers = {"Authorization": self.token}
         async with self.session.post(f'{Config.local_api}/stats', headers=headers, json=stats) as resp:
             data = await _json_or_text(resp)
-            if resp.status == 403:
-                raise exceptions.Forbidden(resp, data)
-            elif resp.status == 401:
-                raise exceptions.Unauthorized(resp, data)
-            elif resp.status == 404:
-                raise exceptions.NotFound(resp, data)
-            else:
-                return data
+            status = Config.http_exceptions.get(resp.status)
+            if status is not None:
+                raise status
+            return data

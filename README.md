@@ -1,6 +1,6 @@
 <h1 align="center">Boticordpy</h1>
 
-<p align="center">Модуль для работы с <a href="(https://boticord.top/">Boticord</a> API</p>
+<p align="center">Модуль для работы с <a href="https://boticord.top/">Boticord</a> API</p>
 
 <p align="center">
 

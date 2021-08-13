@@ -24,5 +24,5 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    install_requires=["discord.py", "aiohttp", "asyncio", "typing"],
+    install_requires=["discord.py", "aiohttp"],
 )

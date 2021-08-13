@@ -1,10 +1,8 @@
-/.idea/
-/venv/
+.idea
+venv
 .git
 .DS_Store
-/boticordpy/modules/__pycache__
-/boticordpy/__pycache__
-/boticordpy.egg-info
-/dist
-/__pycache__
-/docs/_build
+__pycache__
+.egg-info
+dist
+docs/_build

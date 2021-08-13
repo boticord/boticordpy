@@ -1,0 +1,8 @@
+LICENSE.txt
+README.md
+setup.py
+boticordpy.egg-info/PKG-INFO
+boticordpy.egg-info/SOURCES.txt
+boticordpy.egg-info/dependency_links.txt
+boticordpy.egg-info/requires.txt
+boticordpy.egg-info/top_level.txt

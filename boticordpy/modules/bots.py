@@ -66,7 +66,7 @@ class Bots:
                 raise status
             return data
 
-    async def postStats(self, stats : dict):
+    async def postStats(self, stats: dict):
         """
         Post stats to Boticord API.
 

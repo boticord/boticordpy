@@ -1,0 +1,12 @@
+LICENSE.txt
+README.md
+setup.py
+boticordpy/__init__.py
+boticordpy/client.py
+boticordpy/config.py
+boticordpy/exceptions.py
+boticordpy.egg-info/PKG-INFO
+boticordpy.egg-info/SOURCES.txt
+boticordpy.egg-info/dependency_links.txt
+boticordpy.egg-info/requires.txt
+boticordpy.egg-info/top_level.txt

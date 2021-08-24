@@ -1,0 +1,8 @@
+.idea
+venv
+.git
+.DS_Store
+__pycache__
+.egg-info
+dist
+docs/_build

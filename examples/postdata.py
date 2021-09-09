@@ -7,7 +7,7 @@ boticord = BoticordClient(bot, "your-boticord-token")
 
 
 @bot.event
-async def on_connect():
+async def on_ready():
     stats = {"servers": len(bot.guilds), "shards": bot.shard_count, "users": len(bot.users)}
     await boticord.Bots.postStats(stats)
 

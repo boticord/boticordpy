@@ -78,7 +78,7 @@ class Bots:
         if not self.token:
             return "Require Authentication"
         headers = {"Authorization": self.token}
-        async with self.session.post(f'{Config.local_api}/stats', headers=headers, json=stats) as resp:
+        async with self.session.post(f'{Config.general_api}/stats', headers=headers, json=stats) as resp:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
             if status is not None:

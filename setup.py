@@ -12,7 +12,7 @@ README = (HERE / "README.md").read_text(encoding="utf8")
 setup(
     name="boticordpy",
     packages = ['boticordpy', 'boticordpy.modules'],
-    version="1.3.5.1",
+    version="1.3.6",
     description="Simple Python Module for boticord api",
     long_description=README,
     long_description_content_type="text/markdown",

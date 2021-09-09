@@ -40,7 +40,7 @@ Let's post our bot's stats to Boticord.
 
 
     @bot.event
-    async def on_connect():
+    async def on_ready():
         stats = {"servers": len(bot.guilds), "shards": bot.shard_count, "users": len(bot.users)}
         await boticord.Bots.postStats(stats)
 

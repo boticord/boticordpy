@@ -42,7 +42,8 @@ class Servers:
            serverID : :class:`int`
                 Discord Server's ID
         """
-        headers = {}
+        headers = {"Authorization": self.token}
+
         async with self.session.get(f'{Config.general_api}/server/{serverID}', headers=headers) as resp:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
@@ -59,7 +60,8 @@ class Servers:
             serverID : :class:`int`
                 Discord Server's ID
         """
-        headers = {}
+        headers = {"Authorization": self.token}
+
         async with self.session.get(f'{Config.general_api}/server/{serverID}/comments', headers=headers) as resp:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
@@ -100,6 +102,7 @@ class Servers:
             stats = custom_stats
 
         headers = {"Authorization": self.token}
+
         async with self.session.post(f'{Config.general_api}/server', headers=headers, json=stats) as resp:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)

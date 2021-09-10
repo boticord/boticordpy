@@ -35,7 +35,8 @@ class Users:
             userID : :class:`int`
                 Discord User's ID
         """
-        headers = {}
+        headers = {"Authorization": self.token}
+
         async with self.session.get(f'{Config.general_api}/profile/{userID}', headers=headers) as resp:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
@@ -52,7 +53,8 @@ class Users:
             userID : :class:`int`
                 Discord User's ID
         """
-        headers = {}
+        headers = {"Authorization": self.token}
+
         async with self.session.get(f'{Config.general_api}/profile/{userID}/comments', headers=headers) as resp:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
@@ -69,7 +71,8 @@ class Users:
             userID : :class:`int`
                 Discord User's ID
         """
-        headers = {}
+        headers = {"Authorization": self.token}
+
         async with self.session.get(f'{Config.general_api}/bots/{userID}', headers=headers) as resp:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)

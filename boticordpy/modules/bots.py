@@ -41,7 +41,8 @@ class Bots:
             botID : :class:`int`
                 Discord Bot's ID
         """
-        headers = {}
+        headers = {"Authorization": self.token}
+
         async with self.session.get(f'{Config.general_api}/bot/{botID}', headers=headers) as resp:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
@@ -58,7 +59,8 @@ class Bots:
             botID : :class:`int`
                 Discord Bot's ID
         """
-        headers = {}
+        headers = {"Authorization": self.token}
+
         async with self.session.get(f'{Config.general_api}/bot/{botID}/comments', headers=headers) as resp:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
@@ -77,7 +79,9 @@ class Bots:
         """
         if not self.token:
             return "Require Authentication"
+
         headers = {"Authorization": self.token}
+
         async with self.session.post(f'{Config.general_api}/stats', headers=headers, json=stats) as resp:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)

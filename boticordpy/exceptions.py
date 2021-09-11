@@ -15,17 +15,10 @@ class HTTPException(BoticordException):
         The text of the error. Could be an empty string.
     """
 
-    def __init__(self, response, message):
+    def __init__(self, response):
         self.response = response
-        if isinstance(message, dict):
-            self.text = message.get('message', '')
-            self.code = message.get('code', 0)
-        else:
-            self.text = message
 
         fmt = f"{self.response.reason} (Status code: {self.response.status})"
-        if self.text:
-            fmt = f"{fmt}: {self.text}"
 
         super().__init__(fmt)
 

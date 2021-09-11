@@ -48,7 +48,7 @@ class Servers:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
             if status is not None:
-                raise status
+                raise status(resp)
             return data
 
     async def getServerComments(self, serverID: int):
@@ -66,7 +66,7 @@ class Servers:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
             if status is not None:
-                raise status
+                raise status(resp)
             return data
 
     async def postServerStats(self, message: discord.Message, custom_stats: dict = None):
@@ -107,5 +107,5 @@ class Servers:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
             if status is not None:
-                raise status
+                raise status(resp)
             return data

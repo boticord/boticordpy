@@ -46,8 +46,9 @@ class Bots:
         async with self.session.get(f'{Config.general_api}/bot/{botID}', headers=headers) as resp:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
+
             if status is not None:
-                raise status
+                raise status(resp)
             return data
 
     async def getBotComments(self, botID: int):
@@ -65,7 +66,7 @@ class Bots:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
             if status is not None:
-                raise status
+                raise status(resp)
             return data
 
     async def postStats(self, stats: dict):
@@ -86,5 +87,5 @@ class Bots:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
             if status is not None:
-                raise status
+                raise status(resp)
             return data

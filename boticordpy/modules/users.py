@@ -41,7 +41,7 @@ class Users:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
             if status is not None:
-                raise status
+                raise status(resp)
             return data
 
     async def getUserComments(self, userID: int):
@@ -59,7 +59,7 @@ class Users:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
             if status is not None:
-                raise status
+                raise status(resp)
             return data
 
     async def getUserBots(self, userID: int):
@@ -77,5 +77,5 @@ class Users:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
             if status is not None:
-                raise status
+                raise status(resp)
             return data

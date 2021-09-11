@@ -48,6 +48,8 @@ class BoticordClient:
     def start_loop(self, sleep_time: int = None) -> None:
         """
 
+        Can be used to post stats automatically.
+
         Parameters
         ----------
             sleep_time: :class:`int`

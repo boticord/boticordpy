@@ -24,10 +24,12 @@ Or just clone the repo: https://github.com/grey-cat-1908/boticordpy
 
 
 
-Post Bot Stats
+Examples
 -------------------------
 
-Let's post our bot's stats to Boticord.
+**Without Using Cogs System**
+
+Post bot stats when bot is ready.
 
 ::
 
@@ -46,5 +48,37 @@ Let's post our bot's stats to Boticord.
 
 
     bot.run("your-bot-token")
+
+..
+
+**Using Cogs System**
+
+Cog with automatically stats post (every 15 minutes) + bot's owner command that can be used to post stats.
+
+::
+
+    from discord.ext import commands
+
+    from boticordpy import BoticordClient
+
+
+    class BoticordCog(commands.Cog):
+        def __init__(self, bot):
+            self.bot = bot
+            self.boticord = BoticordClient(self.bot, "your-boticord-token")
+            self.boticord.start_loop()
+
+        @commands.command(name="boticord-update")
+        @commands.is_owner()
+        async def boticord_update(self, ctx):
+            """
+                This commands can be used by owner to post stats to boticord
+            """
+            stats = {"servers": len(self.bot.guilds), "shards": 0, "users": len(self.bot.users)}
+            await self.boticord.Bots.postStats(stats)
+
+
+    def setup(bot):
+        bot.add_cog(BoticordCog(bot))
 
 ..

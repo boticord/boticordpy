@@ -14,7 +14,8 @@
 
 ### Примеры
 
-Публикуем статистику нашего бота в Boticord.
+#### Без Когов
+Публикуем статистику при запуске бота.
 
 ```Python
 from discord.ext import commands
@@ -32,4 +33,35 @@ async def on_ready():
 
 
 bot.run("your-bot-token")
+```
+
+#### С Когами
+
+Ког с автоматической публикацией статистики раз в 15 минут + команда для публикации статистики для владельца бота.
+
+```python
+from discord.ext import commands
+
+from boticordpy import BoticordClient
+
+
+class BoticordCog(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self.boticord = BoticordClient(self.bot, "your-boticord-token")
+        self.boticord.start_loop()
+
+    @commands.command(name="boticord-update")
+    @commands.is_owner()
+    async def boticord_update(self, ctx):
+        """
+            This commands can be used by owner to post stats to boticord
+        """
+        stats = {"servers": len(self.bot.guilds), "shards": 0, "users": len(self.bot.users)}
+        await self.boticord.Bots.postStats(stats)
+
+
+def setup(bot):
+    bot.add_cog(BoticordCog(bot))
+
 ```

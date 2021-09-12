@@ -97,7 +97,7 @@ class BoticordWebhook:
 
         Parameters
         ----------
-            port :class:`int`
+            port
                 The port to run the webhook on.
         """
         self.bot.loop.create_task(self._run(port))

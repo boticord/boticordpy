@@ -24,9 +24,10 @@ class _Webhook(TypedDict):
 class BoticordWebhook:
     """
     This class is used as a manager for the Boticord webhook.
+
     Parameters
     ----------
-        bot : :class:`commands.Bot` | :class:`commands.AutoShardedBot`
+        bot: :class:`commands.Bot` | :class:`commands.AutoShardedBot`
             The discord.py Bot instance
     """
 
@@ -45,12 +46,14 @@ class BoticordWebhook:
 
     def bot_webhook(self, route: str = "/bot", hook_key: str = "") -> "BoticordWebhook":
         """This method may be used to configure the route of boticord bot's webhook.
+
         Parameters
         ----------
             route: str
                 Bot's webhook route. Must start with ``/``. Defaults - ``/bot``.
             hook_key: str
                 Webhook authorization key.
+
         Returns
         ----------
             :class:`BoticordWebhook`
@@ -91,6 +94,7 @@ class BoticordWebhook:
 
     def run(self, port: int):
         """Runs the webhook.
+
         Parameters
         ----------
             port: int

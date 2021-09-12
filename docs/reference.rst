@@ -1,6 +1,6 @@
 .. currentmodule:: boticordpy
 
-.. event_reference:
+.. reference:
 
 Event Reference
 ---------------

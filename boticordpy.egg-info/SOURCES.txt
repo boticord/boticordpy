@@ -5,6 +5,7 @@ boticordpy/__init__.py
 boticordpy/client.py
 boticordpy/config.py
 boticordpy/exceptions.py
+boticordpy/webhook.py
 boticordpy.egg-info/PKG-INFO
 boticordpy.egg-info/SOURCES.txt
 boticordpy.egg-info/dependency_links.txt

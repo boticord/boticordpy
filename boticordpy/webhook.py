@@ -27,7 +27,7 @@ class BoticordWebhook:
 
     Parameters
     ----------
-        bot: :class:`commands.Bot` | :class:`commands.AutoShardedBot`
+        bot :class:`commands.Bot` | :class:`commands.AutoShardedBot`
             The discord.py Bot instance
     """
 
@@ -49,9 +49,9 @@ class BoticordWebhook:
 
         Parameters
         ----------
-            route: str
+            route str
                 Bot's webhook route. Must start with ``/``. Defaults - ``/bot``.
-            hook_key: str
+            hook_key str
                 Webhook authorization key.
 
         Returns
@@ -97,7 +97,7 @@ class BoticordWebhook:
 
         Parameters
         ----------
-            port: int
+            port :class:`int`
                 The port to run the webhook on.
         """
         self.bot.loop.create_task(self._run(port))

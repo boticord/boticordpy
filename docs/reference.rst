@@ -32,52 +32,78 @@ You can name the function whatever you want, but the decorator must always speci
     errors. In order to turn a function into a coroutine they must be ``async def``
     functions.
 
-.. function:: new_bot_bump
+**new_bot_bump**
 
-    Called when the user bumps the bot.
+Called when the user bumps the bot.
 
-    Return Example: ``{type': 'new_bot_bump',
-                        'data': {
-                            'user': '809377165534822410',
-                            'at': 1631436624444}
-                        }``
+Return Example:
 
-.. function:: new_bot_comment
-
-    Called when the user creates new comment.
-
-    Return Example:   ``{'type': 'new_bot_comment',
-                        'data': {
-                            'user': '704373738086465607',
-                            'comment': {
-                                'old': None,
-                                'new': 'boticord po jizni top'},
-                            'at': 1631439995678}
-                        }``
+::
 
 
-.. function:: edit_bot_comment
+    {type': 'new_bot_bump',
+        'data': {
+            'user': '809377165534822410',
+            'at': 1631436624444
+        }
+    }
 
-    Called when the user edits his comment.
+**new_bot_comment**
 
-    Return Example: ``{
-                        'type': 'edit_bot_comment',
-                        'data': {
-                            'user': '585766846268047370',
-                            'comment': {
-                            'old': 'Boticord eto horosho',
-                            'new': 'Boticord horoshiy monitoring'},
-                        'at': 1631438224813}}``
+Called when the user creates new comment.
 
-.. function:: delete_bot_comment
+Return Example:
 
-    Called when the user deletes his comment.
+::
 
-    Return Example: ``{
-                        'type': 'delete_bot_comment',
-                        'data': {
-                            'user': '704373738086465607',
-                            'comment': 'допустим что я картофель',
-                            'vote': 1,
-                            'reason': 'self',
-                            'at': 1631439759384}}
+
+    {'type': 'new_bot_comment',
+        'data': {
+            'user': '704373738086465607',
+            'comment': {
+                'old': None,
+                'new': 'boticord po jizni top'
+                },
+            'at': 1631439995678
+        }
+    }
+
+
+**edit_bot_comment**
+
+Called when the user edits his comment.
+
+Return Example:
+
+::
+
+    {
+        'type': 'edit_bot_comment',
+        'data': {
+            'user': '585766846268047370',
+            'comment': {
+            'old': 'Boticord eto horosho',
+            'new': 'Boticord horoshiy monitoring'
+            },
+        'at': 1631438224813
+        }
+    }
+
+**delete_bot_comment**
+
+Called when the user deletes his comment.
+
+Return Example:
+
+::
+
+    {
+        'type': 'delete_bot_comment',
+        'data': {
+            'user': '704373738086465607',
+            'comment': 'допустим что я картофель',
+            'vote': 1,
+            'reason': 'self',
+            'at': 1631439759384
+        }
+    }

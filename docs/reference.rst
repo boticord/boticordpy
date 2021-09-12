@@ -41,7 +41,8 @@ Return Example:
 ::
 
 
-    {type': 'new_bot_bump',
+    {
+        'type': 'new_bot_bump',
         'data': {
             'user': '809377165534822410',
             'at': 1631436624444
@@ -57,7 +58,8 @@ Return Example:
 ::
 
 
-    {'type': 'new_bot_comment',
+    {
+        'type': 'new_bot_comment',
         'data': {
             'user': '704373738086465607',
             'comment': {

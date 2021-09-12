@@ -32,7 +32,8 @@ class BoticordClient:
         "Bots",
         "Servers",
         "Users",
-        "bot"
+        "bot",
+        "events"
     )
 
     bot: Union[commands.Bot, commands.AutoShardedBot]
@@ -40,10 +41,28 @@ class BoticordClient:
     def __init__(self, bot, token=None, **kwargs):
         loop = kwargs.get('loop') or asyncio.get_event_loop()
         session = kwargs.get('session') or aiohttp.ClientSession(loop=loop)
+        self.events = {}
         self.bot = bot
         self.Bots = Bots(bot, token=token, loop=loop, session=session)
         self.Servers = Servers(bot, token=token, loop=loop, session=session)
         self.Users = Users(token=token, loop=loop, session=session)
+
+    def event(self, event_name: str):
+        """
+        A decorator that registers an event to listen to.
+        You can find all the events on Event Reference page.
+
+        Parameters
+        ----------
+            event_name :class:`str`
+                boticord event name
+        """
+        def inner(func):
+            if not asyncio.iscoroutinefunction(func):
+                raise TypeError(f"<{func.__qualname__}> must be a coroutine function")
+            self.events[event_name] = func
+            return func
+        return inner
 
     def start_loop(self, sleep_time: int = None) -> None:
         """
@@ -53,8 +72,7 @@ class BoticordClient:
         Parameters
         ----------
             sleep_time: :class:`int`
-                loop sleep time - can be unfilled or None
-
+                stats posting interval - can be not specified or None (default interval - 15 minutes)
         """
         self.bot.loop.create_task(self.__loop(sleep_time=sleep_time))
 

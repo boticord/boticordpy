@@ -17,6 +17,8 @@ This is a documentation for simple python module to work with the boticord api.
    quickstart
    main
    modules
+   webhook
+   event_reference
    exceptions
 
 Links

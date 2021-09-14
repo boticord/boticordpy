@@ -1,2 +1,1 @@
 boticordpy
-groundwork-sphinx-theme

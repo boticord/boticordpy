@@ -1,4 +1,5 @@
 from . import exceptions
+from . import types
 
 
 class Config:
@@ -10,3 +11,8 @@ class Config:
                        429: exceptions.ToManyRequests,
                        500: exceptions.ServerError,
                        503: exceptions.ServerError}
+    events_list = {
+        "new_bot_comment": types.Comment,
+        "edit_bot_comment": types.EditedComment,
+        "delete_bot_comment": types.EditedComment
+    }

@@ -13,6 +13,7 @@ from aiohttp.web_urldispatcher import _WebHandler
 from typing import Dict, Union
 
 from . import BoticordClient
+from . import config
 
 
 class _Webhook(TypedDict):
@@ -72,9 +73,15 @@ class BoticordWebhook:
 
         if auth == self._webhooks["bot"]["hook_key"]:
             data = (await request.json())
+            event_in_config = config.Config.events_list.get(data["type"])
+
+            if event_in_config is not None:
+                data_for_event = event_in_config(data)
+            else:
+                data_for_event = data
 
             try:
-                await self.boticord_client.events[data["type"]](data)
+                await self.boticord_client.events[data["type"]](data_for_event)
             except:
                 pass
 

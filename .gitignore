@@ -6,4 +6,4 @@ __pycache__
 .egg-info
 dist
 docs/_build
-.boticordpy.egg-info
+boticordpy.egg-info

@@ -48,7 +48,7 @@ class Comment:
         self.raw_data = raw_data["data"]
         self.user_id = int(self.raw_data["user"])
         self.comment = self.raw_data["comment"]
-        self.at = datetime.fromtimestamp(self.raw_data["at"])
+        self.at = datetime.fromtimestamp(self.raw_data["at"] / 1000)
 
     def __repr__(self) -> str:
         name = self.__class__.__name__

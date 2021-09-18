@@ -72,7 +72,9 @@ class BoticordWebhook:
         auth = request.headers.get("X-Hook-Key")
 
         if auth == self._webhooks["bot"]["hook_key"]:
-            data = (await request.json())
+
+            data = await request.json()
+
             event_in_config = config.Config.events_list.get(data["type"])
 
             if event_in_config is not None:

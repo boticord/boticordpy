@@ -14,5 +14,5 @@ class Config:
     events_list = {
         "new_bot_comment": types.Comment,
         "edit_bot_comment": types.EditedComment,
-        "delete_bot_comment": types.EditedComment
+        "delete_bot_comment": types.Comment
     }

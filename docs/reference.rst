@@ -35,6 +35,7 @@ You can name the function whatever you want, but the decorator must always speci
     errors. In order to turn a function into a coroutine they must be ``async def``
     functions.
 
+Here you can find some information about events:
 
 +------------------------+----------------------------------+
 |    Boticord Events     |            Returns Type          |
@@ -50,7 +51,7 @@ You can name the function whatever you want, but the decorator must always speci
 |   new_server_comment   |             Raw Data             |
 +------------------------+----------------------------------+
 |   edit_server_comment  |             Raw Data             |
-+------------------------s+---------------------------------+
++------------------------+---------------------------------+
 |  delete_server_comment |             Raw Data             |
 +------------------------+----------------------------------+
 
@@ -59,5 +60,5 @@ You can find more events in Boticord Documentation.
 
 Types
 ------------
-.. autoclass:: boticordpy.types
+.. automodule:: boticordpy.types
    :members:

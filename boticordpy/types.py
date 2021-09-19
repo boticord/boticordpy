@@ -80,3 +80,32 @@ class EditedComment(Comment):
         return (
             f'<{name} user_id={self.user_id} comment={self.comment.new}>'
         )
+
+
+class BotVote:
+    """Model that represents information about bot's vote.
+
+    Attributes
+    -----------
+        raw_data : :class:`dict`
+            Raw data from the Boticord API.
+        user_id : :class:`int`
+            ID of user, who voted.
+        at : :class:`datetime.datetime`
+            Voting date.
+    """
+
+    __slots__ = "raw_data", "user_id", "at"
+
+    raw_data: dict
+    user_id: int
+    at: datetime
+
+    def __init__(self, raw_data):
+        self.raw_data = raw_data["data"]
+        self.user_id = int(self.raw_data["user"])
+        self.at = datetime.fromtimestamp(self.raw_data["at"] / 1000)
+
+    def __repr__(self) -> str:
+        name = self.__class__.__name__
+        return f'<{name} user_id={self.user_id}'

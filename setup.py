@@ -41,7 +41,7 @@ packages = [
 setup(
     name="boticordpy",
     project_urls={
-        "Documentation": "https://py.boticord.top/en/latest/r",
+        "Documentation": "https://py.boticord.top/en/stable",
         "Issue tracker": "https://github.com/boticord/boticordpy/issues",
     },
     packages=packages,

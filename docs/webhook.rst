@@ -2,7 +2,7 @@
 
 .. webhook:
 
-BoticordWebhook
+Webhooks
 ---------------
 .. autoclass:: boticordpy.BoticordWebhook
    :members:

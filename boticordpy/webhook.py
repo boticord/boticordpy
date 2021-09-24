@@ -50,9 +50,9 @@ class BoticordWebhook:
 
         Parameters
         ----------
-            route :class:`str`
+            route : :class:`str`
                 Bot's webhook route. Must start with ``/``. Defaults - ``/bot``.
-            hook_key :class:`str`
+            hook_key : :class:`str`
                 Webhook authorization key.
 
         Returns

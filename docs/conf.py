@@ -12,6 +12,8 @@
 #
 import os
 import sys
+import re
+
 sys.path.insert(0, os.path.abspath('..'))
 
 
@@ -21,8 +23,14 @@ project = 'BoticordPY'
 copyright = '2021, Grey Cat'
 author = 'Grey Cat'
 
-# The full version, including alpha/beta/rc tags
-release = '1.5'
+with open('../discord/__init__.py') as f:
+    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
+
+# The full version, including alpha/beta/rc tags.
+release = version
+
+# This assumes a tag is available for final releases
+branch = 'master' if version.endswith('a') else 'v' + version
 
 
 # -- General configuration ---------------------------------------------------

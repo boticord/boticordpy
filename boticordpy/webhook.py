@@ -1,6 +1,7 @@
+from discord.ext.commands import Bot, AutoShardedBot
+from aiohttp.web_urldispatcher import _WebHandler
 from aiohttp import web
 import aiohttp
-from discord.ext.commands import Bot, AutoShardedBot
 
 import sys
 
@@ -9,7 +10,6 @@ if sys.version_info >= (3, 8):
 else:
     from typing_extensions import TypedDict
 
-from aiohttp.web_urldispatcher import _WebHandler
 from typing import Dict, Union
 
 from . import BoticordClient

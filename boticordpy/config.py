@@ -1,3 +1,8 @@
+from aiohttp import ClientResponse
+
+from typing import Union
+import json
+
 from . import exceptions
 from . import types
 
@@ -17,3 +22,10 @@ class Config:
         "delete_bot_comment": types.Comment,
         "new_bot_bump": types.BotVote
     }
+
+
+async def _json_or_text(response: ClientResponse) -> Union[dict, str]:
+    text = await response.text()
+    if response.headers['Content-Type'] == 'application/json; charset=utf-8':
+        return json.loads(text)
+    return text

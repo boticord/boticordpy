@@ -1,19 +1,9 @@
-import json
-
-from aiohttp import ClientResponse
-from typing import Union
 import aiohttp
-import asyncio
 import discord
 
-from ..config import Config
+import asyncio
 
-
-async def _json_or_text(response: ClientResponse) -> Union[dict, str]:
-    text = await response.text()
-    if response.headers['Content-Type'] == 'application/json; charset=utf-8':
-        return json.loads(text)
-    return text
+from ..config import Config, _json_or_text
 
 
 class Servers:
@@ -33,7 +23,7 @@ class Servers:
         self.loop = kwargs.get('loop') or asyncio.get_event_loop()
         self.session = kwargs.get('session') or aiohttp.ClientSession(loop=self.loop)
 
-    async def getServerInfo(self, serverID: int):
+    async def get_server_info(self, serverID: int):
         """
         Returns information about discord server with the given ID.
 
@@ -51,7 +41,7 @@ class Servers:
                 raise status(resp)
             return data
 
-    async def getServerComments(self, serverID: int):
+    async def get_server_comments(self, serverID: int):
         """
         Returns comments of the discord server with the given ID.
 
@@ -69,7 +59,7 @@ class Servers:
                 raise status(resp)
             return data
 
-    async def postServerStats(self, message: discord.Message, custom_stats: dict = None):
+    async def post_server_stats(self, message: discord.Message, custom_stats: dict = None):
         """
         Post server stats to Boticord API.
 

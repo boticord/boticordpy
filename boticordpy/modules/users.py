@@ -1,18 +1,8 @@
-import json
-
-from aiohttp import ClientResponse
-from typing import Union
 import aiohttp
+
 import asyncio
 
-from ..config import Config
-
-
-async def _json_or_text(response: ClientResponse) -> Union[dict, str]:
-    text = await response.text()
-    if response.headers['Content-Type'] == 'application/json; charset=utf-8':
-        return json.loads(text)
-    return text
+from ..config import Config, _json_or_text
 
 
 class Users:
@@ -26,7 +16,7 @@ class Users:
         self.loop = kwargs.get('loop') or asyncio.get_event_loop()
         self.session = kwargs.get('session') or aiohttp.ClientSession(loop=self.loop)
 
-    async def getUserInfo(self, userID: int):
+    async def get_user(self, userID: int):
         """
         Returns information about discord user with the given ID.
 
@@ -44,7 +34,7 @@ class Users:
                 raise status(resp)
             return data
 
-    async def getUserComments(self, userID: int):
+    async def get_user_comments(self, userID: int):
         """
         Returns comments of discord user with the given ID.
 
@@ -62,7 +52,7 @@ class Users:
                 raise status(resp)
             return data
 
-    async def getUserBots(self, userID: int):
+    async def get_user_bots(self, userID: int):
         """
         Returns bots of discord user with the given ID.
 

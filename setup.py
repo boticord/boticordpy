@@ -1,19 +1,52 @@
 import pathlib
 
 from setuptools import setup
+import re
 
-# The directory containing this file
 HERE = pathlib.Path(__file__).parent
 
-# The text of the README file
+requirements = []
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
+
+version = ''
+with open('boticordpy/__init__.py') as f:
+    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
+
+if version.endswith(('a', 'b', 'rc')):
+    # append version identifier based on commit count
+    try:
+        import subprocess
+
+        p = subprocess.Popen(['git', 'rev-list', '--count', 'HEAD'],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        out, err = p.communicate()
+        if out:
+            version += out.decode('utf-8').strip()
+        p = subprocess.Popen(['git', 'rev-parse', '--short', 'HEAD'],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        out, err = p.communicate()
+        if out:
+            version += '+g' + out.decode('utf-8').strip()
+    except Exception:
+        pass
+
 README = (HERE / "README.md").read_text(encoding="utf8")
 
-# This call to setup() does all the work
+packages = [
+    'boticordpy',
+    'boticordpy.modules'
+]
+
 setup(
     name="boticordpy",
-    packages = ['boticordpy', 'boticordpy.modules'],
-    version="1.5",
-    description="Simple Python Module for boticord api",
+    project_urls={
+        "Documentation": "https://py.boticord.top/en/latest/r",
+        "Issue tracker": "https://github.com/boticord/boticordpy/issues",
+    },
+    packages=packages,
+    version=version,
+    description="A Python wrapper for Boticord api",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/grey-cat-1908/boticordpy",
@@ -25,5 +58,5 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    install_requires=["discord.py", "aiohttp"],
+    install_requires=requirements,
 )

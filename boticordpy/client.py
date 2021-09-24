@@ -1,7 +1,8 @@
 from discord.ext import commands
+import aiohttp
+
 from typing import Union
 import asyncio
-import aiohttp
 
 from .modules import Bots, Servers, Users
 
@@ -88,7 +89,7 @@ class BoticordClient:
             if isinstance(self.bot, commands.AutoShardedBot):
                 data_to_send["shards"] = self.bot.shard_count
 
-            await self.Bots.postStats(data_to_send)
+            await self.Bots.post_stats(data_to_send)
 
             if sleep_time is None:
                 sleep_time = 900

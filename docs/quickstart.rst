@@ -44,7 +44,7 @@ Post bot stats when bot is ready.
     @bot.event
     async def on_ready():
         stats = {"servers": len(bot.guilds), "shards": bot.shard_count, "users": len(bot.users)}
-        await boticord.Bots.postStats(stats)
+        await boticord.Bots.post_stats(stats)
 
 
     bot.run("your-bot-token")
@@ -75,7 +75,7 @@ Cog with automatically stats post (every 15 minutes) + bot's owner command that 
                 This commands can be used by owner to post stats to boticord
             """
             stats = {"servers": len(self.bot.guilds), "shards": 0, "users": len(self.bot.users)}
-            await self.boticord.Bots.postStats(stats)
+            await self.boticord.Bots.post_stats(stats)
 
 
     def setup(bot):

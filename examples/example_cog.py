@@ -16,7 +16,7 @@ class BoticordCog(commands.Cog):
             This commands can be used by owner to post stats to boticord
         """
         stats = {"servers": len(self.bot.guilds), "shards": 0, "users": len(self.bot.users)}
-        await self.boticord.Bots.postStats(stats)
+        await self.boticord.Bots.post_stats(stats)
 
 
 def setup(bot):

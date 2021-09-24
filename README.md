@@ -29,7 +29,7 @@ boticord = BoticordClient(bot, "your-boticord-token")
 @bot.event
 async def on_ready():
     stats = {"servers": len(bot.guilds), "shards": bot.shard_count, "users": len(bot.users)}
-    await boticord.Bots.postStats(stats)
+    await boticord.Bots.post_stats(stats)
 
 
 bot.run("your-bot-token")
@@ -58,7 +58,7 @@ class BoticordCog(commands.Cog):
             This commands can be used by owner to post stats to boticord
         """
         stats = {"servers": len(self.bot.guilds), "shards": 0, "users": len(self.bot.users)}
-        await self.boticord.Bots.postStats(stats)
+        await self.boticord.Bots.post_stats(stats)
 
 
 def setup(bot):

@@ -1,7 +1,7 @@
-from aiohttp import ClientResponse
-
 from typing import Union
 import json
+
+from aiohttp import ClientResponse
 
 from . import exceptions
 from . import types

@@ -1,7 +1,7 @@
+import asyncio
+
 import aiohttp
 import discord
-
-import asyncio
 
 from ..config import Config, _json_or_text
 
@@ -23,36 +23,36 @@ class Servers:
         self.loop = kwargs.get('loop') or asyncio.get_event_loop()
         self.session = kwargs.get('session') or aiohttp.ClientSession(loop=self.loop)
 
-    async def get_server_info(self, serverID: int):
+    async def get_server_info(self, server_id: int):
         """
         Returns information about discord server with the given ID.
 
         Parameters
         ----------
-           serverID : :class:`int`
+           server_id : :class:`int`
                 Discord Server's ID
         """
         headers = {"Authorization": self.token}
 
-        async with self.session.get(f'{Config.general_api}/server/{serverID}', headers=headers) as resp:
+        async with self.session.get(f'{Config.general_api}/server/{server_id}', headers=headers) as resp:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
             if status is not None:
                 raise status(resp)
             return data
 
-    async def get_server_comments(self, serverID: int):
+    async def get_server_comments(self, server_id: int):
         """
         Returns comments of the discord server with the given ID.
 
         Parameters
         ----------
-            serverID : :class:`int`
+            server_id : :class:`int`
                 Discord Server's ID
         """
         headers = {"Authorization": self.token}
 
-        async with self.session.get(f'{Config.general_api}/server/{serverID}/comments', headers=headers) as resp:
+        async with self.session.get(f'{Config.general_api}/server/{server_id}/comments', headers=headers) as resp:
             data = await _json_or_text(resp)
             status = Config.http_exceptions.get(resp.status)
             if status is not None:
@@ -78,7 +78,7 @@ class Servers:
             guild_owner = guild.owner
 
             stats = {
-                "serverID": str(guild.id),
+                "server_id": str(guild.id),
                 "up": 1,
                 "status": 1,
                 "serverName": guild.name,

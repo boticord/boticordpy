@@ -1,3 +1,4 @@
+from discord.ext import commands
 import asyncio
 
 import aiohttp
@@ -59,7 +60,7 @@ class Bots:
                 raise status(resp)
             return data
 
-    async def post_stats(self, stats: dict):
+    async def post_stats(self, stats: dict = None):
         """
         Post stats to Boticord API.
 
@@ -72,6 +73,12 @@ class Bots:
             return "Require Authentication"
 
         headers = {"Authorization": self.token}
+
+        if stats is None:
+            data_to_send = {"servers": len(self.bot.guilds), "users": len(self.bot.users)}
+
+            if isinstance(self.bot, commands.AutoShardedBot):
+                data_to_send["shards"] = self.bot.shard_count
 
         async with self.session.post(f'{Config.general_api}/stats', headers=headers, json=stats) as resp:
             data = await _json_or_text(resp)

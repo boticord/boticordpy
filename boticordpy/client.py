@@ -84,12 +84,8 @@ class BoticordClient:
         await self.bot.wait_until_ready()
 
         while not self.bot.is_closed():
-            data_to_send = {"servers": len(self.bot.guilds), "users": len(self.bot.users)}
 
-            if isinstance(self.bot, commands.AutoShardedBot):
-                data_to_send["shards"] = self.bot.shard_count
-
-            await self.Bots.post_stats(data_to_send)
+            await self.Bots.post_stats()
 
             if sleep_time is None:
                 sleep_time = 900

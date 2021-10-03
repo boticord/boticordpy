@@ -3,7 +3,7 @@ from discord.ext import commands
 from boticordpy import BoticordClient
 
 bot = commands.Bot(command_prefix="!")
-boticord = BoticordClient(bot, "your-boticord-token")
+boticord = BoticordClient(bot, "your-boticord-token", lib="disnake")
 
 
 @bot.event

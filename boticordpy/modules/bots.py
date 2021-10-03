@@ -22,6 +22,7 @@ class Bots:
         self.token = kwargs.get('token')
         self.loop = kwargs.get('loop') or asyncio.get_event_loop()
         self.session = kwargs.get('session') or aiohttp.ClientSession(loop=self.loop)
+        self.lib = Config.libs.get(kwargs.get("lib"))
 
     async def get_bot_info(self, bot_id: int):
         """
@@ -77,7 +78,7 @@ class Bots:
         if stats is None:
             data_to_send = {"servers": len(self.bot.guilds), "users": len(self.bot.users)}
 
-            if isinstance(self.bot, commands.AutoShardedBot):
+            if isinstance(self.bot, self.lib.AutoShardedBot):
                 data_to_send["shards"] = self.bot.shard_count
 
         async with self.session.post(f'{Config.general_api}/stats', headers=headers, json=stats) as resp:

@@ -1,7 +1,11 @@
+from aiohttp import ClientResponse
+
+from disnake.ext import commands as commandsnake
+from discord.ext import commands
+
 from typing import Union
 import json
 
-from aiohttp import ClientResponse
 
 from . import exceptions
 from . import types
@@ -21,6 +25,10 @@ class Config:
         "edit_bot_comment": types.EditedComment,
         "delete_bot_comment": types.Comment,
         "new_bot_bump": types.BotVote
+    }
+    libs = {
+        "discordpy": commands,
+        "disnake": commandsnake
     }
 
 

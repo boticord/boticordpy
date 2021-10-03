@@ -1,4 +1,5 @@
 from discord.ext import commands
+from disnake.ext import commands as commandsnake
 import aiohttp
 
 from typing import Union
@@ -11,6 +12,7 @@ class BoticordClient:
 
     """
     This class is used to make it much easier to use the Boticord API.
+    You can pass `lib` parameter to specify the library. Supported: ["discordpy", "disnake"]
 
     Parameters
     ----------
@@ -34,17 +36,19 @@ class BoticordClient:
         "Servers",
         "Users",
         "bot",
-        "events"
+        "events",
+        "lib"
     )
 
-    bot: Union[commands.Bot, commands.AutoShardedBot]
+    bot: Union[commands.Bot, commands.AutoShardedBot, commandsnake.Bot, commandsnake.AutoShardedBot]
 
     def __init__(self, bot, token=None, **kwargs):
         loop = kwargs.get('loop') or asyncio.get_event_loop()
         session = kwargs.get('session') or aiohttp.ClientSession(loop=loop)
+        self.lib = kwargs.get('lib') or "discordpy"
         self.events = {}
         self.bot = bot
-        self.Bots = Bots(bot, token=token, loop=loop, session=session)
+        self.Bots = Bots(bot, token=token, loop=loop, session=session, lib=self.lib)
         self.Servers = Servers(bot, token=token, loop=loop, session=session)
         self.Users = Users(token=token, loop=loop, session=session)
 

@@ -7,6 +7,7 @@ else:
     from typing_extensions import TypedDict
 
 from discord.ext.commands import Bot, AutoShardedBot
+from disnake.ext import commands as commandsnake
 from aiohttp.web_urldispatcher import _WebHandler
 from aiohttp import web
 import aiohttp
@@ -38,7 +39,10 @@ class BoticordWebhook:
     ]
     _webserver: web.TCPSite
 
-    def __init__(self, bot: Union[Bot, AutoShardedBot], boticord_client: BoticordClient):
+    def __init__(self, bot: Union[Bot,
+                                  AutoShardedBot,
+                                  commandsnake.Bot,
+                                  commandsnake.AutoShardedBot], boticord_client: BoticordClient):
         self.bot = bot
         self.boticord_client = boticord_client
         self._webhooks = {}

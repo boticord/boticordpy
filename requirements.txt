@@ -1,4 +1,2 @@
-discord.py
-aiohttp~=3.7.4.post0
+aiohttp~=3.7.4
 setuptools==58.2.0
-disnake~=2.1.2

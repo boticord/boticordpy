@@ -1,97 +1,50 @@
-from discord.ext import commands
-from disnake.ext import commands as commandsnake
-import aiohttp
-
-from typing import Union
-import asyncio
-
-from .modules import Bots, Servers, Users
+from . import types as boticord_types
+from .http import HttpClient
 
 
 class BoticordClient:
-
-    """
-    This class is used to make it much easier to use the Boticord API.
-    You can pass `lib` parameter to specify the library. Supported: ["discordpy", "disnake"]
-
-    Parameters
-    ----------
-        bot : :class:`commands.Bot` | :class:`commands.AutoShardedBot`
-            The discord.py Bot instance
-        token : :class:`str`
-            boticord api key
-
-    Attributes
-    ----------
-        Bots : :class:`modules.bots.Bots`
-            :class:`modules.bots.Bots` with all arguments filled.
-        Servers : :class:`modules.servers.Servers`
-           :class:`modules.servers.Servers` with all arguments filled.
-        Users : :class:`modules.users.Users`
-            :class:`modules.users.Users` with all arguments filled.
-    """
-
     __slots__ = (
-        "Bots",
-        "Servers",
-        "Users",
-        "bot",
-        "events",
-        "lib"
+        "http"
     )
 
-    bot: Union[commands.Bot, commands.AutoShardedBot, commandsnake.Bot, commandsnake.AutoShardedBot]
+    http: HttpClient
 
-    def __init__(self, bot, token=None, **kwargs):
-        loop = kwargs.get('loop') or asyncio.get_event_loop()
-        session = kwargs.get('session') or aiohttp.ClientSession(loop=loop)
-        self.lib = kwargs.get('lib') or "discordpy"
-        self.events = {}
-        self.bot = bot
-        self.Bots = Bots(bot, token=token, loop=loop, session=session, lib=self.lib)
-        self.Servers = Servers(bot, token=token, loop=loop, session=session)
-        self.Users = Users(token=token, loop=loop, session=session)
+    def __init__(self, token=None, **kwargs):
+        self._token = token
+        self.http = HttpClient(token)
 
-    def event(self, event_name: str):
-        """
-        A decorator that registers an event to listen to.
-        You can find all the events on Event Reference page.
+    async def get_bot_info(self, bot_id: int):
+        response = await self.http.get_bot_info(bot_id)
+        return boticord_types.Bot(**response)
 
-        Parameters
-        ----------
-            event_name :class:`str`
-                boticord event name
-        """
-        def inner(func):
-            if not asyncio.iscoroutinefunction(func):
-                raise TypeError(f"<{func.__qualname__}> must be a coroutine function")
-            self.events[event_name] = func
-            return func
-        return inner
+    async def get_bot_comments(self, bot_id: int):
+        response = await self.http.get_bot_comments(bot_id)
+        return [boticord_types.SingleComment(**comment) for comment in response]
 
-    def start_loop(self, sleep_time: int = None) -> None:
-        """
+    async def post_bot_stats(self, servers: int = 0, shards: int = 0, users: int = 0):
+        response = await self.http.post_bot_stats(servers, shards, users)
+        return response
 
-        Can be used to post stats automatically.
+    async def get_server_info(self, server_id: int):
+        response = await self.http.get_server_info(server_id)
+        return boticord_types.Server(**response)
 
-        Parameters
-        ----------
-            sleep_time: :class:`int`
-                stats posting interval - can be not specified or None (default interval - 15 minutes)
-        """
-        self.bot.loop.create_task(self.__loop(sleep_time=sleep_time))
+    async def get_server_comments(self, server_id: int):
+        response = await self.http.get_server_comments(server_id)
+        return [boticord_types.SingleComment(**comment) for comment in response]
 
-    async def __loop(self, sleep_time: int = None) -> None:
-        """
-        The internal loop used for automatically posting stats
-        """
-        await self.bot.wait_until_ready()
+    async def post_server_stats(self, payload: dict):
+        response = await self.post_server_stats(payload)
+        return response
 
-        while not self.bot.is_closed():
+    async def get_user_info(self, user_id: int):
+        response = await self.get_user_info(user_id)
+        return boticord_types.UserProfile(**response)
 
-            await self.Bots.post_stats()
+    async def get_user_comments(self, user_id: int):
+        response = await self.get_user_comments(user_id)
+        return boticord_types.UserComments(**response)
 
-            if sleep_time is None:
-                sleep_time = 900
-
-            await asyncio.sleep(sleep_time)
+    async def get_user_bots(self, user_id: int):
+        response = await self.get_user_bots(user_id)
+        return [boticord_types.SimpleBot(**bot) for bot in response]

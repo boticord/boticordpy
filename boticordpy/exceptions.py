@@ -11,8 +11,6 @@ class HTTPException(BoticordException):
     ----------
     response:
         The response of the failed HTTP request.
-    message:
-        The text of the error. Could be an empty string.
     """
 
     def __init__(self, response):

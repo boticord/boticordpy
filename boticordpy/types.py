@@ -1,111 +1,261 @@
-from datetime import datetime
+import typing
+
+KT = typing.TypeVar("KT")
+VT = typing.TypeVar("VT")
 
 
-class CommentData:
-    """Model that represents edited comment text data.
+def parse_response_dict(input_data: dict) -> dict:
+    data = input_data.copy()
 
-    Attributes
-    -----------
-        old : :class:`str` or :class:`None`
-            Old comment text.
-        new : :class:`str` or :class:`None`
-            New comment text.
+    for key, value in data.copy().items():
+        converted_key = "".join(
+            ["_" + x.lower() if x.isupper() else x for x in key]
+        ).lstrip("_")
+
+        if key != converted_key:
+            del data[key]
+
+        data[converted_key] = value
+
+    return data
+
+
+def parse_with_information_dict(bot_data: dict) -> dict:
+    data = bot_data.copy()
+
+    for key, value in data.copy().items():
+        if key.lower() == "links":
+            converted_key = "page_links"
+        else:
+            converted_key = "".join(
+                ["_" + x.lower() if x.isupper() else x for x in key]
+            ).lstrip("_")
+
+        if key != converted_key:
+            del data[key]
+
+        if key.lower() == "information":
+            for information_key, information_value in value.copy().items():
+                converted_information_key = "".join(
+                    ["_" + x.lower() if x.isupper() else x for x in information_key]
+                ).lstrip("_")
+
+                data[converted_information_key] = information_value
+
+            del data["information"]
+        else:
+            data[converted_key] = value
+
+    return data
+
+
+def parse_user_comments_dict(response_data: dict) -> dict:
+    data = response_data.copy()
+
+    for key, value in data.copy().items():
+        data[key] = [SingleComment(**comment) for comment in value]
+
+    return data
+
+
+class ApiData(dict, typing.MutableMapping[KT, VT]):
+    """Base class used to represent received data from the API.
     """
 
-    __slots__ = "old", "new"
-
-    old: str or None
-    new: str or None
-
-    def __init__(self, raw_data):
-        self.old = raw_data.get("old")
-        self.new = raw_data.get("new")
+    def __init__(self, **kwargs: VT) -> None:
+        super().__init__(**parse_response_dict(kwargs))
+        self.__dict__ = self
 
 
-class Comment:
-    """Model that represents information about a comment.
+class SingleComment(ApiData):
+    """This model represents single comment"""
 
-    Attributes
-    -----------
-        raw_data : :class:`dict`
-            Raw data from the Boticord API.
-        user_id : :class:`int`
-            ID of comment author.
-        comment : :class:`str`
-            Comment.
-        at : :class:`datetime.datetime`
-            The comment creation time.
-    """
+    user_id: str
+    """Comment's author Id (`str`)"""
 
-    __slots__ = "raw_data", "user_id", "comment", "at"
+    text: str
+    """Comment content"""
 
-    raw_data: dict
-    user_id: int
-    comment: str
-    at: datetime
+    vote: int
+    """Comment vote value (`-1,` `0`, `1`)"""
 
-    def __init__(self, raw_data):
-        self.raw_data = raw_data["data"]
-        self.user_id = int(self.raw_data["user"])
-        self.comment = self.raw_data["comment"]
-        self.at = datetime.fromtimestamp(self.raw_data["at"] / 1000)
+    is_updated: bool
+    """Was comment updated?"""
 
-    def __repr__(self) -> str:
-        name = self.__class__.__name__
-        return (
-            f'<{name} user_id={self.user_id} comment={self.comment}>'
-        )
+    created_at: int
+    """Comment Creation date timestamp"""
+
+    updated_at: int
+    """Last edit date timestamp"""
+
+    def __init__(self, **kwargs):
+        super().__init__(**parse_response_dict(kwargs))
 
 
-class EditedComment(Comment):
-    """Model that represents information about edited comment.
-    It is inherited from :class:`Comment`
+class Bot(ApiData):
+    """This model represents a bot, returned from the Boticord API"""
+    id: str
+    """Bot's Id"""
 
-    Attributes
-    -----------
-        comment : :class:`CommentData`
-            Comment.
-    """
+    short_code: typing.Optional[str]
+    """Bot's page short code"""
 
-    __slots__ = "raw_data", "user_id", "comment", "at"
+    page_links: list
+    """List of bot's page urls"""
 
-    comment: CommentData
+    server: dict
+    """Bot's support server"""
 
-    def __init__(self, raw_data):
-        super().__init__(raw_data)
-        self.comment = CommentData(self.raw_data["comment"])
+    bumps: int
+    """Bumps count"""
 
-    def __repr__(self) -> str:
-        name = self.__class__.__name__
-        return (
-            f'<{name} user_id={self.user_id} comment={self.comment.new}>'
-        )
+    prefix: str
+    """How many times users have added the bot?"""
+
+    permissions: int
+    """Bot's permissions"""
+
+    tags: list
+    """Bot's search-tags"""
+
+    developers: list
+    """List of bot's developers Ids"""
+
+    links: typing.Optional[dict]
+    """Bot's social medias"""
+
+    library: typing.Optional[str]
+    """Bot's library"""
+
+    short_description: typing.Optional[str]
+    """Bot's short description"""
+
+    long_description: typing.Optional[str]
+    """Bot's long description"""
+
+    badge: typing.Optional[int]
+    """Bot's badge"""
+
+    stats: dict
+    """Bot's stats"""
+
+    status: str
+    """Bot's approval status"""
+
+    def __init__(self, **kwargs):
+        super().__init__(**parse_with_information_dict(kwargs))
 
 
-class BotVote:
-    """Model that represents information about bot's vote.
+class Server(ApiData):
+    """This model represents a server, returned from the Boticord API"""
 
-    Attributes
-    -----------
-        raw_data : :class:`dict`
-            Raw data from the Boticord API.
-        user_id : :class:`int`
-            ID of user, who voted.
-        at : :class:`datetime.datetime`
-            Voting date.
-    """
+    id: str
+    """Server's Id"""
 
-    __slots__ = "raw_data", "user_id", "at"
+    short_code: typing.Optional[str]
+    """Server's page short code"""
 
-    raw_data: dict
-    user_id: int
-    at: datetime
+    status: str
+    """Server's approval status"""
 
-    def __init__(self, raw_data):
-        self.raw_data = raw_data["data"]
-        self.user_id = int(self.raw_data["user"])
-        self.at = datetime.fromtimestamp(self.raw_data["at"] / 1000)
+    page_links: list
+    """List of server's page urls"""
 
-    def __repr__(self) -> str:
-        name = self.__class__.__name__
-        return f'<{name} user_id={self.user_id}'
+    bot: dict
+    """Bot where this server is used for support users"""
+
+    name: str
+    """Name of the server"""
+
+    avatar: str
+    """Server's avatar"""
+
+    members: list
+    """Members counts - `[all, onlinw]`"""
+
+    owner: typing.Optional[str]
+    """Server's owner Id"""
+
+    bumps: int
+    """Bumps count"""
+
+    tags: list
+    """Server's search-tags"""
+
+    links: dict
+    """Server's social medias"""
+
+    short_description: typing.Optional[str]
+    """Server's short description"""
+
+    long_description: typing.Optional[str]
+    """Server's long description"""
+
+    badge: typing.Optional[str]
+    """Server's badge"""
+
+    def __init__(self, **kwargs):
+        super().__init__(**parse_with_information_dict(kwargs))
+
+
+class UserProfile(ApiData):
+    """This model represents profile of user, returned from the Boticord API"""
+
+    id: str
+    """Id of User"""
+
+    status: str
+    """Status of user"""
+
+    badge: typing.Optional[str]
+    """User's badge"""
+
+    short_code: typing.Optional[str]
+    """User's profile page short code"""
+
+    site: typing.Optional[str]
+    """User's website"""
+
+    vk: typing.Optional[str]
+    """User's VK Profile"""
+
+    steam: typing.Optional[str]
+    """User's steam account"""
+
+    youtube: typing.Optional[str]
+    """User's youtube channel"""
+
+    twitch: typing.Optional[str]
+    """User's twitch channel"""
+
+    git: typing.Optional[str]
+    """User's github/gitlab (or other git-service) profile"""
+
+    def __init__(self, **kwargs):
+        super().__init__(**parse_response_dict(kwargs))
+
+
+class UserComments(ApiData):
+    """This model represents all the user's comments on every page"""
+
+    bots: list
+    """Data from `get_bot_comments` method"""
+
+    servers: list
+    """Data from `get_server_comments` method"""
+
+    def __init__(self, **kwargs):
+        super().__init__(**parse_user_comments_dict(kwargs))
+
+
+class SimpleBot(ApiData):
+    """This model represents a short bot information (`id`, `short`).
+    After that you can get more information about it using `get_bot_info` method."""
+
+    id: str
+    """Bot's Id"""
+
+    short_code: typing.Optional[str]
+
+    def __init__(self, **kwargs):
+        super().__init__(**parse_response_dict(kwargs))

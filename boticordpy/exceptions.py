@@ -4,6 +4,19 @@ class BoticordException(Exception):
     """
 
 
+class InternalException(BoticordException):
+    """Exception that's thrown when an local operation operation fails.
+
+    Attributes
+    ----------
+    response:
+        The meaning of the exception
+    """
+
+    def __init__(self, response):
+        super().__init__(response)
+
+
 class HTTPException(BoticordException):
     """Exception that's thrown when an HTTP request operation fails.
 

@@ -53,15 +53,8 @@ class HttpClient:
     def get_bot_comments(self, bot_id: int):
         return self.make_request("GET", f"bot/{bot_id}/comments")
 
-    def post_bot_stats(self,
-                       servers: int = 0,
-                       shards: int = 0,
-                       users: int = 0):
-        return self.make_request("POST", "stats", json={
-            "servers": servers,
-            "shards": shards,
-            "users": users
-        })
+    def post_bot_stats(self, stats: dict):
+        return self.make_request("POST", "stats", json=stats)
 
     def get_server_info(self, server_id: int):
         return self.make_request("GET", f"server/{server_id}")

@@ -259,3 +259,61 @@ class SimpleBot(ApiData):
 
     def __init__(self, **kwargs):
         super().__init__(**parse_response_dict(kwargs))
+
+
+class CommentData(ApiData):
+    """This model represents comment data (from webhook response)"""
+
+    vote: dict
+    old: typing.Optional[str]
+    new: typing.Optional[str]
+
+    def __init__(self, **kwargs):
+        super().__init__(**parse_response_dict(kwargs))
+
+
+def parse_webhook_response_dict(webhook_data: dict) -> dict:
+    data = webhook_data.copy()
+
+    for key, value in data.copy().items():
+        if key.lower() == "data":
+            for data_key, data_value in value.copy().items():
+                if data_key == "comment":
+                    data[data_key] = CommentData(**data_value)
+                else:
+                    converted_data_key = "".join(
+                        ["_" + x.lower() if x.isupper() else x for x in data_key]
+                    ).lstrip("_")
+
+                    data[converted_data_key] = data_value
+
+            del data["data"]
+        else:
+            data[key] = value
+
+    return data
+
+
+class BumpResponse(ApiData):
+    """This model represents a webhook response (`bot bump`)."""
+
+    type: str
+    user: str
+    at: int
+
+    def __init__(self, **kwargs):
+        super().__init__(**parse_webhook_response_dict(kwargs))
+
+
+class CommentResponse(ApiData):
+    """This model represents a webhook response (`comment`)."""
+
+    type: str
+    user: str
+    comment: CommentData
+    reason: typing.Optional[str]
+    at: int
+
+    def __init__(self, **kwargs):
+        super().__init__(**parse_webhook_response_dict(kwargs))
+

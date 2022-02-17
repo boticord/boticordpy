@@ -6,6 +6,19 @@ from . import exceptions
 
 
 class HttpClient:
+    """
+    Represents an HTTP client sending HTTP requests to the Top.gg API.
+
+    Args:
+        token (:obj:`str`)
+            Your bot's Boticord API Token.
+
+    Keyword Arguments:
+        session: `aiohttp session`_
+            The `aiohttp session`_ used for requests to the API.
+        loop: `asyncio loop`
+    """
+
     def __init__(self, auth_token, **kwargs):
         self.token = auth_token
         self.API_URL = "https://api.boticord.top/v1/"
@@ -18,6 +31,8 @@ class HttpClient:
                            method: str,
                            endpoint: str,
                            **kwargs):
+        """Send requests to the API"""
+
         kwargs["headers"] = {
             "Content-Type": "application/json",
             "Authorization": self.token
@@ -48,28 +63,37 @@ class HttpClient:
         raise exceptions.HTTPException(response)
 
     def get_bot_info(self, bot_id: int):
+        """Get information about the specified bot"""
         return self.make_request("GET", f"bot/{bot_id}")
 
     def get_bot_comments(self, bot_id: int):
+        """Get list of specified bot comments"""
         return self.make_request("GET", f"bot/{bot_id}/comments")
 
     def post_bot_stats(self, stats: dict):
+        """Post bot's stats"""
         return self.make_request("POST", "stats", json=stats)
 
     def get_server_info(self, server_id: int):
+        """Get information about specified server"""
         return self.make_request("GET", f"server/{server_id}")
 
     def get_server_comments(self, server_id: int):
+        """Get list of specified server comments"""
         return self.make_request("GET", f"server/{server_id}/comments")
 
     def post_server_stats(self, payload: dict):
+        """Post server's stats"""
         return self.make_request("POST", "server", json=payload)
 
     def get_user_info(self, user_id: int):
+        """Get information about the user"""
         return self.make_request("GET", f"profile/{user_id}")
 
     def get_user_comments(self, user_id: int):
+        """Get specified user's comments"""
         return self.make_request("GET", f"user/{user_id}/comments")
 
     def get_user_bots(self, user_id: int):
+        """Get bots of specified user"""
         return self.make_request("GET", f"bots/{user_id}")

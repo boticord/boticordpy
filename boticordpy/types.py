@@ -109,8 +109,11 @@ class Bot(ApiData):
     bumps: int
     """Bumps count"""
 
-    prefix: str
+    added: str
     """How many times users have added the bot?"""
+
+    prefix: str
+    """Bot's commands prefix"""
 
     permissions: int
     """Bot's permissions"""
@@ -256,6 +259,7 @@ class SimpleBot(ApiData):
     """Bot's Id"""
 
     short_code: typing.Optional[str]
+    """Bot's page short code"""
 
     def __init__(self, **kwargs):
         super().__init__(**parse_response_dict(kwargs))
@@ -265,8 +269,13 @@ class CommentData(ApiData):
     """This model represents comment data (from webhook response)"""
 
     vote: dict
+    """Comment vote data"""
+
     old: typing.Optional[str]
+    """Old content of the comment"""
+
     new: typing.Optional[str]
+    """New content of the comment"""
 
     def __init__(self, **kwargs):
         super().__init__(**parse_response_dict(kwargs))
@@ -298,8 +307,13 @@ class BumpResponse(ApiData):
     """This model represents a webhook response (`bot bump`)."""
 
     type: str
+    """Type of response (`bump`)"""
+
     user: str
+    """Id of user who did the action"""
+
     at: int
+    """Timestamp of the action"""
 
     def __init__(self, **kwargs):
         super().__init__(**parse_webhook_response_dict(kwargs))
@@ -309,10 +323,19 @@ class CommentResponse(ApiData):
     """This model represents a webhook response (`comment`)."""
 
     type: str
+    """Type of response (`comment`)"""
+
     user: str
+    """Id of user who did the action"""
+
     comment: CommentData
+    """Information about the comment"""
+
     reason: typing.Optional[str]
+    """Is comment deleted? so, why?"""
+
     at: int
+    """Timestamp of the  action"""
 
     def __init__(self, **kwargs):
         super().__init__(**parse_webhook_response_dict(kwargs))

@@ -13,5 +13,6 @@ __copyright__ = 'Copyright 2022 Marakarka'
 __version__ = '2.0.1a'
 
 from .client import BoticordClient
+from .webhook import Webhook
 
 from .types import *

@@ -1,15 +1,13 @@
 import pathlib
 
-from setuptools import setup
+from setuptools import setup, find_packages
 import re
 
 HERE = pathlib.Path(__file__).parent
 
-requirements = []
 with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
-version = ''
 with open('boticordpy/__init__.py') as f:
     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
 
@@ -33,23 +31,19 @@ if version.endswith(('a', 'b', 'rc')):
 
 README = (HERE / "README.md").read_text(encoding="utf8")
 
-packages = [
-    'boticordpy',
-    'boticordpy.modules'
-]
-
 setup(
     name="boticordpy",
     project_urls={
         "Documentation": "https://py.boticord.top/en/stable",
         "Issue tracker": "https://github.com/boticord/boticordpy/issues",
     },
-    packages=packages,
+    packages=find_packages(),
     version=version,
-    description="A Python wrapper for Boticord api",
+    python_requires=">= 3.6",
+    description="A Python wrapper for Boticord API",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/grey-cat-1908/boticordpy",
+    url="https://github.com/boticord/boticordpy",
     author="KerdokuCat",
     author_email="support@kerdoku.top",
     license="MIT",

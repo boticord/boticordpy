@@ -9,3 +9,4 @@ docs/_build
 boticordpy.egg-info
 test.py
 /.pytest_cache
+/docs/build/

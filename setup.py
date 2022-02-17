@@ -5,9 +5,6 @@ import re
 
 HERE = pathlib.Path(__file__).parent
 
-with open('requirements.txt') as f:
-    requirements = f.read().splitlines()
-
 with open('boticordpy/__init__.py') as f:
     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
 
@@ -52,5 +49,5 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    install_requires=requirements,
+    install_requires=["aiohttp"],
 )

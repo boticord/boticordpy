@@ -18,6 +18,7 @@
 
 
 <h2>Features</h2>
+
 * Object-oriented
 * Full Boticord API Coverage
 * Modern Pythonic API using `async`/`await` syntax
@@ -81,4 +82,4 @@ You can find other examples in an examples folder.
 
 <h2>Help</h2>
 
-If You need any help we recommend you to check the documentation. You can find us [here](https://boticord.top/boticord). Main developer `Marakarka#0575`
+If You need any help we recommend you to check the documentation. You can find us [here](https://boticord.top/boticord). Main developer is `Marakarka#0575`

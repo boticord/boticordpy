@@ -1,5 +1,5 @@
 <p align="center">
-<img width="520" src="https://media.discordapp.net/attachments/825242846616354821/939773822582808606/boticordrs_banner.png" alt="">
+<img width="520" src="https://media.discordapp.net/attachments/929108234709639208/943873379809787964/boticordpylogo.png" alt="">
 </p>
 
 <p align="center">

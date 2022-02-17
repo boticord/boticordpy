@@ -52,6 +52,7 @@ Examples
         boticord_client.autopost()
         .init_stats(get_stats)
         .on_success(on_success_posting)
+        .start()
     )
 
     bot.run("bot token")

@@ -79,7 +79,7 @@ You can find other examples in an examples folder.
 * [Documentation](https://py.boticord.top)
 * [Github](https://github.com/boticord/boticordpy)
 * [Boticord](https://boticord.top/)
-* [Support](https://boticord.top/boticord)
+* [Support](https://boticord.top/discord)
 
 <h2>Help</h2>
 

@@ -115,7 +115,7 @@ class BoticordClient:
             :obj:`dict`:
                 Boticord API Response.
         """
-        response = await self.post_server_stats(payload)
+        response = await self.http.post_server_stats(payload)
         return response
 
     async def get_user_info(self, user_id: int) -> boticord_types.UserProfile:
@@ -129,7 +129,7 @@ class BoticordClient:
             :obj:`~.types.UserProfile`:
                 User Profile object.
         """
-        response = await self.get_user_info(user_id)
+        response = await self.http.get_user_info(user_id)
         return boticord_types.UserProfile(**response)
 
     async def get_user_comments(self, user_id: int) -> boticord_types.UserComments:
@@ -143,7 +143,7 @@ class BoticordClient:
             :obj:`~.types.UserComments`:
                 User comments on Bots and Servers pages.
         """
-        response = await self.get_user_comments(user_id)
+        response = await self.http.get_user_comments(user_id)
         return boticord_types.UserComments(**response)
 
     async def get_user_bots(self, user_id: int) -> list:
@@ -157,7 +157,7 @@ class BoticordClient:
             :obj:`list` [ :obj:`~.types.SimpleBot` ]:
                 List of simple information about users bots.
         """
-        response = await self.get_user_bots(user_id)
+        response = await self.http.get_user_bots(user_id)
         return [boticord_types.SimpleBot(**bot) for bot in response]
 
     def autopost(self) -> AutoPost:

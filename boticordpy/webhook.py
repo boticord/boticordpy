@@ -8,7 +8,7 @@ import aiohttp
 
 
 class Webhook:
-    """Represents a client that can be used to work with Boticord Webhooks.
+    """Represents a client that can be used to work with BotiCord Webhooks.
     IP of the server - your machine IP. (`0.0.0.0`)
 
     Args:

@@ -7,11 +7,11 @@ from . import exceptions
 
 class HttpClient:
     """
-    Represents an HTTP client sending HTTP requests to the Top.gg API.
+    Represents an HTTP client sending HTTP requests to the BotiCord API.
 
     Args:
         token (:obj:`str`)
-            Your bot's Boticord API Token.
+            Your bot's BotiCord API Token.
 
     Keyword Arguments:
         session: `aiohttp session`_

@@ -93,7 +93,7 @@ class SingleComment(ApiData):
 
 
 class Bot(ApiData):
-    """This model represents a bot, returned from the Boticord API"""
+    """This model represents a bot, returned from the BotiCord API"""
     id: str
     """Bot's Id"""
 
@@ -136,7 +136,7 @@ class Bot(ApiData):
     long_description: typing.Optional[str]
     """Bot's long description"""
 
-    badge: typing.Optional[int]
+    badge: typing.Optional[str]
     """Bot's badge"""
 
     stats: dict

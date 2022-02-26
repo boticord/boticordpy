@@ -6,7 +6,7 @@
 API Reference
 #############
 
-API Reference for the BoticordPY Module
+API Reference for the boticordpy Module
 
 Index:
 

@@ -1,7 +1,7 @@
-Welcome to BoticordPy's documentation!
+Welcome to boticordpy's documentation!
 ======================================
 
-This is a documentation for wrapper for Boticord API.
+This is a documentation for wrapper for BotiCord API.
 
 ======================================
 
@@ -19,5 +19,5 @@ Links
 * :ref:`search`
 * `PyPi <https://pypi.org/project/boticordpy>`_
 * `GitHub <https://github.com/grey-cat-1908/boticordpy>`_
-* `Boticord <https://boticord.top/>`_
-* `Boticord Support <https://boticord.top/boticord>`_
+* `BotiCord <https://boticord.top/>`_
+* `BotiCord Support <https://boticord.top/discord>`_

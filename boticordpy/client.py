@@ -6,7 +6,7 @@ from .autopost import AutoPost
 
 
 class BoticordClient:
-    """Represents a client that can be used to interact with the Boticord API.
+    """Represents a client that can be used to interact with the BotiCord API.
 
     Note:
         Remember that every http method can return http exception.

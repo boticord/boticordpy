@@ -37,11 +37,11 @@ setup(
     packages=find_packages(),
     version=version,
     python_requires=">= 3.6",
-    description="A Python wrapper for Boticord API",
+    description="A Python wrapper for BotiCord API",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/boticord/boticordpy",
-    author="KerdokuCat",
+    author="Marakarka",
     author_email="support@kerdoku.top",
     license="MIT",
     classifiers=[

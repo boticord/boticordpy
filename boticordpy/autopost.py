@@ -20,7 +20,7 @@ class AutoPost:
         "_error",
         "_stats",
         "_task",
-        "_stopped"
+        "_stopped",
     )
 
     _success: typing.Any
@@ -134,7 +134,9 @@ class AutoPost:
                 Boticord recommends not to set interval lower than 900 seconds!
         """
         if seconds < 900:
-            raise ValueError("no. Boticord recommends not to set interval lower than 900 seconds!")
+            raise ValueError(
+                "no. Boticord recommends not to set interval lower than 900 seconds!"
+            )
 
         self._interval = seconds
         return self
@@ -170,7 +172,9 @@ class AutoPost:
             raise bexc.InternalException("You must provide stats")
 
         if self.is_running:
-            raise bexc.InternalException("Automatically stats posting is already running")
+            raise bexc.InternalException(
+                "Automatically stats posting is already running"
+            )
 
         task = asyncio.ensure_future(self._internal_loop())
         self._task = task
@@ -178,7 +182,7 @@ class AutoPost:
 
     def stop(self) -> None:
         """
-            Stops the autopost.
+        Stops the autopost.
         """
         if not self.is_running:
             return None

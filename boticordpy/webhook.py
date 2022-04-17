@@ -20,6 +20,7 @@ class Webhook:
     Keyword Arguments:
         loop: `asyncio loop`
     """
+
     __slots__ = (
         "_webserver",
         "_listeners",
@@ -27,7 +28,7 @@ class Webhook:
         "__app",
         "_endpoint_name",
         "_x_hook_key",
-        "_loop"
+        "_loop",
     )
 
     __app: web.Application
@@ -39,7 +40,7 @@ class Webhook:
         self._listeners = {}
         self.__app = web.Application()
         self._is_running = False
-        self._loop = kwargs.get('loop') or asyncio.get_event_loop()
+        self._loop = kwargs.get("loop") or asyncio.get_event_loop()
 
     def listener(self, response_type: str):
         """Decorator to set the listener.
@@ -47,6 +48,7 @@ class Webhook:
             response_type (:obj:`str`)
                 Type of response (Check reference page)
         """
+
         def inner(func):
             if not asyncio.iscoroutinefunction(func):
                 raise TypeError(f"<{func.__qualname__}> must be a coroutine function")
@@ -80,7 +82,11 @@ class Webhook:
 
             if responder is not None:
                 await responder(
-                    (BumpResponse if data["type"].endswith("_bump") else CommentResponse)(**data)
+                    (
+                        BumpResponse
+                        if data["type"].endswith("_bump")
+                        else CommentResponse
+                    )(**data)
                 )
 
             return web.Response(status=200)

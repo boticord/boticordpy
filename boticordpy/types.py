@@ -1,4 +1,5 @@
 import typing
+from enum import IntEnum
 
 KT = typing.TypeVar("KT")
 VT = typing.TypeVar("VT")
@@ -59,8 +60,7 @@ def parse_user_comments_dict(response_data: dict) -> dict:
 
 
 class ApiData(dict, typing.MutableMapping[KT, VT]):
-    """Base class used to represent received data from the API.
-    """
+    """Base class used to represent received data from the API."""
 
     def __init__(self, **kwargs: VT) -> None:
         super().__init__(**parse_response_dict(kwargs))
@@ -94,6 +94,7 @@ class SingleComment(ApiData):
 
 class Bot(ApiData):
     """This model represents a bot, returned from the BotiCord API"""
+
     id: str
     """Bot's Id"""
 
@@ -340,3 +341,38 @@ class CommentResponse(ApiData):
     def __init__(self, **kwargs):
         super().__init__(**parse_webhook_response_dict(kwargs))
 
+
+class LinkDomain(IntEnum):
+    """Domain to short the link"""
+
+    BCORD_CC = 1
+    """``bcord.cc`` domain, default"""
+
+    MYSERVERS_ME = 2
+    """``myservers.me`` domain"""
+
+    DISCORD_CAMP = 3
+    """``discord.camp`` domain"""
+
+
+class ShortedLink(ApiData):
+    id: int
+    """Id of shorted link"""
+
+    code: str
+    """Code of shorted link"""
+
+    owner_i_d: str
+    """Id of owner of shorted link"""
+
+    domain: str
+    """Domain of shorted link"""
+
+    views: int
+    """Link views count"""
+
+    date: int
+    """Timestamp of link creation moment"""
+
+    def __init__(self, **kwargs):
+        super().__init__(**parse_response_dict(kwargs))

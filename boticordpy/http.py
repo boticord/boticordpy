@@ -3,6 +3,7 @@ import asyncio
 import aiohttp
 
 from . import exceptions
+from .types import LinkDomain
 
 
 class HttpClient:
@@ -23,26 +24,21 @@ class HttpClient:
         self.token = auth_token
         self.API_URL = "https://api.boticord.top/v1/"
 
-        loop = kwargs.get('loop') or asyncio.get_event_loop()
+        loop = kwargs.get("loop") or asyncio.get_event_loop()
 
-        self.session = kwargs.get('session') or aiohttp.ClientSession(loop=loop)
+        self.session = kwargs.get("session") or aiohttp.ClientSession(loop=loop)
 
-    async def make_request(self,
-                           method: str,
-                           endpoint: str,
-                           **kwargs):
+    async def make_request(self, method: str, endpoint: str, **kwargs):
         """Send requests to the API"""
 
         kwargs["headers"] = {
             "Content-Type": "application/json",
-            "Authorization": self.token
+            "Authorization": self.token,
         }
 
         url = f"{self.API_URL}{endpoint}"
 
-        async with self.session.request(method,
-                                        url,
-                                        **kwargs) as response:
+        async with self.session.request(method, url, **kwargs) as response:
             data = await response.json()
 
             if response.status == 200:
@@ -97,3 +93,21 @@ class HttpClient:
     def get_user_bots(self, user_id: int):
         """Get bots of specified user"""
         return self.make_request("GET", f"bots/{user_id}")
+
+    def get_my_shorted_links(self, code: str = None):
+        """Get shorted links of an authorized user"""
+        body = {"code": code} if code is not None else {}
+
+        return self.make_request("POST", "links/get", json=body)
+
+    def create_shorted_link(self, code: str, link: str, *, domain: LinkDomain = 1):
+        """Create new shorted link"""
+        return self.make_request(
+            "POST", "links/create", json={"code": code, "link": link, "domain": int(domain)}
+        )
+
+    def delete_shorted_link(self, code: str, domain: LinkDomain = 1):
+        """Delete shorted link"""
+        return self.make_request(
+            "POST", "links/delete", json={"code": code, "domain": int(domain)}
+        )

@@ -15,11 +15,8 @@ class BoticordClient:
         token (:obj:`str`)
             Your bot's Boticord API Token.
     """
-    __slots__ = (
-        "http",
-        "_autopost",
-        "_token"
-    )
+
+    __slots__ = ("http", "_autopost", "_token")
 
     http: HttpClient
 
@@ -56,7 +53,9 @@ class BoticordClient:
         response = await self.http.get_bot_comments(bot_id)
         return [boticord_types.SingleComment(**comment) for comment in response]
 
-    async def post_bot_stats(self, servers: int = 0, shards: int = 0, users: int = 0) -> dict:
+    async def post_bot_stats(
+        self, servers: int = 0, shards: int = 0, users: int = 0
+    ) -> dict:
         """Post Bot's stats.
 
         Args:
@@ -70,11 +69,9 @@ class BoticordClient:
             :obj:`dict`:
                 Boticord API Response status
         """
-        response = await self.http.post_bot_stats({
-            "servers": servers,
-            "shards": shards,
-            "users": users
-        })
+        response = await self.http.post_bot_stats(
+            {"servers": servers, "shards": shards, "users": users}
+        )
         return response
 
     async def get_server_info(self, server_id: int) -> boticord_types.Server:
@@ -159,6 +156,61 @@ class BoticordClient:
         """
         response = await self.http.get_user_bots(user_id)
         return [boticord_types.SimpleBot(**bot) for bot in response]
+
+    async def get_my_shorted_links(self, *, code: str = None):
+        """Gets shorted links of an authorized user
+
+        Args:
+            code (:obj:`str`)
+                Code of shorted link. Could be None.
+
+        Returns:
+            Union[:obj:`list` [ :obj:`~.types.ShortedLink` ], :obj:`~types.ShortedLink`]:
+                List of shorted links if none else shorted link
+        """
+        response = await self.http.get_my_shorted_links(code)
+
+        return (
+            [boticord_types.ShortedLink(**link) for link in response]
+            if code is None
+            else boticord_types.ShortedLink(**response[0])
+        )
+
+    async def create_shorted_link(self, *, code: str, link: str, domain: boticord_types.LinkDomain = 1):
+        """Creates new shorted link
+
+        Args:
+            code (:obj:`str`)
+                Code of link to short.
+            link (:obj:`str`)
+                Link to short.
+            domain (:obj:`~.types.LinkDomain`)
+                Domain to use in shorted link
+
+        Returns:
+            :obj:`~types.ShortedLink`:
+                Shorted Link
+        """
+        response = await self.http.create_shorted_link(code, link, domain=domain)
+
+        return boticord_types.ShortedLink(**response)
+
+    async def delete_shorted_link(self, code: str, domain: boticord_types.LinkDomain = 1):
+        """Deletes shorted link
+
+        Args:
+            code (:obj:`str`)
+                Code of link to delete.
+            domain (:obj:`~.types.LinkDomain`)
+                Domain that is used in shorted link
+
+        Returns:
+            :obj:`bool`:
+                Is link deleted successfully?
+        """
+        response = await self.http.delete_shorted_link(code, domain)
+
+        return response.get('ok', False)
 
     def autopost(self) -> AutoPost:
         """Returns a helper instance for auto-posting.

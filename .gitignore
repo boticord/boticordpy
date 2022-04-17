@@ -7,6 +7,6 @@ __pycache__
 dist
 docs/_build
 boticordpy.egg-info
-test.py
+_testing.py
 /.pytest_cache
 /docs/build/

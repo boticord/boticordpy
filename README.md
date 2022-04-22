@@ -23,7 +23,7 @@
 * Full BotiCord API Coverage
 * Modern Pythonic API using `async`/`await` syntax
 * BotiCord Webhooks
-* It is not necessary to use any particular library to interact with the Discord API.
+* It is not necessary to use any particular library used to interact with the Discord API.
 
 <h2>Installation</h2>
 

@@ -8,22 +8,29 @@ from .autopost import AutoPost
 class BoticordClient:
     """Represents a client that can be used to interact with the BotiCord API.
 
+    .. warning::
+
+        In BotiCord API v2 there are some changes with token.
+        [Read more here](https://docs.boticord.top/topics/v1vsv2/)
+
     Note:
         Remember that every http method can return http exception.
 
     Args:
         token (:obj:`str`)
             Your bot's Boticord API Token.
+        version (:obj:`int`)
+            BotiCord API version
     """
 
     __slots__ = ("http", "_autopost", "_token")
 
     http: HttpClient
 
-    def __init__(self, token=None):
+    def __init__(self, token: str = None, version: int = 1):
         self._token = token
         self._autopost: typing.Optional[AutoPost] = None
-        self.http = HttpClient(token)
+        self.http = HttpClient(token, version)
 
     async def get_bot_info(self, bot_id: int) -> boticord_types.Bot:
         """Gets information about specified bot.

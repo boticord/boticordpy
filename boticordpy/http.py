@@ -20,9 +20,9 @@ class HttpClient:
         loop: `asyncio loop`
     """
 
-    def __init__(self, auth_token, **kwargs):
+    def __init__(self, auth_token: str, version: int = 1, **kwargs):
         self.token = auth_token
-        self.API_URL = "https://api.boticord.top/v1/"
+        self.API_URL = f"https://api.boticord.top/v{version}/"
 
         loop = kwargs.get("loop") or asyncio.get_event_loop()
 

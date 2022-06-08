@@ -20,10 +20,10 @@ class BoticordClient:
 
     http: HttpClient
 
-    def __init__(self, token=None):
+    def __init__(self, token: str = None, version: str = 1) -> None:
         self._token = token
         self._autopost: typing.Optional[AutoPost] = None
-        self.http = HttpClient(token)
+        self.http = HttpClient(token, version)
 
     async def get_bot_info(self, bot_id: int) -> boticord_types.Bot:
         """Gets information about specified bot.

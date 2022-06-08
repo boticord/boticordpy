@@ -175,7 +175,7 @@ class Server(ApiData):
     """Server's avatar"""
 
     members: list
-    """Members counts - `[all, onlinw]`"""
+    """Members counts - `[all, online]`"""
 
     owner: typing.Optional[str]
     """Server's owner Id"""

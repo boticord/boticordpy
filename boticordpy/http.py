@@ -103,7 +103,9 @@ class HttpClient:
     def create_shorted_link(self, code: str, link: str, *, domain: LinkDomain = 1):
         """Create new shorted link"""
         return self.make_request(
-            "POST", "links/create", json={"code": code, "link": link, "domain": int(domain)}
+            "POST",
+            "links/create",
+            json={"code": code, "link": link, "domain": int(domain)},
         )
 
     def delete_shorted_link(self, code: str, domain: LinkDomain = 1):

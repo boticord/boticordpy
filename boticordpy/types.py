@@ -348,9 +348,6 @@ class LinkDomain(IntEnum):
     BCORD_CC = 1
     """``bcord.cc`` domain, default"""
 
-    MYSERVERS_ME = 2
-    """``myservers.me`` domain"""
-
     DISCORD_CAMP = 3
     """``discord.camp`` domain"""
 

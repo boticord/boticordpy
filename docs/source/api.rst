@@ -8,8 +8,6 @@ API Reference
 
 API Reference for the boticordpy Module
 
-Index:
-
  .. toctree::
     :maxdepth: 2
 

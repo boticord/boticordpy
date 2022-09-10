@@ -7,111 +7,91 @@ single_comment_dict = {
     "text": "aboba",
     "vote": 1,
     "isUpdated": False,
-    "createdAt": 1644388399
+    "createdAt": 1644388399,
 }
 
 bot_data_dict = {
-     "id": "724663360934772797",
-     "shortCode": "kerdoku",
-     "links": ["https://boticord.top/bot/724663360934772797",
-               "https://bcord.cc/b/724663360934772797",
-               "https://myservers.me/b/724663360934772797",
-               "https://boticord.top/bot/kerdoku",
-               "https://bcord.cc/b/kerdoku",
-               "https://myservers.me/b/kerdoku"],
-     "server": {
-         "id": "724668798874943529",
-         "approved": True
-     },
-     "information": {
-         "bumps": 37,
-         "added": 1091,
-         "prefix": "?",
-         "permissions": 1544023111,
-         "tags": [
-             "комбайн",
-             "экономика",
-             "модерация",
-             "приветствия"
-         ],
-         "developers": ["585766846268047370"],
-         "links": {
-            "discord": "5qXgJvr",
-            "github": None,
-            "site": "https://kerdoku.top"
-         },
-         "library": "discordpy",
-         "shortDescription": "Удобный и дружелюбный бот, который имеет крутой функционал!",
-         "longDescription": "wow",
-         "badge": None,
-         "stats": {
-             "servers": 2558,
-             "shards": 3,
-             "users": 348986
-         },
-         "status": "APPROVED"
-     }
+    "id": "724663360934772797",
+    "shortCode": "kerdoku",
+    "links": [
+        "https://boticord.top/bot/724663360934772797",
+        "https://bcord.cc/b/724663360934772797",
+        "https://myservers.me/b/724663360934772797",
+        "https://boticord.top/bot/kerdoku",
+        "https://bcord.cc/b/kerdoku",
+        "https://myservers.me/b/kerdoku",
+    ],
+    "server": {"id": "724668798874943529", "approved": True},
+    "information": {
+        "bumps": 37,
+        "added": 1091,
+        "prefix": "?",
+        "permissions": 1544023111,
+        "tags": ["комбайн", "экономика", "модерация", "приветствия"],
+        "developers": ["585766846268047370"],
+        "links": {"discord": "5qXgJvr", "github": None, "site": "https://kerdoku.top"},
+        "library": "discordpy",
+        "shortDescription": "Удобный и дружелюбный бот, который имеет крутой функционал!",
+        "longDescription": "wow",
+        "badge": None,
+        "stats": {"servers": 2558, "shards": 3, "users": 348986},
+        "status": "APPROVED",
+    },
 }
 
 server_data_dict = {
-   "id": "722424773233213460",
-   "shortCode": "boticord",
-   "status": "ACCEPT_MEMBERS",
-   "links": [
-      "https://boticord.top/server/722424773233213460",
-      "https://bcord.cc/s/722424773233213460",
-      "https://myservers.me/s/722424773233213460",
-      "https://boticord.top/server/boticord",
-      "https://bcord.cc/s/boticord",
-      "https://myservers.me/s/boticord"
-   ],
-   "bot": {
-      "id": None,
-      "approved": False
-   },
-   "information": {
-      "name": "BotiCord Community",
-      "avatar": "https://cdn.discordapp.com/icons/722424773233213460/060188f770836697846710b109272e4c.webp",
-      "members": [
-         438,
-         0
-      ],
-      "bumps": 62,
-      "tags": [
-         "аниме",
-         "игры",
-         "поддержка",
-         "комьюнити",
-         "сообщество",
-         "discord",
-         "дискорд сервера",
-         "дискорд боты"
-      ],
-      "links": {
-         "invite": "hkHjW8a",
-         "site": "https://boticord.top/",
-         "youtube": None,
-         "twitch": None,
-         "steam": None,
-         "vk": None
-      },
-      "shortDescription": "short text",
-      "longDescription": "long text",
-      "badge": "STAFF"
-   }
+    "id": "722424773233213460",
+    "shortCode": "boticord",
+    "status": "ACCEPT_MEMBERS",
+    "links": [
+        "https://boticord.top/server/722424773233213460",
+        "https://bcord.cc/s/722424773233213460",
+        "https://myservers.me/s/722424773233213460",
+        "https://boticord.top/server/boticord",
+        "https://bcord.cc/s/boticord",
+        "https://myservers.me/s/boticord",
+    ],
+    "bot": {"id": None, "approved": False},
+    "information": {
+        "name": "BotiCord Community",
+        "avatar": "https://cdn.discordapp.com/icons/722424773233213460/060188f770836697846710b109272e4c.webp",
+        "members": [438, 0],
+        "bumps": 62,
+        "tags": [
+            "аниме",
+            "игры",
+            "поддержка",
+            "комьюнити",
+            "сообщество",
+            "discord",
+            "дискорд сервера",
+            "дискорд боты",
+        ],
+        "links": {
+            "invite": "hkHjW8a",
+            "site": "https://boticord.top/",
+            "youtube": None,
+            "twitch": None,
+            "steam": None,
+            "vk": None,
+        },
+        "shortDescription": "short text",
+        "longDescription": "long text",
+        "badge": "STAFF",
+    },
 }
 
 user_profile_dict = {
-    "id": '178404926869733376',
+    "id": "178404926869733376",
     "status": '"Если вы не разделяете мою точку зрения, поздравляю — вам больше достанется." © Артемий Лебедев',
-    "badge": 'STAFF',
-    "shortCode": 'cipherka',
-    "site": 'https://sqdsh.top/',
+    "badge": "STAFF",
+    "shortCode": "cipherka",
+    "site": "https://sqdsh.top/",
     "vk": None,
-    "steam": 'sadlycipherka',
+    "steam": "sadlycipherka",
     "youtube": None,
     "twitch": None,
-    "git": 'https://git.sqdsh.top/me'
+    "git": "https://git.sqdsh.top/me",
 }
 
 

@@ -11,10 +11,10 @@ class BoticordClient:
     .. warning::
 
         In BotiCord API v2 there are some changes with token.
-        [Read more here](https://docs.boticord.top/topics/v1vsv2/)
+        `Read more here <https://docs.boticord.top/topics/v1vsv2/>`_
 
     Note:
-        Remember that every http method can return http exception.
+        Remember that every http method can return an http exception.
 
     Args:
         token (:obj:`str`)
@@ -111,6 +111,8 @@ class BoticordClient:
 
     async def post_server_stats(self, payload: dict) -> dict:
         """Post Server's stats. You must be Boticord-Service bot.
+        Payload is raw, because if you use it - you know what you are doing.
+        You can find more information about payload `in BotiCord API Docs <https://docs.boticord.top/methods/servers/>`_
 
         Args:
             payload (:obj:`dict`)
@@ -183,7 +185,9 @@ class BoticordClient:
             else boticord_types.ShortedLink(**response[0])
         )
 
-    async def create_shorted_link(self, *, code: str, link: str, domain: boticord_types.LinkDomain = 1):
+    async def create_shorted_link(
+        self, *, code: str, link: str, domain: boticord_types.LinkDomain = 1
+    ):
         """Creates new shorted link
 
         Args:
@@ -202,7 +206,9 @@ class BoticordClient:
 
         return boticord_types.ShortedLink(**response)
 
-    async def delete_shorted_link(self, code: str, domain: boticord_types.LinkDomain = 1):
+    async def delete_shorted_link(
+        self, code: str, domain: boticord_types.LinkDomain = 1
+    ):
         """Deletes shorted link
 
         Args:
@@ -217,7 +223,7 @@ class BoticordClient:
         """
         response = await self.http.delete_shorted_link(code, domain)
 
-        return response.get('ok', False)
+        return response.get("ok", False)
 
     def autopost(self) -> AutoPost:
         """Returns a helper instance for auto-posting.

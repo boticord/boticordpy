@@ -22,12 +22,12 @@ import os
 
 sys.path.insert(0, os.path.abspath("../.."))
 
-project = 'BoticordPY'
-copyright = '2022, Victor Kotlin (Marakarka)'
-author = 'Victor Kotlin (Marakarka)'
+project = "BoticordPY"
+copyright = "2022, Victor Kotlin (Marakarka)"
+author = "Victor Kotlin (Marakarka)"
 
 # The full version, including alpha/beta/rc tags
-release = '2.0.0'
+release = "2.2.2a"
 
 
 # -- General configuration ---------------------------------------------------
@@ -44,7 +44,7 @@ extensions = [
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -62,17 +62,15 @@ intersphinx_mapping = {
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+html_theme = "sphinxawesome_theme"
 
-html_theme_options = {
-
-}
+html_theme_options = {}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "custom.css" will overwrite the builtin "custom.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 
 def setup(app):
-    app.add_css_file('custom.css')
+    app.add_css_file("custom.css")

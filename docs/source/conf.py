@@ -27,7 +27,7 @@ copyright = "2022, Victor Kotlin (Marakarka)"
 author = "Victor Kotlin (Marakarka)"
 
 # The full version, including alpha/beta/rc tags
-release = "2.2.2a"
+release = "2.2.2"
 
 
 # -- General configuration ---------------------------------------------------

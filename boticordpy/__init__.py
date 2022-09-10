@@ -10,7 +10,7 @@ __title__ = "boticordpy"
 __author__ = "Marakarka"
 __license__ = "MIT"
 __copyright__ = "Copyright 2022 Marakarka"
-__version__ = "2.2.2a"
+__version__ = "2.2.2"
 
 from .client import BoticordClient
 from .webhook import Webhook

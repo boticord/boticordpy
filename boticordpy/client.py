@@ -20,14 +20,14 @@ class BoticordClient:
         token (:obj:`str`)
             Your bot's Boticord API Token.
         version (:obj:`int`)
-            BotiCord API version
+            BotiCord API version (Default: 2)
     """
 
     __slots__ = ("http", "_autopost", "_token")
 
     http: HttpClient
 
-    def __init__(self, token: str = None, version: int = 1):
+    def __init__(self, token: str = None, version: int = 2):
         self._token = token
         self._autopost: typing.Optional[AutoPost] = None
         self.http = HttpClient(token, version)

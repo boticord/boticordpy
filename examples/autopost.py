@@ -18,7 +18,7 @@ async def on_success_posting():
     print("stats posting successfully")
 
 
-boticord_client = BoticordClient("your_api_token", version=2)
+boticord_client = BoticordClient("Bot your_api_token", version=2)
 autopost = (
     boticord_client.autopost()
     .init_stats(get_stats)

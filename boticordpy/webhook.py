@@ -11,6 +11,8 @@ class Webhook:
     """Represents a client that can be used to work with BotiCord Webhooks.
     IP of the server - your machine IP. (`0.0.0.0`)
 
+    Note: you need to have IPV6 support to use this 
+
     Args:
         x_hook_key (:obj:`str`)
             X-hook-key to check the auth of incoming request.

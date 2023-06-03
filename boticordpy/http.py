@@ -20,7 +20,7 @@ class HttpClient:
         loop: `asyncio loop`
     """
 
-    def __init__(self, auth_token: str, version: int = 1, **kwargs):
+    def __init__(self, auth_token: str, version: int = 3, **kwargs):
         self.token = auth_token
         self.API_URL = f"https://api.boticord.top/v{version}/"
 
@@ -60,56 +60,26 @@ class HttpClient:
 
     def get_bot_info(self, bot_id: int):
         """Get information about the specified bot"""
-        return self.make_request("GET", f"bot/{bot_id}")
+        return self.make_request("GET", f"bots/{bot_id}")
 
+    # TODO
     def get_bot_comments(self, bot_id: int):
         """Get list of specified bot comments"""
         return self.make_request("GET", f"bot/{bot_id}/comments")
 
-    def post_bot_stats(self, stats: dict):
+    def post_bot_stats(self, bot_id: int, stats: dict):
         """Post bot's stats"""
-        return self.make_request("POST", "stats", json=stats)
+        return self.make_request("POST", f"bots/{bot_id}", json=stats)
 
     def get_server_info(self, server_id: int):
         """Get information about specified server"""
-        return self.make_request("GET", f"server/{server_id}")
+        return self.make_request("GET", f"servers/{server_id}")
 
+    # TODO
     def get_server_comments(self, server_id: int):
         """Get list of specified server comments"""
         return self.make_request("GET", f"server/{server_id}/comments")
 
-    def post_server_stats(self, payload: dict):
-        """Post server's stats"""
-        return self.make_request("POST", "server", json=payload)
-
     def get_user_info(self, user_id: int):
         """Get information about the user"""
-        return self.make_request("GET", f"profile/{user_id}")
-
-    def get_user_comments(self, user_id: int):
-        """Get specified user's comments"""
-        return self.make_request("GET", f"user/{user_id}/comments")
-
-    def get_user_bots(self, user_id: int):
-        """Get bots of specified user"""
-        return self.make_request("GET", f"bots/{user_id}")
-
-    def get_my_shorted_links(self, code: str = None):
-        """Get shorted links of an authorized user"""
-        body = {"code": code} if code is not None else {}
-
-        return self.make_request("POST", "links/get", json=body)
-
-    def create_shorted_link(self, code: str, link: str, *, domain: LinkDomain = 1):
-        """Create new shorted link"""
-        return self.make_request(
-            "POST",
-            "links/create",
-            json={"code": code, "link": link, "domain": int(domain)},
-        )
-
-    def delete_shorted_link(self, code: str, domain: LinkDomain = 1):
-        """Delete shorted link"""
-        return self.make_request(
-            "POST", "links/delete", json={"code": code, "domain": int(domain)}
-        )
+        return self.make_request("GET", f"users/{user_id}")

@@ -98,105 +98,74 @@ class Bot(ApiData):
     id: str
     """Bot's Id"""
 
-    short_code: typing.Optional[str]
-    """Bot's page short code"""
+    name: str
+    """Bot's name"""
 
-    page_links: list
-    """List of bot's page urls"""
-
-    server: dict
-    """Bot's support server"""
-
-    bumps: int
-    """Bumps count"""
-
-    added: str
-    """How many times users have added the bot?"""
-
-    prefix: str
-    """Bot's commands prefix"""
-
-    permissions: int
-    """Bot's permissions"""
-
-    tags: list
-    """Bot's search-tags"""
-
-    developers: list
-    """List of bot's developers Ids"""
-
-    links: typing.Optional[dict]
-    """Bot's social medias"""
-
-    library: typing.Optional[str]
-    """Bot's library"""
-
-    short_description: typing.Optional[str]
+    shortDescription: str
     """Bot's short description"""
 
-    long_description: typing.Optional[str]
+    description: str
     """Bot's long description"""
 
-    badge: typing.Optional[str]
-    """Bot's badge"""
+    avatar: typing.Optional[str]
+    """Bot's avatar"""
 
-    stats: dict
-    """Bot's stats"""
+    shortLink: typing.Optional[str]
+    """Bot's page short code"""
 
-    status: str
-    """Bot's approval status"""
+    inviteLink: str
+    """Bot's invite link"""
 
-    def __init__(self, **kwargs):
-        super().__init__(**parse_with_information_dict(kwargs))
+    premiumActive: bool
+    """Bot's premium status"""
 
+    premiumSplashURL: typing.Optional[str]
+    """Bot's splash URL"""
 
-class Server(ApiData):
-    """This model represents a server, returned from the Boticord API"""
+    premiumAutoFetch: typing.Optional[bool]
+    """Bot's auto fetch status"""
 
-    id: str
-    """Server's Id"""
+    standardBannerID: int
+    """Bot's standart banner ID"""
 
-    short_code: typing.Optional[str]
-    """Server's page short code"""
+    premiumBannerURL: typing.Optional[str]
+    """Bot's premium banner URL"""
 
-    status: str
-    """Server's approval status"""
+    owner: str
+    """Bot's owner"""
 
-    page_links: list
-    """List of server's page urls"""
+    status: int
+    """Bot's status"""
 
-    bot: dict
-    """Bot where this server is used for support users"""
+    prefix: str
+    """Bot's prefix"""
 
-    name: str
-    """Name of the server"""
+    discriminator: str
+    """Bot's discriminator (soon deprecated)"""
 
-    avatar: str
-    """Server's avatar"""
+    createdDate: str
+    """Bot's creation date"""
 
-    members: list
-    """Members counts - `[all, online]`"""
+    supportServerInviteLink: typing.Optional[str]
+    """Bot's support server"""
 
-    owner: typing.Optional[str]
-    """Server's owner Id"""
+    library: typing.Optional[int]
+    """Bot's library"""
 
-    bumps: int
-    """Bumps count"""
+    guilds: typing.Optional[int]
+    """Bot's guilds count"""
 
-    tags: list
-    """Server's search-tags"""
+    shards: typing.Optional[int]
+    """Bot's shards count"""
 
-    links: dict
-    """Server's social medias"""
+    members: typing.Optional[int]
+    """Bot's members count"""
 
-    short_description: typing.Optional[str]
-    """Server's short description"""
+    website: typing.Optional[str]
+    """Bot's website"""
 
-    long_description: typing.Optional[str]
-    """Server's long description"""
-
-    badge: typing.Optional[str]
-    """Server's badge"""
+    upCount: int
+    """Bot's up count"""
 
     def __init__(self, **kwargs):
         super().__init__(**parse_with_information_dict(kwargs))

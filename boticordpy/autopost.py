@@ -28,11 +28,15 @@ class AutoPost:
     _stats: typing.Any
     _task: typing.Optional["asyncio.Task[None]"]
 
+    bot_id: str
+
     def __init__(self, client):
         self.client = client
         self._stopped: bool = False
         self._interval: int = 900
         self._task: typing.Optional["asyncio.Task[None]"] = None
+
+        self.bot_id = None
 
     @property
     def is_running(self) -> bool:
@@ -145,7 +149,7 @@ class AutoPost:
         while True:
             stats = await self._stats()
             try:
-                await self.client.http.post_bot_stats(stats)
+                await self.client.http.post_bot_stats(self.bot_id, stats)
             except Exception as err:
                 on_error = getattr(self, "_error", None)
                 if on_error:
@@ -160,14 +164,21 @@ class AutoPost:
 
             await asyncio.sleep(self._interval)
 
-    def start(self):
+    def start(self, bot_id: typing.Union[str, int]):
         """
         Starts the loop.
+
+        Args:
+            bot_id ( Union[:obj:`int`, :obj:`str`] )
+                Id of the bot to send stats of.
 
         Raises:
             :obj:`~.exceptions.InternalException`
                 If there's no callback (for getting stats) provided or the autopost is already running.
         """
+
+        self.bot_id = bot_id
+
         if not hasattr(self, "_stats"):
             raise bexc.InternalException("You must provide stats")
 

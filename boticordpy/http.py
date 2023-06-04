@@ -1,4 +1,5 @@
 import asyncio
+import typing
 
 import aiohttp
 
@@ -20,9 +21,9 @@ class HttpClient:
         loop: `asyncio loop`
     """
 
-    def __init__(self, auth_token: str, version: int = 1, **kwargs):
+    def __init__(self, auth_token: str = None, version: int = 3, **kwargs):
         self.token = auth_token
-        self.API_URL = f"https://api.boticord.top/v{version}/"
+        self.API_URL = f"https://api.arbuz.pro/"
 
         loop = kwargs.get("loop") or asyncio.get_event_loop()
 
@@ -31,44 +32,30 @@ class HttpClient:
     async def make_request(self, method: str, endpoint: str, **kwargs):
         """Send requests to the API"""
 
-        kwargs["headers"] = {
-            "Content-Type": "application/json",
-            "Authorization": self.token,
-        }
+        kwargs["headers"] = {"Content-Type": "application/json"}
+
+        if self.token is not None:
+            kwargs["headers"]["Authorization"] = self.token
 
         url = f"{self.API_URL}{endpoint}"
 
         async with self.session.request(method, url, **kwargs) as response:
             data = await response.json()
 
-            if response.status == 200:
-                return data
-            elif response.status == 401:
-                raise exceptions.Unauthorized(response)
-            elif response.status == 403:
-                raise exceptions.Forbidden(response)
-            elif response.status == 404:
-                raise exceptions.NotFound(response)
-            elif response.status == 429:
-                raise exceptions.ToManyRequests(response)
-            elif response.status == 500:
-                raise exceptions.ServerError(response)
-            elif response.status == 503:
-                raise exceptions.ServerError(response)
+            if response.status == 200 or response.status == 201:
+                return data["result"]
+            else:
+                raise exceptions.HTTPException(
+                    {"status": response.status, "error": data["errors"][0]["code"]}
+                )
 
-        raise exceptions.HTTPException(response)
-
-    def get_bot_info(self, bot_id: int):
+    def get_bot_info(self, bot_id: typing.Union[str, int]):
         """Get information about the specified bot"""
-        return self.make_request("GET", f"bot/{bot_id}")
+        return self.make_request("GET", f"bots/{bot_id}")
 
-    def get_bot_comments(self, bot_id: int):
-        """Get list of specified bot comments"""
-        return self.make_request("GET", f"bot/{bot_id}/comments")
-
-    def post_bot_stats(self, stats: dict):
+    def post_bot_stats(self, bot_id: typing.Union[str, int], stats: dict):
         """Post bot's stats"""
-        return self.make_request("POST", "stats", json=stats)
+        return self.make_request("POST", f"bots/{bot_id}/stats", json=stats)
 
     def get_server_info(self, server_id: int):
         """Get information about specified server"""

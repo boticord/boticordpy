@@ -87,6 +87,22 @@ class BoticordClient:
         """
         response = await self.http.get_server_info(server_id)
         return boticord_types.ResourceServer.from_dict(response)
+    
+    async def get_user_info(
+        self, user_id: typing.Union[str, int]
+    ) -> boticord_types.UserProfile:
+        """Gets information about specified user.
+
+        Args:
+            user_id (Union[:obj:`str`, :obj:`int`])
+                Id of the user
+
+        Returns:
+            :obj:`~.types.UserProfile`:
+                UserProfile object.
+        """
+        response = await self.http.get_user_info(user_id)
+        return boticord_types.UserProfile.from_dict(response)
 
     def autopost(self) -> AutoPost:
         """Returns a helper instance for auto-posting.

@@ -29,7 +29,7 @@ class HttpClient:
 
         self.session = kwargs.get("session") or aiohttp.ClientSession(loop=loop)
 
-    async def make_request(self, method: str, endpoint: str, **kwargs):
+    async def make_request(self, method: str, endpoint: str, **kwargs) -> dict:
         """Send requests to the API"""
 
         kwargs["headers"] = {"Content-Type": "application/json"}
@@ -60,3 +60,7 @@ class HttpClient:
     def get_server_info(self, server_id: typing.Union[str, int]):
         """Get information about specified server"""
         return self.make_request("GET", f"servers/{server_id}")
+
+    def get_user_info(self, user_id: typing.Union[str, int]):
+        """Get information about specified user"""
+        return self.make_request("GET", f"users/{user_id}")

@@ -637,10 +637,10 @@ class ResourceServer(APIObjectBase):
 
         self = super().__new__(cls)
 
-        self.id = data["id"]
-        self.name = data["name"]
-        self.short_description = data["shortDescription"]
-        self.description = data["description)"]
+        self.id = data.get("id")
+        self.name = data.get("name")
+        self.short_description = data.get("shortDescription")
+        self.description = data.get("description")
         self.avatar = data.get("avatar")
         self.short_link = data.get("shortLink")
         self.invite_link = data.get("inviteLink")
@@ -658,7 +658,7 @@ class ResourceServer(APIObjectBase):
             ResourceRating.from_dict(rating) for rating in data.get("ratings", [])
         ]
         self.created_date = datetime.strptime(
-            data["createdDate"], "%Y-%m-%dT%H:%M:%S.%f%z"
+            data.get("createdDate"), "%Y-%m-%dT%H:%M:%S.%f%z"
         )
         self.tags = [ServerTag(tag) for tag in data.get("tags", [])]
         self.ups = [ResourceUp.from_dict(up) for up in data.get("ups", [])]

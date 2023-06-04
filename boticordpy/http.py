@@ -57,15 +57,6 @@ class HttpClient:
         """Post bot's stats"""
         return self.make_request("POST", f"bots/{bot_id}/stats", json=stats)
 
-    def get_server_info(self, server_id: int):
+    def get_server_info(self, server_id: typing.Union[str, int]):
         """Get information about specified server"""
         return self.make_request("GET", f"servers/{server_id}")
-
-    # TODO
-    def get_server_comments(self, server_id: int):
-        """Get list of specified server comments"""
-        return self.make_request("GET", f"server/{server_id}/comments")
-
-    def get_user_info(self, user_id: int):
-        """Get information about the user"""
-        return self.make_request("GET", f"users/{user_id}")

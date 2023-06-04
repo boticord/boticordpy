@@ -1,2 +1,4 @@
-sphinxawesome_theme
+furo
+sphinxcontrib_trio
+sphinx_design
 sphinx

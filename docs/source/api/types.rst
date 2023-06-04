@@ -19,6 +19,9 @@ Enums
 .. autoclass:: BotTag
     :members:
 
+.. autoclass:: ServerTag
+    :members:
+
 .. autoclass:: ResourceStatus
     :members:
 

@@ -46,8 +46,13 @@ Users
 .. autoclass:: UserLinks
     :members:
 
+.. autoclass:: UserBadge
+    :members:
+
 .. autoclass:: PartialUser
     :members:
 
 .. autoclass:: UserProfile
     :members:
+    :exclude-members: to_dict
+    :inherited-members:

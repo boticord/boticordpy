@@ -43,7 +43,7 @@ class BoticordClient:
         response = await self.http.get_bot_info(bot_id)
         return boticord_types.ResourceBot.from_dict(response)
 
-    async def post_bot_stats(
+    async def get_server_info(
         self,
         bot_id: typing.Union[str, int],
         *,
@@ -62,7 +62,7 @@ class BoticordClient:
                 Bot's shards count
             users ( :obj:`int` )
                 Bot's users count
-        
+
         Returns:
             :obj:`~.types.ResourceBot`:
                 ResourceBot object.
@@ -71,6 +71,22 @@ class BoticordClient:
             bot_id, {"servers": servers, "shards": shards, "users": users}
         )
         return boticord_types.ResourceBot.from_dict(response)
+
+    async def get_server_info(
+        self, server_id: typing.Union[str, int]
+    ) -> boticord_types.ResourceServer:
+        """Gets information about specified server.
+
+        Args:
+            server_id (Union[:obj:`str`, :obj:`int`])
+                Id of the server
+
+        Returns:
+            :obj:`~.types.ResourceServer`:
+                ResourceServer object.
+        """
+        response = await self.http.get_server_info(server_id)
+        return boticord_types.ResourceServer.from_dict(response)
 
     def autopost(self) -> AutoPost:
         """Returns a helper instance for auto-posting.

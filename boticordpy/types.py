@@ -226,19 +226,80 @@ class BotLibrary(IntEnum):
 
 
 class ResourceStatus(IntEnum):
-    """Bot status on monitoring"""
+    """Bot/server status on monitoring"""
 
     HIDDEN = 0
-    """Bot is hidden"""
+    """Bot/server is hidden"""
 
     PUBLIC = 1
-    """Bot is public"""
+    """Bot/server is public"""
 
     BANNED = 2
-    """Bot is banned"""
+    """Bot/server is banned"""
 
     PENDING = 3
-    """Bor is pending"""
+    """Bot/server is pending"""
+
+
+class ServerTag(IntEnum):
+    """Tags of the server"""
+
+    SPEAKING = 130
+    """Speaking"""
+
+    FUN = 131
+    """Fun"""
+
+    GAMES = 132
+    """Games"""
+
+    CINEMA = 133
+    """Cinema"""
+
+    ANIME = 134
+    """Anime"""
+
+    ART = 135
+    """Art"""
+
+    CODING = 136
+    """Coding"""
+
+    MUSIC = 137
+    """Music"""
+
+    ADULT = 138
+    """18+"""
+
+    ROLEPLAY = 139
+    """Role-Play"""
+
+    HUMOUR = 140
+    """Humour"""
+
+    GENSHIN = 160
+    """Genshin"""
+
+    MINECRAFT = 161
+    """Minecraft"""
+
+    GTA = 162
+    """GTA"""
+
+    CS = 163
+    """CS"""
+
+    DOTA = 164
+    """Dota"""
+
+    AMONG_US = 165
+    """Among Us"""
+
+    FORTNITE = 166
+    """Fortnite"""
+
+    BRAWL_STARS = 167
+    """Brawl Stars"""
 
 
 class BotTag(IntEnum):
@@ -316,13 +377,44 @@ class UserLinks(APIObjectBase):
             The dictionary to convert into a UserLinks.
         """
 
-        self: ResourceUp = super().__new__(cls)
+        self: UserLinks = super().__new__(cls)
 
         self.vk = data.get("vk")
         self.telegram = data.get("telegram")
         self.donate = data.get("donate")
         self.git = data.get("git")
         self.custon = data.get("custom")
+
+        return self
+    
+
+@dataclass(repr=False)
+class UserBadge(APIObjectBase):
+    """Information about user's profile badge"""
+
+    id: int
+    """Badge's ID"""
+
+    name: str
+    """Badge's name"""
+
+    asset_url: str
+    """Badge's icon URL"""
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        """Generate a UserBadge from the given data.
+
+        Parameters
+        ----------
+        data: :class:`dict`
+            The dictionary to convert into a UserBadge.
+        """
+        self: UserBadge = super().__new__(cls)
+
+        self.id = data['id']
+        self.name = data['name']
+        self.asset_url = data['assetURL']
 
         return self
 
@@ -426,7 +518,7 @@ class PartialUser(APIObjectBase):
             The dictionary to convert into a PartialUser.
         """
 
-        self: PartialUser = super().__new__(cls)
+        self: cls = super().__new__(cls)
 
         self.username = data["username"]
         self.discriminator = data["discriminator"]
@@ -437,6 +529,156 @@ class PartialUser(APIObjectBase):
         self.short_description = data.get("shortDescription")
         self.status = data.get("status")
         self.short_domain = data.get("shortDomain")
+
+        return self
+    
+
+@dataclass(repr=False)
+class ResourceBot(APIObjectBase):
+    """Tak nado"""
+
+
+@dataclass(repr=False)
+class ResourceServer(APIObjectBase):
+    """Information about server from BotiCord."""
+
+    id: str
+    """Server's ID"""
+
+    name: str
+    """Server's name"""
+
+    short_description: str
+    """Server's short description"""
+
+    description: str
+    """Server's description"""
+
+    avatar: Optional[str]
+    """Server's avatar"""
+
+    short_link: Optional[str]
+    """Server's short link"""
+
+    invite_link: str
+    """Server's invite link"""
+
+    premium_active: bool
+    """Server's premium state"""
+
+    premium_auto_fetch: Optional[bool]
+    """Server's premium auto fetch state"""
+
+    premium_banner_url: Optional[str]
+    """Server's premium banner URL"""
+
+    premium_splash_url: Optional[str]
+    """Server's premium splash URL"""
+
+    standart_banner_id: int
+    """Server's standart banner ID"""
+
+    owner: str
+    """Server's owner ID"""
+
+    status: ResourceStatus
+    """Server's status"""
+
+    ratings: List[ResourceRating]
+    """Server's ratings"""
+
+    created_date: datetime
+    """Server's creation time"""
+
+    members: Optional[int]
+    """Server's members count"""
+
+    website: Optional[str]
+    """Server's website"""
+
+    tags: List[ServerTag]
+    """Server's tags"""
+
+    moderators: List[PartialUser]
+    """Server's moderators"""
+
+    up_count: int
+    """Server's up count"""
+
+    ups: Optional[ResourceUp]
+    """Server's ups"""
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        """Generate a ResourceServer from the given data.
+
+        Parameters
+        ----------
+        data: :class:`dict`
+            The dictionary to convert into a ResourceServer."""
+        
+        self = super().__new__(cls)
+
+        self.id = data['id']
+        self.name = data['name']
+        self.short_description = data['shortDescription']
+        self.description = data['description)']
+        self.avatar = data.get("avatar")
+        self.short_link = data.get("shortLink")
+        self.invite_link = data.get("inviteLink")
+        self.owner = data.get("owner")
+        self.website = data.get("website")
+        self.up_count = data.get("upCount")
+        
+        self.premium_active = data['premium'].get('active')
+        self.premium_splash_url = data['premium'].get('splashURL')
+        self.premium_auto_fetch = data['premium'].get('autoFetch')
+        self.premium_banner_url = data['premium'].get('bannerURL')
+
+        self.status = ResourceStatus(data.get("status"))
+        self.ratings = [
+            ResourceRating.from_dict(rating) for rating in data.get("ratings", [])
+        ]
+        self.created_date = datetime.strptime(
+            data["createdDate"], "%Y-%m-%dT%H:%M:%S.%f%z"
+        )
+        self.tags = [ServerTag(tag) for tag in data.get("tags", [])]
+        self.ups = [ResourceUp.from_dict(up) for up in data.get("ups", [])]
+        self.moderators = [
+            PartialUser.from_dict(mod) for mod in data.get("moderators", [])
+        ]
+
+        self.members = data.get("memberCount")
+
+        return self
+
+
+@dataclass(repr=False)
+class UserProfile(PartialUser):
+    """Information about user's profile from BotiCord.
+    
+    It has all from PartialUser and some more params: 'bots', 'servers', 'badges'"""
+
+    badges: List[UserBadge]
+    """User's badges list."""
+
+    bots: List[ResourceBot]
+    """User's bots list"""
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        """Generate a UserProfile from the given data.
+
+        Parameters
+        ----------
+        data: :class:`dict`
+            The dictionary to convert into a UserProfile."""
+        
+        self = super().from_dict(data)
+
+        self.badges = [UserBadge.from_dict(badge) for badge in data.get('badges', [])]
+        self.bots = [ResourceBot.from_dict(bot) for bot in data.get('bots', [])]
+        self.servers = [ResourceServer.from_dict(server) for server in data.get('servers', [])]
 
         return self
 

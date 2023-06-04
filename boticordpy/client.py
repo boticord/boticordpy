@@ -43,7 +43,7 @@ class BoticordClient:
         response = await self.http.get_bot_info(bot_id)
         return boticord_types.ResourceBot.from_dict(response)
 
-    async def get_server_info(
+    async def post_bot_stats(
         self,
         bot_id: typing.Union[str, int],
         *,

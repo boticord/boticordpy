@@ -1,7 +1,11 @@
+.. currentmodule:: boticordpy
+
 ####################
 Client API Reference
 ####################
 
-.. automodule:: boticordpy.client
-    :members:
+BoticordClient
+-----------------
+
+.. autoclass:: BoticordClient
     :inherited-members:

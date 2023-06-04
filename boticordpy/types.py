@@ -212,33 +212,56 @@ class BotLibrary(IntEnum):
     """The library that the bot is based on"""
 
     DISCORD4J = 1
+    """Discord4j"""
+    
     DISCORDCR = 2
+    """Discordcr"""
+    
     DISCORDGO = 3
+    """DiscordGO"""
+    
     DISCORDDOO = 4
+    """Discordoo"""
+    
     DSHARPPLUS = 5
+    """DSharpPlus"""
+    
     DISCORDJS = 6
+    """Discord.js"""
+    
     DISCORDNET = 7
+    """Discord.Net"""
+    
     DISCORDPY = 8
+    """discord.py"""
+    
     ERIS = 9
+    """eris"""
+    
     JAVACORD = 10
+    """JavaCord"""
+    
     JDA = 11
+    """JDA"""
+    
     OTHER = 12
+    """Other"""
 
 
 class ResourceStatus(IntEnum):
-    """Bot status on monitoring"""
+    """Status of the project on monitoring"""
 
     HIDDEN = 0
-    """Bot is hidden"""
+    """is hidden"""
 
     PUBLIC = 1
-    """Bot is public"""
+    """is public"""
 
     BANNED = 2
-    """Bot is banned"""
+    """is banned"""
 
     PENDING = 3
-    """Bor is pending"""
+    """is pending"""
 
 
 class BotTag(IntEnum):
@@ -316,7 +339,7 @@ class UserLinks(APIObjectBase):
             The dictionary to convert into a UserLinks.
         """
 
-        self: ResourceUp = super().__new__(cls)
+        self: UserLinks = super().__new__(cls)
 
         self.vk = data.get("vk")
         self.telegram = data.get("telegram")

@@ -11,7 +11,6 @@ This is a documentation for wrapper for BotiCord API.
 
    quickstart
    api
-   other
 
 Links
 =====

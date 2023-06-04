@@ -15,4 +15,3 @@ API Reference for the boticordpy Module
     api/autopost
     api/exceptions
     api/types
-    api/webhook

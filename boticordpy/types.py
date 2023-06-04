@@ -212,33 +212,117 @@ class BotLibrary(IntEnum):
     """The library that the bot is based on"""
 
     DISCORD4J = 1
+    """Discord4j"""
+    
     DISCORDCR = 2
+    """Discordcr"""
+    
     DISCORDGO = 3
+    """DiscordGO"""
+    
     DISCORDDOO = 4
+    """Discordoo"""
+    
     DSHARPPLUS = 5
+    """DSharpPlus"""
+    
     DISCORDJS = 6
+    """Discord.js"""
+    
     DISCORDNET = 7
+    """Discord.Net"""
+    
     DISCORDPY = 8
+    """discord.py"""
+    
     ERIS = 9
+    """eris"""
+    
     JAVACORD = 10
+    """JavaCord"""
+    
     JDA = 11
+    """JDA"""
+    
     OTHER = 12
+    """Other"""
 
 
 class ResourceStatus(IntEnum):
-    """Bot/server status on monitoring"""
+    """Status of the project on monitoring"""
 
     HIDDEN = 0
-    """Bot/server is hidden"""
+    """is hidden"""
 
     PUBLIC = 1
-    """Bot/server is public"""
+    """is public"""
 
     BANNED = 2
-    """Bot/server is banned"""
+    """is banned"""
 
     PENDING = 3
-    """Bot/server is pending"""
+    """is pending"""
+
+
+class ServerTag(IntEnum):
+    """Tags of the server"""
+
+    SPEAKING = 130
+    """Speaking"""
+
+    FUN = 131
+    """Fun"""
+
+    GAMES = 132
+    """Games"""
+
+    CINEMA = 133
+    """Cinema"""
+
+    ANIME = 134
+    """Anime"""
+
+    ART = 135
+    """Art"""
+
+    CODING = 136
+    """Coding"""
+
+    MUSIC = 137
+    """Music"""
+
+    ADULT = 138
+    """18+"""
+
+    ROLEPLAY = 139
+    """Role-Play"""
+
+    HUMOUR = 140
+    """Humour"""
+
+    GENSHIN = 160
+    """Genshin"""
+
+    MINECRAFT = 161
+    """Minecraft"""
+
+    GTA = 162
+    """GTA"""
+
+    CS = 163
+    """CS"""
+
+    DOTA = 164
+    """Dota"""
+
+    AMONG_US = 165
+    """Among Us"""
+
+    FORTNITE = 166
+    """Fortnite"""
+
+    BRAWL_STARS = 167
+    """Brawl Stars"""
 
 
 class ServerTag(IntEnum):

@@ -249,80 +249,19 @@ class BotLibrary(IntEnum):
 
 
 class ResourceStatus(IntEnum):
-    """Status of the project on monitoring"""
+    """Bot status on monitoring"""
 
     HIDDEN = 0
-    """is hidden"""
+    """Bot is hidden"""
 
     PUBLIC = 1
-    """is public"""
+    """Bot is public"""
 
     BANNED = 2
-    """is banned"""
+    """Bot is banned"""
 
     PENDING = 3
-    """is pending"""
-
-
-class ServerTag(IntEnum):
-    """Tags of the server"""
-
-    SPEAKING = 130
-    """Speaking"""
-
-    FUN = 131
-    """Fun"""
-
-    GAMES = 132
-    """Games"""
-
-    CINEMA = 133
-    """Cinema"""
-
-    ANIME = 134
-    """Anime"""
-
-    ART = 135
-    """Art"""
-
-    CODING = 136
-    """Coding"""
-
-    MUSIC = 137
-    """Music"""
-
-    ADULT = 138
-    """18+"""
-
-    ROLEPLAY = 139
-    """Role-Play"""
-
-    HUMOUR = 140
-    """Humour"""
-
-    GENSHIN = 160
-    """Genshin"""
-
-    MINECRAFT = 161
-    """Minecraft"""
-
-    GTA = 162
-    """GTA"""
-
-    CS = 163
-    """CS"""
-
-    DOTA = 164
-    """Dota"""
-
-    AMONG_US = 165
-    """Among Us"""
-
-    FORTNITE = 166
-    """Fortnite"""
-
-    BRAWL_STARS = 167
-    """Brawl Stars"""
+    """Bor is pending"""
 
 
 class ServerTag(IntEnum):

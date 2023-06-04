@@ -51,3 +51,5 @@ Users
 
 .. autoclass:: UserProfile
     :members:
+    :exclude-members: to_dict
+    :inherited-members:

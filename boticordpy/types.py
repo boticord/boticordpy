@@ -817,9 +817,7 @@ class ResourceBot(APIObjectBase):
 
 @dataclass(repr=False)
 class UserProfile(PartialUser):
-    """Information about user's profile from BotiCord.
-
-    It has all from PartialUser and some more params: 'bots', 'servers', 'badges'"""
+    """Information about user's profile from BotiCord.'"""
 
     badges: List[UserBadge]
     """User's badges list."""

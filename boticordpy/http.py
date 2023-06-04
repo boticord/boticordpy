@@ -55,7 +55,7 @@ class HttpClient:
 
     def post_bot_stats(self, bot_id: typing.Union[str, int], stats: dict):
         """Post bot's stats"""
-        return self.make_request("POST", f"bots/{bot_id}", json=stats)
+        return self.make_request("POST", f"bots/{bot_id}/stats", json=stats)
 
     def get_server_info(self, server_id: int):
         """Get information about specified server"""

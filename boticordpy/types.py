@@ -213,37 +213,37 @@ class BotLibrary(IntEnum):
 
     DISCORD4J = 1
     """Discord4j"""
-    
+
     DISCORDCR = 2
     """Discordcr"""
-    
+
     DISCORDGO = 3
     """DiscordGO"""
-    
+
     DISCORDDOO = 4
     """Discordoo"""
-    
+
     DSHARPPLUS = 5
     """DSharpPlus"""
-    
+
     DISCORDJS = 6
     """Discord.js"""
-    
+
     DISCORDNET = 7
     """Discord.Net"""
-    
+
     DISCORDPY = 8
     """discord.py"""
-    
+
     ERIS = 9
     """eris"""
-    
+
     JAVACORD = 10
     """JavaCord"""
-    
+
     JDA = 11
     """JDA"""
-    
+
     OTHER = 12
     """Other"""
 
@@ -409,7 +409,7 @@ class UserLinks(APIObjectBase):
         self.custon = data.get("custom")
 
         return self
-    
+
 
 @dataclass(repr=False)
 class UserBadge(APIObjectBase):
@@ -435,9 +435,9 @@ class UserBadge(APIObjectBase):
         """
         self: UserBadge = super().__new__(cls)
 
-        self.id = data['id']
-        self.name = data['name']
-        self.asset_url = data['assetURL']
+        self.id = data["id"]
+        self.name = data["name"]
+        self.asset_url = data["assetURL"]
 
         return self
 
@@ -554,11 +554,6 @@ class PartialUser(APIObjectBase):
         self.short_domain = data.get("shortDomain")
 
         return self
-    
-
-@dataclass(repr=False)
-class ResourceBot(APIObjectBase):
-    """Tak nado"""
 
 
 @dataclass(repr=False)
@@ -639,24 +634,24 @@ class ResourceServer(APIObjectBase):
         ----------
         data: :class:`dict`
             The dictionary to convert into a ResourceServer."""
-        
+
         self = super().__new__(cls)
 
-        self.id = data['id']
-        self.name = data['name']
-        self.short_description = data['shortDescription']
-        self.description = data['description)']
+        self.id = data["id"]
+        self.name = data["name"]
+        self.short_description = data["shortDescription"]
+        self.description = data["description)"]
         self.avatar = data.get("avatar")
         self.short_link = data.get("shortLink")
         self.invite_link = data.get("inviteLink")
         self.owner = data.get("owner")
         self.website = data.get("website")
         self.up_count = data.get("upCount")
-        
-        self.premium_active = data['premium'].get('active')
-        self.premium_splash_url = data['premium'].get('splashURL')
-        self.premium_auto_fetch = data['premium'].get('autoFetch')
-        self.premium_banner_url = data['premium'].get('bannerURL')
+
+        self.premium_active = data["premium"].get("active")
+        self.premium_splash_url = data["premium"].get("splashURL")
+        self.premium_auto_fetch = data["premium"].get("autoFetch")
+        self.premium_banner_url = data["premium"].get("bannerURL")
 
         self.status = ResourceStatus(data.get("status"))
         self.ratings = [
@@ -677,45 +672,13 @@ class ResourceServer(APIObjectBase):
 
 
 @dataclass(repr=False)
-class UserProfile(PartialUser):
-    """Information about user's profile from BotiCord.
-    
-    It has all from PartialUser and some more params: 'bots', 'servers', 'badges'"""
-
-    badges: List[UserBadge]
-    """User's badges list."""
-
-    bots: List[ResourceBot]
-    """User's bots list"""
-
-    servers: List[ResourceServer]
-    """User's servers list"""
-
-    @classmethod
-    def from_dict(cls, data: dict):
-        """Generate a UserProfile from the given data.
-
-        Parameters
-        ----------
-        data: :class:`dict`
-            The dictionary to convert into a UserProfile."""
-        
-        self = super().from_dict(data)
-
-        self.badges = [UserBadge.from_dict(badge) for badge in data.get('badges', [])]
-        self.bots = [ResourceBot.from_dict(bot) for bot in data.get('bots', [])]
-        self.servers = [ResourceServer.from_dict(server) for server in data.get('servers', [])]
-
-        return self
-
-
-@dataclass(repr=False)
 class ResourceBot(APIObjectBase):
     """Bot published on BotiCord
 
     .. warning::
 
-        The result of the reverse conversion (`.to_dict()`) may not match the actual data."""
+        The result of the reverse conversion (`.to_dict()`) may not match the actual data.
+    """
 
     id: str
     """ID of the bot"""
@@ -848,6 +811,41 @@ class ResourceBot(APIObjectBase):
         self.guilds = data.get("guilds")
         self.shards = data.get("shards")
         self.members = data.get("members")
+
+        return self
+
+
+@dataclass(repr=False)
+class UserProfile(PartialUser):
+    """Information about user's profile from BotiCord.
+
+    It has all from PartialUser and some more params: 'bots', 'servers', 'badges'"""
+
+    badges: List[UserBadge]
+    """User's badges list."""
+
+    bots: List[ResourceBot]
+    """User's bots list"""
+
+    servers: List[ResourceServer]
+    """User's servers list"""
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        """Generate a UserProfile from the given data.
+
+        Parameters
+        ----------
+        data: :class:`dict`
+            The dictionary to convert into a UserProfile."""
+
+        self = super().from_dict(data)
+
+        self.badges = [UserBadge.from_dict(badge) for badge in data.get("badges", [])]
+        self.bots = [ResourceBot.from_dict(bot) for bot in data.get("bots", [])]
+        self.servers = [
+            ResourceServer.from_dict(server) for server in data.get("servers", [])
+        ]
 
         return self
 

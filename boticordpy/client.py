@@ -62,7 +62,7 @@ class BoticordClient:
                 Bot's shards count
             users ( :obj:`int` )
                 Bot's users count
-        
+
         Returns:
             :obj:`~.types.ResourceBot`:
                 ResourceBot object.

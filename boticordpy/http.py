@@ -42,7 +42,7 @@ class HttpClient:
         async with self.session.request(method, url, **kwargs) as response:
             data = await response.json()
 
-            if response.status == 200 or response.status == 201:
+            if (200, 201).__contains__(response.status):
                 return data["result"]
             else:
                 raise exceptions.HTTPException(

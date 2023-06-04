@@ -19,6 +19,9 @@ Enums
 .. autoclass:: BotTag
     :members:
 
+.. autoclass:: ServerTag
+    :members:
+
 .. autoclass:: ResourceStatus
     :members:
 
@@ -30,6 +33,13 @@ Bots
     :members:
 
 
+Servers
+---------
+
+.. autoclass:: ResourceServer
+    :members:
+
+
 Users
 ------
 
@@ -37,4 +47,7 @@ Users
     :members:
 
 .. autoclass:: PartialUser
+    :members:
+
+.. autoclass:: UserProfile
     :members:

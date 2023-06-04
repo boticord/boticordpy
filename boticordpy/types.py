@@ -688,6 +688,9 @@ class UserProfile(PartialUser):
     bots: List[ResourceBot]
     """User's bots list"""
 
+    servers: List[ResourceServer]
+    """User's servers list"""
+
     @classmethod
     def from_dict(cls, data: dict):
         """Generate a UserProfile from the given data.

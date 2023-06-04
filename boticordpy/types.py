@@ -249,19 +249,19 @@ class BotLibrary(IntEnum):
 
 
 class ResourceStatus(IntEnum):
-    """Bot status on monitoring"""
+    """Status of the project on monitoring"""
 
     HIDDEN = 0
-    """Bot is hidden"""
+    """is hidden"""
 
     PUBLIC = 1
-    """Bot is public"""
+    """is public"""
 
     BANNED = 2
-    """Bot is banned"""
+    """is banned"""
 
     PENDING = 3
-    """Bor is pending"""
+    """is pending"""
 
 
 class ServerTag(IntEnum):

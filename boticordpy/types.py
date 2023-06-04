@@ -401,12 +401,13 @@ class UserLinks(APIObjectBase):
         """
 
         self: UserLinks = super().__new__(cls)
+        data = data or {}
 
         self.vk = data.get("vk")
         self.telegram = data.get("telegram")
         self.donate = data.get("donate")
         self.git = data.get("git")
-        self.custon = data.get("custom")
+        self.custom = data.get("custom")
 
         return self
 
@@ -547,7 +548,7 @@ class PartialUser(APIObjectBase):
         self.discriminator = data["discriminator"]
         self.avatar = data.get("avatar")
         self.id = data["id"]
-        self.socials = UserLinks.from_dict(data["socials"])
+        self.socials = UserLinks.from_dict(data.get("socials", {}))
         self.description = data.get("description")
         self.short_description = data.get("shortDescription")
         self.status = data.get("status")
@@ -647,6 +648,7 @@ class ResourceServer(APIObjectBase):
         self.owner = data.get("owner")
         self.website = data.get("website")
         self.up_count = data.get("upCount")
+        self.standart_banner_id = data.get("standartBannerID")
 
         self.premium_active = data["premium"].get("active")
         self.premium_splash_url = data["premium"].get("splashURL")

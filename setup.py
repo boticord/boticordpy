@@ -48,7 +48,7 @@ setup(
     description="A Python wrapper for BotiCord API",
     long_description=README,
     long_description_content_type="text/markdown",
-     include_package_data=True,
+    include_package_data=True,
     url="https://github.com/boticord/boticordpy",
     author="Marakarka",
     author_email="support@kerdoku.top",

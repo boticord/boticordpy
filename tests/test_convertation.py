@@ -10,6 +10,17 @@ resource_bot_dict = {
     "createdDate": "2023-05-22T22:29:23.264Z",
     "premium": {},
 }
+resource_server_dict = {
+    "id": "722424773233213460",
+    "name": "BotiCord.top",
+    "tags": [
+        134,
+        132
+    ],
+    "status": 1,
+    "createdDate": "2023-05-23T15:16:45.387Z",
+    "premium": {},
+}
 
 
 def test_resource_up_convertation():
@@ -41,3 +52,10 @@ def test_resource_bot_convertation():
 
     assert int(model_from_dict.created_date.timestamp()) == 1684794563
     assert model_from_dict.status.name == "PUBLIC"
+
+def test_resource_server_convertation():
+    model_from_dict = types.ResourceServer.from_dict(resource_server_dict)
+
+    assert int(model_from_dict.created_date.timestamp()) == 1684855005
+    assert model_from_dict.name == "BotiCord.top"
+    assert model_from_dict.tags[1].name == "GAMES"

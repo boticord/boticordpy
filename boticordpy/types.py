@@ -545,7 +545,7 @@ class PartialUser(APIObjectBase):
         self: cls = super().__new__(cls)
 
         self.username = data["username"]
-        self.discriminator = data["discriminator"]
+        self.discriminator = data.get("discriminator")
         self.avatar = data.get("avatar")
         self.id = data["id"]
         self.socials = UserLinks.from_dict(data.get("socials", {}))

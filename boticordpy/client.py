@@ -87,7 +87,7 @@ class BoticordClient:
         """
         response = await self.http.get_server_info(server_id)
         return boticord_types.ResourceServer.from_dict(response)
-    
+
     async def get_user_info(
         self, user_id: typing.Union[str, int]
     ) -> boticord_types.UserProfile:

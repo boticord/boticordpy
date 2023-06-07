@@ -247,6 +247,9 @@ class BotLibrary(IntEnum):
     OTHER = 12
     """Other"""
 
+    NONE = 0
+    """Bot's library doesn't specified"""
+
 
 class ResourceStatus(IntEnum):
     """Status of the project on monitoring"""

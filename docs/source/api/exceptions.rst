@@ -13,6 +13,9 @@ Exceptions API Reference
 .. autoclass:: HTTPException
     :members:
 
+.. autoclass:: MeilisearchException
+    :members:
+
 .. autoclass:: StatusCodes
     :members:
 

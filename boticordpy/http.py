@@ -1,10 +1,10 @@
+from urllib.parse import urlparse
 import asyncio
 import typing
 
 import aiohttp
 
 from . import exceptions
-from .types import LinkDomain
 
 
 class HttpClient:
@@ -29,13 +29,17 @@ class HttpClient:
 
         self.session = kwargs.get("session") or aiohttp.ClientSession(loop=loop)
 
-    async def make_request(self, method: str, endpoint: str, **kwargs) -> dict:
+    async def make_request(
+        self, method: str, endpoint: str, *, meilisearch_token: str = None, **kwargs
+    ) -> dict:
         """Send requests to the API"""
 
         kwargs["headers"] = {"Content-Type": "application/json"}
 
         if self.token is not None:
             kwargs["headers"]["Authorization"] = self.token
+        if meilisearch_token is not None:
+            kwargs["headers"]["Authorization"] = f"Bearer {meilisearch_token}"
 
         url = f"{self.API_URL}{endpoint}"
 
@@ -43,11 +47,14 @@ class HttpClient:
             data = await response.json()
 
             if (200, 201).__contains__(response.status):
-                return data["result"]
+                return data["result"] if not meilisearch_token else data
             else:
-                raise exceptions.HTTPException(
-                    {"status": response.status, "error": data["errors"][0]["code"]}
-                )
+                if not meilisearch_token:
+                    raise exceptions.HTTPException(
+                        {"status": response.status, "error": data["errors"][0]["code"]}
+                    )
+                else:
+                    raise exceptions.MeilisearchException(data)
 
     def get_bot_info(self, bot_id: typing.Union[str, int]):
         """Get information about the specified bot"""
@@ -64,3 +71,16 @@ class HttpClient:
     def get_user_info(self, user_id: typing.Union[str, int]):
         """Get information about specified user"""
         return self.make_request("GET", f"users/{user_id}")
+
+    def get_search_key(self):
+        """Get API key for Meilisearch"""
+        return self.make_request("GET", f"search-key")
+
+    def search_for(self, index: str, api_key: str, data: dict):
+        """Search for something on BotiCord."""
+        return self.make_request(
+            "POST",
+            f"search/indexes/{index}/search",
+            meilisearch_token=api_key,
+            json=data,
+        )

@@ -21,7 +21,7 @@ class InternalException(BoticordException):
 
 
 class HTTPException(BoticordException):
-    """Exception that's thrown when an HTTP request operation fails.
+    """Exception that's thrown when request to BotiCord API operation fails.
 
     Attributes
     ----------
@@ -33,6 +33,23 @@ class HTTPException(BoticordException):
         self.response = response
 
         fmt = f"{HTTPErrors(self.response['error']).name} (Status code: {StatusCodes(self.response['status']).name})"
+
+        super().__init__(fmt)
+
+
+class MeilisearchException(BoticordException):
+    """Exception that's thrown when request to Meilisearch API operation fails.
+
+    Attributes
+    ----------
+    response:
+        The response of the failed HTTP request.
+    """
+
+    def __init__(self, response):
+        self.response = response
+
+        fmt = f"{self.response['code']} ({self.response['message']})"
 
         super().__init__(fmt)
 

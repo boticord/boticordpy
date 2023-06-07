@@ -56,3 +56,16 @@ Users
     :members:
     :exclude-members: to_dict
     :inherited-members:
+
+
+MeiliSearch
+------------
+
+.. autoclass:: MeiliIndexedBot
+    :members:
+
+.. autoclass:: MeiliIndexedServer
+    :members:
+
+.. autoclass:: MeiliIndexedComment
+    :members:

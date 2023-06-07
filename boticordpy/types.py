@@ -559,7 +559,12 @@ class PartialUser(APIObjectBase):
 
 @dataclass(repr=False)
 class ResourceServer(APIObjectBase):
-    """Information about server from BotiCord."""
+    """Information about server from BotiCord.
+
+    .. warning::
+
+        The result of the reverse conversion (`.to_dict()`) may not match the actual data.
+    """
 
     id: str
     """Server's ID"""
@@ -700,6 +705,9 @@ class ResourceBot(APIObjectBase):
     short_link: Optional[str]
     """Short link to the bot's page"""
 
+    standart_banner_id: int
+    """Server's standart banner ID"""
+
     invite_link: str
     """Invite link"""
 
@@ -788,6 +796,7 @@ class ResourceBot(APIObjectBase):
         self.support_server_invite_link = data.get("support_server_invite")
         self.website = data.get("website")
         self.up_count = data.get("upCount")
+        self.standart_banner_id = data.get("standartBannerID")
 
         self.premium_active = data["premium"].get("active")
         self.premium_splash_url = data["premium"].get("splashURL")
@@ -850,5 +859,231 @@ class UserProfile(PartialUser):
         return self
 
 
-class LinkDomain:
-    pass
+@dataclass(repr=False)
+class MeiliIndexedBot(APIObjectBase):
+    """Bot found on BotiCord
+
+    .. warning::
+
+        The result of the reverse conversion (`.to_dict()`) may not match the actual data.
+    """
+
+    id: str
+    """ID of the bot"""
+
+    name: str
+    """Name of the bot"""
+
+    short_description: str
+    """Short description of the bot"""
+
+    description: str
+    """Description of the bot"""
+
+    avatar: Optional[str]
+    """Avatar of the bot"""
+
+    invite: str
+    """Invite link"""
+
+    premium_active: bool
+    """Is premium status active? (True/False)"""
+
+    premium_banner: Optional[str]
+    """Premium banner URL"""
+
+    banner: int
+    """Standart banner"""
+
+    rating: int
+    """Bot's rating"""
+
+    discriminator: str
+    """Bot's discriminator"""
+
+    library: Optional[BotLibrary]
+    """The library that the bot is based on"""
+
+    guilds: Optional[int]
+    """Number of guilds"""
+
+    shards: Optional[int]
+    """Number of shards"""
+
+    members: Optional[int]
+    """Number of members"""
+
+    tags: List[BotTag]
+    """List of bot tags"""
+
+    ups: int
+    """List of bot's ups"""
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        """Generate a MeiliIndexedBot from the given data.
+
+        Parameters
+        ----------
+        data: :class:`dict`
+            The dictionary to convert into a MeiliIndexedBot.
+        """
+
+        self: MeiliIndexedBot = super().__new__(cls)
+
+        self.id = data.get("id")
+        self.name = data.get("name")
+        self.short_description = data.get("shortDescription")
+        self.description = data.get("description")
+        self.avatar = data.get("avatar")
+        self.invite = data.get("invite")
+        self.discriminator = data.get("discriminator")
+        self.ups = data.get("ups")
+        self.rating = data.get("rating")
+        self.banner = data.get("banner")
+
+        self.premium_active = data.get("premiumActive")
+        self.premium_banner = data.get("premiumBanner")
+
+        self.library = (
+            BotLibrary(data["library"]) if data.get("library") is not None else None
+        )
+        self.tags = [BotTag(tag) for tag in data.get("tags", [])]
+
+        self.guilds = data.get("guilds")
+        self.shards = data.get("shards")
+        self.members = data.get("members")
+
+        return self
+
+
+@dataclass(repr=False)
+class MeiliIndexedServer(APIObjectBase):
+    """Server found on BotiCord
+
+    .. warning::
+
+        The result of the reverse conversion (`.to_dict()`) may not match the actual data.
+    """
+
+    id: str
+    """ID of the server"""
+
+    name: str
+    """Name of the server"""
+
+    short_description: str
+    """Short description of the server"""
+
+    description: str
+    """Description of the server"""
+
+    avatar: Optional[str]
+    """Avatar of the server"""
+
+    invite: str
+    """Invite link"""
+
+    premium_active: bool
+    """Is premium status active? (True/False)"""
+
+    premium_banner: Optional[str]
+    """Premium banner URL"""
+
+    banner: int
+    """Standart banner"""
+
+    discord_banner: Optional[str]
+    """Discord banner URL"""
+
+    rating: int
+    """Server's rating"""
+
+    members: Optional[int]
+    """Number of members"""
+
+    tags: List[ServerTag]
+    """List of server tags"""
+
+    ups: int
+    """List of server's ups"""
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        """Generate a MeiliIndexedServer from the given data.
+
+        Parameters
+        ----------
+        data: :class:`dict`
+            The dictionary to convert into a MeiliIndexedServer.
+        """
+
+        self: MeiliIndexedServer = super().__new__(cls)
+
+        self.id = data.get("id")
+        self.name = data.get("name")
+        self.short_description = data.get("shortDescription")
+        self.description = data.get("description")
+        self.avatar = data.get("avatar")
+        self.invite = data.get("invite")
+        self.ups = data.get("ups")
+        self.rating = data.get("rating")
+        self.banner = data.get("banner")
+
+        self.premium_active = data.get("premiumActive")
+        self.premium_banner = data.get("premiumBanner")
+        self.discord_banner = data.get("discordBanner")
+
+        self.tags = [ServerTag(tag) for tag in data.get("tags", [])]
+
+        self.members = data.get("members")
+
+        return self
+
+
+@dataclass(repr=False)
+class MeiliIndexedComment(APIObjectBase):
+    """Comment found on BotiCord"""
+
+    id: str
+    """ID of the comment"""
+
+    author: str
+    """Id of the author of the comment"""
+
+    rating: int
+    """Comment's rating"""
+
+    content: str
+    """Content of the comment"""
+
+    resource: str
+    """Id of the resource"""
+
+    created: datetime
+    """When the comment was created"""
+
+    mod_reply: Optional[str]
+    """Reply to the comment"""
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        """Generate a MeiliIndexedComment from the given data.
+
+        Parameters
+        ----------
+        data: :class:`dict`
+            The dictionary to convert into a MeiliIndexedComment.
+        """
+
+        self: MeiliIndexedComment = super().__new__(cls)
+
+        self.id = data.get("id")
+        self.rating = data.get("rating")
+        self.author = data.get("author")
+        self.content = data.get("content")
+        self.resource = data.get("resource")
+        self.mod_reply = data.get("modReply")
+        self.created = datetime.utcfromtimestamp(data.get("created") / 1000)
+
+        return self

@@ -13,7 +13,7 @@ _logger = logging.getLogger("boticord.websocket")
 
 class BotiCordWebsocket:
     """Represents a client that can be used to interact with the BotiCord by websocket connection."""
-    
+
     def __init__(self, token: str):
         self.__session = None
         self.loop = asyncio.get_event_loop()
@@ -25,17 +25,17 @@ class BotiCordWebsocket:
 
     def listener(self):
         """Decorator to set the listener.
-        
+
         .. warning::
 
             Callback functions must be a **coroutine**. If they aren't, then you might get unexpected
             errors. In order to turn a function into a coroutine they must be ``async def``
             functions.
-        
+
         For example:
-        
+
         .. code-block:: python
-        
+
             @websocket.listener()
             async def comment_removed(data):
                 pass
@@ -58,7 +58,7 @@ class BotiCordWebsocket:
                 Type of notification (Check reference page)
             callback (:obj:`function`)
                 Coroutine Callback Function
-        
+
         .. warning::
 
             Callback functions must be a **coroutine**. If they aren't, then you might get unexpected
@@ -77,7 +77,7 @@ class BotiCordWebsocket:
         try:
             self.__session = aiohttp.ClientSession()
             self.ws = await self.__session.ws_connect(
-                "wss://gateway.arbuz.pro/websocket/",
+                "wss://gateway.boticord.top/websocket/",
                 timeout=30.0,
             )
 

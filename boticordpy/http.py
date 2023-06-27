@@ -1,4 +1,3 @@
-from urllib.parse import urlparse
 import asyncio
 import typing
 
@@ -23,7 +22,7 @@ class HttpClient:
 
     def __init__(self, auth_token: str = None, version: int = 3, **kwargs):
         self.token = auth_token
-        self.API_URL = f"https://api.arbuz.pro/"
+        self.API_URL = f"https://api.boticord.top/v{version}"
 
         loop = kwargs.get("loop") or asyncio.get_event_loop()
 

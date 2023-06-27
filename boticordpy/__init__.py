@@ -10,7 +10,7 @@ __title__ = "boticordpy"
 __author__ = "Marakarka"
 __license__ = "MIT"
 __copyright__ = "Copyright 2021 - 2023 Marakarka"
-__version__ = "3.0.0a"
+__version__ = "3.0.0"
 
 from .client import BoticordClient
 from .types import *

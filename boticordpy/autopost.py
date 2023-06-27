@@ -199,9 +199,9 @@ class AutoPost:
 
         task = asyncio.ensure_future(self._internal_loop())
         self._task = task
-        
+
         _logger.info("Started autoposting")
-        
+
         return task
 
     def stop(self) -> None:

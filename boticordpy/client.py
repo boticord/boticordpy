@@ -46,7 +46,7 @@ class BoticordClient:
                 ResourceBot object.
         """
         _logger.info("Requesting information about bot")
-        
+
         response = await self.http.get_bot_info(bot_id)
         return boticord_types.ResourceBot.from_dict(response)
 
@@ -75,7 +75,7 @@ class BoticordClient:
                 ResourceBot object.
         """
         _logger.info("Posting bot stats")
-        
+
         response = await self.http.post_bot_stats(
             bot_id, {"servers": servers, "shards": shards, "users": users}
         )
@@ -95,7 +95,7 @@ class BoticordClient:
                 ResourceServer object.
         """
         _logger.info("Requesting information about server")
-        
+
         response = await self.http.get_server_info(server_id)
         return boticord_types.ResourceServer.from_dict(response)
 
@@ -113,7 +113,7 @@ class BoticordClient:
                 UserProfile object.
         """
         _logger.info("Requesting information about user")
-        
+
         response = await self.http.get_user_info(user_id)
         return boticord_types.UserProfile.from_dict(response)
 

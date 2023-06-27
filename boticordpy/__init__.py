@@ -14,3 +14,4 @@ __version__ = "3.0.0a"
 
 from .client import BoticordClient
 from .types import *
+from .websocket import BotiCordWebsocket

@@ -12,6 +12,8 @@ _logger = logging.getLogger("boticord.websocket")
 
 
 class BotiCordWebsocket:
+    """Represents a client that can be used to interact with the BotiCord by websocket connection."""
+    
     def __init__(self, token: str):
         self.__session = None
         self.loop = asyncio.get_event_loop()
@@ -22,7 +24,16 @@ class BotiCordWebsocket:
         self._token = token
 
     def listener(self):
-        """Decorator to set the listener."""
+        """Decorator to set the listener (must be a coroutine function).
+        
+        For example:
+        
+        .. code-block:: python
+        
+            @websocket.listener()
+            async def comment_removed(data):
+                pass
+        """
 
         def inner(func):
             if not asyncio.iscoroutinefunction(func):
@@ -34,6 +45,7 @@ class BotiCordWebsocket:
 
     def register_listener(self, notification_type: str, callback: typing.Any):
         """Method to set the listener.
+
         Args:
             notify_type (:obj:`str`)
                 Type of notification (Check reference page)
@@ -119,6 +131,7 @@ class BotiCordWebsocket:
             await self.ws.send_json({"event": "ping"})
 
     async def close(self) -> None:
+        """Close websocket connection with BotiCord"""
         if self.ws:
             self.not_closed = False
             await self.ws.close(code=4000)

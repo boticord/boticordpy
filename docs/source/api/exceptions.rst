@@ -1,7 +1,23 @@
-####################
-Exceptions API Reference
-####################
+.. currentmodule:: boticordpy.exceptions
 
-.. automodule:: boticordpy.exceptions
+##########################
+Exceptions API Reference
+##########################
+
+.. autoclass:: BoticordException
     :members:
-    :inherited-members:
+
+.. autoclass:: InternalException
+    :members:
+
+.. autoclass:: HTTPException
+    :members:
+
+.. autoclass:: MeilisearchException
+    :members:
+
+.. autoclass:: StatusCodes
+    :members:
+
+.. autoclass:: HTTPErrors
+    :members:

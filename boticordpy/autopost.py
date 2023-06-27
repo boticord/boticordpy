@@ -1,7 +1,10 @@
 import asyncio
 import typing
+import logging
 
 from . import exceptions as bexc
+
+_logger = logging.getLogger("boticord.autopost")
 
 
 class AutoPost:
@@ -28,11 +31,15 @@ class AutoPost:
     _stats: typing.Any
     _task: typing.Optional["asyncio.Task[None]"]
 
+    bot_id: str
+
     def __init__(self, client):
         self.client = client
         self._stopped: bool = False
         self._interval: int = 900
         self._task: typing.Optional["asyncio.Task[None]"] = None
+
+        self.bot_id = None
 
     @property
     def is_running(self) -> bool:
@@ -65,6 +72,8 @@ class AutoPost:
             self._success = callback
             return func
 
+        _logger.info("Registering success callback")
+
         return inner
 
     def on_error(self, callback: typing.Any = None):
@@ -91,6 +100,8 @@ class AutoPost:
             self._error = callback
             return func
 
+        _logger.info("Registering error callback")
+
         return inner
 
     def init_stats(self, callback: typing.Any = None):
@@ -115,6 +126,8 @@ class AutoPost:
 
             self._stats = callback
             return func
+
+        _logger.info("Registered stats initialization function")
 
         return inner
 
@@ -145,7 +158,8 @@ class AutoPost:
         while True:
             stats = await self._stats()
             try:
-                await self.client.http.post_bot_stats(stats)
+                await self.client.http.post_bot_stats(self.bot_id, stats)
+                _logger.info("Tried to post bot stats")
             except Exception as err:
                 on_error = getattr(self, "_error", None)
                 if on_error:
@@ -160,14 +174,21 @@ class AutoPost:
 
             await asyncio.sleep(self._interval)
 
-    def start(self):
+    def start(self, bot_id: typing.Union[str, int]):
         """
         Starts the loop.
+
+        Args:
+            bot_id ( Union[:obj:`int`, :obj:`str`] )
+                Id of the bot to send stats of.
 
         Raises:
             :obj:`~.exceptions.InternalException`
                 If there's no callback (for getting stats) provided or the autopost is already running.
         """
+
+        self.bot_id = bot_id
+
         if not hasattr(self, "_stats"):
             raise bexc.InternalException("You must provide stats")
 
@@ -178,6 +199,9 @@ class AutoPost:
 
         task = asyncio.ensure_future(self._internal_loop())
         self._task = task
+
+        _logger.info("Started autoposting")
+
         return task
 
     def stop(self) -> None:
@@ -188,3 +212,5 @@ class AutoPost:
             return None
 
         self._stopped = True
+
+        _logger.info("Stopped autoposting")

@@ -10,3 +10,4 @@ boticordpy.egg-info
 _testing.py
 /.pytest_cache
 /docs/build/
+.vscode

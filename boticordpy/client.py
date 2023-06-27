@@ -1,17 +1,16 @@
 import typing
+import logging
 
 from . import types as boticord_types
 from .http import HttpClient
 from .autopost import AutoPost
+from .exceptions import MeilisearchException
+
+_logger = logging.getLogger("boticord")
 
 
 class BoticordClient:
     """Represents a client that can be used to interact with the BotiCord API.
-
-    .. warning::
-
-        In BotiCord API v2 there are some changes with token.
-        `Read more here <https://docs.boticord.top/topics/v1vsv2/>`_
 
     Note:
         Remember that every http method can return an http exception.
@@ -20,210 +19,179 @@ class BoticordClient:
         token (:obj:`str`)
             Your bot's Boticord API Token.
         version (:obj:`int`)
-            BotiCord API version (Default: 2)
+            BotiCord API version (Default: 3)
     """
 
-    __slots__ = ("http", "_autopost", "_token")
+    __slots__ = ("http", "_autopost", "_token", "_meilisearch_api_key")
 
     http: HttpClient
 
-    def __init__(self, token: str = None, version: int = 2):
+    def __init__(self, token: str = None, version: int = 3):
         self._token = token
+        self._meilisearch_api_key = None
         self._autopost: typing.Optional[AutoPost] = None
         self.http = HttpClient(token, version)
 
-    async def get_bot_info(self, bot_id: int) -> boticord_types.Bot:
+    async def get_bot_info(
+        self, bot_id: typing.Union[str, int]
+    ) -> boticord_types.ResourceBot:
         """Gets information about specified bot.
 
         Args:
-            bot_id (:obj:`int`)
+            bot_id (Union[:obj:`str`, :obj:`int`])
                 Id of the bot
 
         Returns:
-            :obj:`~.types.Bot`:
-                Bot object.
+            :obj:`~.types.ResourceBot`:
+                ResourceBot object.
         """
+        _logger.info("Requesting information about bot")
+
         response = await self.http.get_bot_info(bot_id)
-        return boticord_types.Bot(**response)
-
-    async def get_bot_comments(self, bot_id: int) -> list:
-        """Gets list of comments of specified bot.
-
-        Args:
-            bot_id (:obj:`int`)
-                Id of the bot
-
-        Returns:
-            :obj:`list` [ :obj:`~.types.SingleComment` ]:
-                List of comments.
-        """
-        response = await self.http.get_bot_comments(bot_id)
-        return [boticord_types.SingleComment(**comment) for comment in response]
+        return boticord_types.ResourceBot.from_dict(response)
 
     async def post_bot_stats(
-        self, servers: int = 0, shards: int = 0, users: int = 0
-    ) -> dict:
+        self,
+        bot_id: typing.Union[str, int],
+        *,
+        servers: int = 0,
+        shards: int = 0,
+        users: int = 0,
+    ) -> boticord_types.ResourceBot:
         """Post Bot's stats.
 
         Args:
+            bot_id (Union[:obj:`str`, :obj:`int`])
+                Id of the bot to post stats of.
             servers ( :obj:`int` )
                 Bot's servers count
             shards ( :obj:`int` )
                 Bot's shards count
             users ( :obj:`int` )
                 Bot's users count
-        Returns:
-            :obj:`dict`:
-                Boticord API Response status
-        """
-        response = await self.http.post_bot_stats(
-            {"servers": servers, "shards": shards, "users": users}
-        )
-        return response
 
-    async def get_server_info(self, server_id: int) -> boticord_types.Server:
+        Returns:
+            :obj:`~.types.ResourceBot`:
+                ResourceBot object.
+        """
+        _logger.info("Posting bot stats")
+
+        response = await self.http.post_bot_stats(
+            bot_id, {"servers": servers, "shards": shards, "users": users}
+        )
+        return boticord_types.ResourceBot.from_dict(response)
+
+    async def get_server_info(
+        self, server_id: typing.Union[str, int]
+    ) -> boticord_types.ResourceServer:
         """Gets information about specified server.
 
         Args:
-            server_id (:obj:`int`)
+            server_id (Union[:obj:`str`, :obj:`int`])
                 Id of the server
 
         Returns:
-            :obj:`~.types.Server`:
-                Server object.
+            :obj:`~.types.ResourceServer`:
+                ResourceServer object.
         """
+        _logger.info("Requesting information about server")
+
         response = await self.http.get_server_info(server_id)
-        return boticord_types.Server(**response)
+        return boticord_types.ResourceServer.from_dict(response)
 
-    async def get_server_comments(self, server_id: int) -> list:
-        """Gets list of comments of specified server.
-
-        Args:
-            server_id (:obj:`int`)
-                Id of the server
-
-        Returns:
-            :obj:`list` [ :obj:`~.types.SingleComment` ]:
-                List of comments.
-        """
-        response = await self.http.get_server_comments(server_id)
-        return [boticord_types.SingleComment(**comment) for comment in response]
-
-    async def post_server_stats(self, payload: dict) -> dict:
-        """Post Server's stats. You must be Boticord-Service bot.
-        Payload is raw, because if you use it - you know what you are doing.
-        You can find more information about payload `in BotiCord API Docs <https://docs.boticord.top/methods/servers/>`_
-
-        Args:
-            payload (:obj:`dict`)
-                Custom data (Use Boticord API docs.)
-        Returns:
-            :obj:`dict`:
-                Boticord API Response.
-        """
-        response = await self.http.post_server_stats(payload)
-        return response
-
-    async def get_user_info(self, user_id: int) -> boticord_types.UserProfile:
+    async def get_user_info(
+        self, user_id: typing.Union[str, int]
+    ) -> boticord_types.UserProfile:
         """Gets information about specified user.
 
         Args:
-            user_id (:obj:`int`)
+            user_id (Union[:obj:`str`, :obj:`int`])
                 Id of the user
 
         Returns:
             :obj:`~.types.UserProfile`:
-                User Profile object.
+                UserProfile object.
         """
+        _logger.info("Requesting information about user")
+
         response = await self.http.get_user_info(user_id)
-        return boticord_types.UserProfile(**response)
+        return boticord_types.UserProfile.from_dict(response)
 
-    async def get_user_comments(self, user_id: int) -> boticord_types.UserComments:
-        """Gets comments of specified user.
+    async def __search_for(self, index, data):
+        """Search for something on BotiCord"""
+        if self._meilisearch_api_key is None:
+            token_response = await self.http.get_search_key()
+            self._meilisearch_api_key = token_response["key"]
 
-        Args:
-            user_id (:obj:`int`)
-                Id of the user
+        try:
+            response = await self.http.search_for(
+                index, self._meilisearch_api_key, data
+            )
+        except MeilisearchException:
+            token_response = await self.http.get_search_key()
+            self._meilisearch_api_key = token_response["key"]
 
-        Returns:
-            :obj:`~.types.UserComments`:
-                User comments on Bots and Servers pages.
-        """
-        response = await self.http.get_user_comments(user_id)
-        return boticord_types.UserComments(**response)
+            response = await self.http.search_for(
+                index, self._meilisearch_api_key, data
+            )
 
-    async def get_user_bots(self, user_id: int) -> list:
-        """Gets list of bots of specified user.
+        return response["hits"]
 
-        Args:
-            user_id (:obj:`int`)
-                Id of the user
+    async def search_for_bots(
+        self, **kwargs
+    ) -> typing.List[boticord_types.MeiliIndexedBot]:
+        """Search for bots on BotiCord.
 
-        Returns:
-            :obj:`list` [ :obj:`~.types.SimpleBot` ]:
-                List of simple information about users bots.
-        """
-        response = await self.http.get_user_bots(user_id)
-        return [boticord_types.SimpleBot(**bot) for bot in response]
-
-    async def get_my_shorted_links(self, *, code: str = None):
-        """Gets shorted links of an authorized user
-
-        Args:
-            code (:obj:`str`)
-                Code of shorted link. Could be None.
+        Note:
+            You can find every keyword argument `here <https://www.meilisearch.com/docs/reference/api/search#search-parameters>`_.
 
         Returns:
-            Union[:obj:`list` [ :obj:`~.types.ShortedLink` ], :obj:`~types.ShortedLink`]:
-                List of shorted links if none else shorted link
+            List[:obj:`~.types.MeiliIndexedBot`]:
+                List of found bots
         """
-        response = await self.http.get_my_shorted_links(code)
+        _logger.info("Searching for bots on BotiCord")
 
-        return (
-            [boticord_types.ShortedLink(**link) for link in response]
-            if code is None
-            else boticord_types.ShortedLink(**response[0])
-        )
+        response = await self.__search_for("bots", kwargs)
+        return [boticord_types.MeiliIndexedBot.from_dict(bot) for bot in response]
 
-    async def create_shorted_link(
-        self, *, code: str, link: str, domain: boticord_types.LinkDomain = 1
-    ):
-        """Creates new shorted link
+    async def search_for_servers(
+        self, **kwargs
+    ) -> typing.List[boticord_types.MeiliIndexedServer]:
+        """Search for servers on BotiCord.
 
-        Args:
-            code (:obj:`str`)
-                Code of link to short.
-            link (:obj:`str`)
-                Link to short.
-            domain (:obj:`~.types.LinkDomain`)
-                Domain to use in shorted link
+        Note:
+            You can find every keyword argument `here <https://www.meilisearch.com/docs/reference/api/search#search-parameters>`_.
 
         Returns:
-            :obj:`~types.ShortedLink`:
-                Shorted Link
+            List[:obj:`~.types.MeiliIndexedServer`]:
+                List of found servers
         """
-        response = await self.http.create_shorted_link(code, link, domain=domain)
+        _logger.info("Searching for servers on BotiCord")
 
-        return boticord_types.ShortedLink(**response)
+        response = await self.__search_for("servers", kwargs)
+        return [
+            boticord_types.MeiliIndexedServer.from_dict(server) for server in response
+        ]
 
-    async def delete_shorted_link(
-        self, code: str, domain: boticord_types.LinkDomain = 1
-    ):
-        """Deletes shorted link
+    async def search_for_comments(
+        self, **kwargs
+    ) -> typing.List[boticord_types.MeiliIndexedComment]:
+        """Search for comments on BotiCord.
 
-        Args:
-            code (:obj:`str`)
-                Code of link to delete.
-            domain (:obj:`~.types.LinkDomain`)
-                Domain that is used in shorted link
+        Note:
+            You can find every keyword argument `here <https://www.meilisearch.com/docs/reference/api/search#search-parameters>`_.
 
         Returns:
-            :obj:`bool`:
-                Is link deleted successfully?
+            List[:obj:`~.types.MeiliIndexedComment`]:
+                List of found comments
         """
-        response = await self.http.delete_shorted_link(code, domain)
+        _logger.info("Searching for comments on BotiCord")
 
-        return response.get("ok", False)
+        response = await self.__search_for("comments", kwargs)
+        return [
+            boticord_types.MeiliIndexedComment.from_dict(comment)
+            for comment in response
+        ]
 
     def autopost(self) -> AutoPost:
         """Returns a helper instance for auto-posting.

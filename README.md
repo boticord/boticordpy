@@ -22,12 +22,12 @@
 * Object-oriented
 * Full BotiCord API Coverage
 * Modern Pythonic API using `async`/`await` syntax
-* BotiCord Webhooks
+* BotiCord Websocket
 * It is not necessary to use any particular library used to interact with the Discord API.
 
 <h2>Installation</h2>
 
-<b>Python 3.6 or newer is required.</b>
+<b>Python 3.8 or newer is required.</b>
 
 Enter one of these commands to install the library:
 
@@ -49,28 +49,33 @@ You can find other examples in an examples folder.
 
 ```py
 from discord.ext import commands
-
 from boticordpy import BoticordClient
 
 bot = commands.Bot(command_prefix="!")
 
 
+# Function that will return the current bot's stats.
 async def get_stats():
     return {"servers": len(bot.guilds), "shards": 0, "users": len(bot.users)}
 
 
+# Function that will be called if stats are posted successfully.
 async def on_success_posting():
-    print("stats posting successfully")
+    print("wow stats posting works")
 
-boticord_client = BoticordClient("your_api_token")
+
+boticord_client = BoticordClient(
+    "your_boticord_api_token", version=3
+)  # <--- BotiCord API token
 autopost = (
     boticord_client.autopost()
     .init_stats(get_stats)
     .on_success(on_success_posting)
-    .start()
+    .start("id_of_your_bot")  # <--- ID of your bot
 )
 
-bot.run("bot token")
+bot.run("bot token")  # <--- Discord bot's token
+
 ```
 
 <h2>Links</h2>

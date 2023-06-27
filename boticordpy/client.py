@@ -1,9 +1,12 @@
 import typing
+import logging
 
 from . import types as boticord_types
 from .http import HttpClient
 from .autopost import AutoPost
 from .exceptions import MeilisearchException
+
+_logger = logging.getLogger("boticord")
 
 
 class BoticordClient:
@@ -42,6 +45,8 @@ class BoticordClient:
             :obj:`~.types.ResourceBot`:
                 ResourceBot object.
         """
+        _logger.info("Requesting information about bot")
+        
         response = await self.http.get_bot_info(bot_id)
         return boticord_types.ResourceBot.from_dict(response)
 
@@ -69,6 +74,8 @@ class BoticordClient:
             :obj:`~.types.ResourceBot`:
                 ResourceBot object.
         """
+        _logger.info("Posting bot stats")
+        
         response = await self.http.post_bot_stats(
             bot_id, {"servers": servers, "shards": shards, "users": users}
         )
@@ -87,6 +94,8 @@ class BoticordClient:
             :obj:`~.types.ResourceServer`:
                 ResourceServer object.
         """
+        _logger.info("Requesting information about server")
+        
         response = await self.http.get_server_info(server_id)
         return boticord_types.ResourceServer.from_dict(response)
 
@@ -103,11 +112,13 @@ class BoticordClient:
             :obj:`~.types.UserProfile`:
                 UserProfile object.
         """
+        _logger.info("Requesting information about user")
+        
         response = await self.http.get_user_info(user_id)
         return boticord_types.UserProfile.from_dict(response)
 
     async def __search_for(self, index, data):
-        """Search for smth on BotiCord"""
+        """Search for something on BotiCord"""
         if self._meilisearch_api_key is None:
             token_response = await self.http.get_search_key()
             self._meilisearch_api_key = token_response["key"]
@@ -138,6 +149,7 @@ class BoticordClient:
             List[:obj:`~.types.MeiliIndexedBot`]:
                 List of found bots
         """
+        _logger.info("Searching for bots on BotiCord")
 
         response = await self.__search_for("bots", kwargs)
         return [boticord_types.MeiliIndexedBot.from_dict(bot) for bot in response]
@@ -154,6 +166,7 @@ class BoticordClient:
             List[:obj:`~.types.MeiliIndexedServer`]:
                 List of found servers
         """
+        _logger.info("Searching for servers on BotiCord")
 
         response = await self.__search_for("servers", kwargs)
         return [
@@ -172,6 +185,7 @@ class BoticordClient:
             List[:obj:`~.types.MeiliIndexedComment`]:
                 List of found comments
         """
+        _logger.info("Searching for comments on BotiCord")
 
         response = await self.__search_for("comments", kwargs)
         return [

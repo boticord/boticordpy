@@ -24,7 +24,13 @@ class BotiCordWebsocket:
         self._token = token
 
     def listener(self):
-        """Decorator to set the listener (must be a coroutine function).
+        """Decorator to set the listener.
+        
+        .. warning::
+
+            Callback functions must be a **coroutine**. If they aren't, then you might get unexpected
+            errors. In order to turn a function into a coroutine they must be ``async def``
+            functions.
         
         For example:
         
@@ -39,6 +45,7 @@ class BotiCordWebsocket:
             if not asyncio.iscoroutinefunction(func):
                 raise TypeError(f"<{func.__qualname__}> must be a coroutine function")
             self._listeners[func.__qualname__] = func
+            _logger.debug(f"Listener {func.__qualname__} added successfully!")
             return func
 
         return inner
@@ -51,11 +58,18 @@ class BotiCordWebsocket:
                 Type of notification (Check reference page)
             callback (:obj:`function`)
                 Coroutine Callback Function
+        
+        .. warning::
+
+            Callback functions must be a **coroutine**. If they aren't, then you might get unexpected
+            errors. In order to turn a function into a coroutine they must be ``async def``
+            functions.
         """
         if not asyncio.iscoroutinefunction(callback):
             raise TypeError(f"<{callback.__qualname__}> must be a coroutine function")
 
         self._listeners[notification_type] = callback
+        _logger.debug(f"Listener {callback.__qualname__} added successfully!")
         return self
 
     async def connect(self) -> None:

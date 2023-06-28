@@ -5,4 +5,4 @@ These are the open source libraries we use:
 - furo (https://github.com/pradyunsg/furo)
 
 It is also important to note that some developments of Melisa (https://github.com/MelisaDev/melisa) were used in the development of the project.
-I would also like to express my gratitude to the former admin staff of the BotiCord service (until 06/02/2023) and the entire project community.
+I would also like to express my gratitude to the former admin staff of the BotiCord (until 06/02/2023) and the entire project community.

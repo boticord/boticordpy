@@ -22,12 +22,12 @@ import os
 
 sys.path.insert(0, os.path.abspath("../.."))
 
-project = "BoticordPY"
-copyright = "2022 - 2023, Viktor K (Marakarka)"
+project = "boticordpy"
+copyright = "2021 - 2023, Viktor K (Marakarka)"
 author = "Viktor K (Marakarka)"
 
 # The full version, including alpha/beta/rc tags
-release = "3.0.0a"
+release = "3.0.0"
 
 
 # -- General configuration ---------------------------------------------------

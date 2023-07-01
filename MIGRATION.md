@@ -1,5 +1,5 @@
 
-# Migration Guilde
+# Migration Guide
 
 You can use this guide to make it easier to switch to new version (3x) of boticordpy.
 

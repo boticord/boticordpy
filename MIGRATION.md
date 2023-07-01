@@ -50,6 +50,20 @@ autopost = (
 )
 ```
 
+Also, JSON's keys for bot stats must be changed:
+
+### Was:
+```py
+async def get_stats():
+    return {"servers": len(bot.guilds), "shards": 0, "users": len(bot.users)}
+```
+
+### Became:
+```py
+async def get_stats():
+    return {"guilds": len(bot.guilds), "shards": 0, "members": len(bot.users)}
+```
+
 ## Webhook or websocket... that is the question
 
 Webhooks are no longer supported in boticordpy. You can find guide how to use boticord websocket [here](https://github.com/boticord/boticordpy/blob/master/examples/websocket.py).

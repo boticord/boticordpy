@@ -77,7 +77,7 @@ class BoticordClient:
         _logger.info("Posting bot stats")
 
         response = await self.http.post_bot_stats(
-            bot_id, {"servers": servers, "shards": shards, "users": users}
+            bot_id, {"guilds": servers, "shards": shards, "members": users}
         )
         return boticord_types.ResourceBot.from_dict(response)
 

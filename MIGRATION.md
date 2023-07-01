@@ -1,5 +1,5 @@
 
-# Migration Guilde
+# Migration Guide
 
 You can use this guide to make it easier to switch to new version (3x) of boticordpy.
 
@@ -48,6 +48,20 @@ autopost = (
     .on_success(on_success_posting)
     .start("id_of_your_bot")  # <--- ID of your bot
 )
+```
+
+Also, JSON's keys for bot stats must be changed:
+
+### Was:
+```py
+async def get_stats():
+    return {"servers": len(bot.guilds), "shards": 0, "users": len(bot.users)}
+```
+
+### Became:
+```py
+async def get_stats():
+    return {"guilds": len(bot.guilds), "shards": 0, "members": len(bot.users)}
 ```
 
 ## Webhook or websocket... that is the question

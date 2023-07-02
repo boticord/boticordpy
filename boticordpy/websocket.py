@@ -20,7 +20,7 @@ class BotiCordWebsocket:
         self.ws = None
         self._listeners = {}
         self._global_listener = None
-        self.not_closed = True
+        self.not_closed = False
 
         self._token = token
     

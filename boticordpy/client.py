@@ -54,7 +54,7 @@ class BoticordClient:
         self,
         bot_id: typing.Union[str, int],
         *,
-        servers: int = 0,
+        servers: typing.Optional[int] = None,
         shards: typing.Optional[int] = None,
         users: typing.Optional[int] = None,
     ) -> boticord_types.ResourceBot:
@@ -63,7 +63,7 @@ class BoticordClient:
         Args:
             bot_id (Union[:obj:`str`, :obj:`int`])
                 Id of the bot to post stats of.
-            servers ( :obj:`int` )
+            servers ( Optional[:obj:`int`] )
                 Bot's servers count
             shards ( Optional[:obj:`int`] )
                 Bot's shards count

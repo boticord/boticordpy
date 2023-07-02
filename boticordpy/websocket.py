@@ -168,7 +168,7 @@ class BotiCordWebsocket:
             listener = self._listeners.get(data["data"]["type"])
             if listener:
                 self.loop.create_task(listener(data["data"]))
-            else:
+            elif self._global_listener:
                 self.loop.create_task(self._global_listener(data['data']))
         elif data["event"] == "pong":
             _logger.info("Received pong-response.")

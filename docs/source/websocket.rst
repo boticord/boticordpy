@@ -13,10 +13,26 @@ BotiCord Websocket
 
     .. automethod:: BotiCordWebsocket.listener()
         :decorator:
+    
+    .. automethod:: BotiCordWebsocket.global_listener()
+        :decorator:
 
 
 Notification types
 -------------------
-.. function:: comment_removed(data)
-    
+.. function:: up_added(data)
+
+    Called when up is added.
+
+.. function:: comment_added(data)
+
+    Called when comment is added.
+
+.. function:: comment_edited(data)
+
     Called when comment is deleted.
+    
+.. function:: comment_removed(data)
+
+    Called when comment is deleted.
+

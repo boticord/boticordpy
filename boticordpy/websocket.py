@@ -174,7 +174,7 @@ class BotiCordWebsocket:
             _logger.info("Received pong-response.")
             self.loop.create_task(self._send_ping())
         else:
-            _logger.error("An error has occurred.")
+            _logger.error(f"An error has occurred.\nData: {data}")
 
     async def _handle_close(self, code: int) -> None:
         self.not_closed = False

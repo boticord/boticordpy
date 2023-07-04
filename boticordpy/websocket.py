@@ -19,59 +19,8 @@ class BotiCordWebsocket:
         self.loop = asyncio.get_event_loop()
         self.ws = None
         self._listeners = {}
-        self._global_listener = None
         self.not_closed = False
-
         self._token = token
-    
-    def global_listener(self):
-        """Decorator to set the global listener. It handles all notifications that 
-        don't have their listeners.
-
-        .. warning::
-
-            Callback functions must be a **coroutine**. If they aren't, then you might get unexpected
-            errors. In order to turn a function into a coroutine they must be ``async def``
-            functions.
-
-        For example:
-
-        .. code-block:: python
-
-            @websocket.global_listener()
-            async def all_notifications(data):
-                pass
-        """
-
-        def inner(func):
-            if not asyncio.iscoroutinefunction(func):
-                raise TypeError(f"<{func.__qualname__}> must be a coroutine function")
-            self._global_listener = func
-            _logger.debug(f"Global listener {func.__qualname__} added successfully!")
-            return func
-
-        return inner
-
-    def register_global_listener(self, callback: typing.Union[typing.Any, None]):
-        """Method to set the global listener. It handles all notifications that 
-        don't have their listeners.
-
-        Args:
-            callback (:obj:`function`)
-                Coroutine Callback Function. Set ``None`` if you need to remove global listener.
-
-        .. warning::
-
-            Callback functions must be a **coroutine**. If they aren't, then you might get unexpected
-            errors. In order to turn a function into a coroutine they must be ``async def``
-            functions.
-        """
-        if callback is not None and not asyncio.iscoroutinefunction(callback):
-            raise TypeError(f"<{callback.__qualname__}> must be a coroutine function")
-
-        self._global_listener = callback
-        _logger.debug(f"Listener {callback.__qualname__} added successfully!")
-        return self
 
     def listener(self):
         """Decorator to set the listener.
@@ -168,8 +117,6 @@ class BotiCordWebsocket:
             listener = self._listeners.get(data["data"]["type"])
             if listener:
                 self.loop.create_task(listener(data["data"]))
-            elif self._global_listener:
-                self.loop.create_task(self._global_listener(data['data']))
         elif data["event"] == "pong":
             _logger.info("Received pong-response.")
             self.loop.create_task(self._send_ping())

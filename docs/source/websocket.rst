@@ -27,7 +27,7 @@ Notification types
 
 .. function:: comment_edited(data)
 
-    Called when comment is deleted.
+    Called when comment is edited.
     
 .. function:: comment_removed(data)
 

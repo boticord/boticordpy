@@ -13,9 +13,6 @@ BotiCord Websocket
 
     .. automethod:: BotiCordWebsocket.listener()
         :decorator:
-    
-    .. automethod:: BotiCordWebsocket.global_listener()
-        :decorator:
 
 
 Notification types

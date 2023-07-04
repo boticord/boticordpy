@@ -61,7 +61,7 @@ async def get_stats():
 ### Became:
 ```py
 async def get_stats():
-    return {"guilds": len(bot.guilds), "shards": 0, "members": len(bot.users)}
+    return {"servers": len(bot.guilds), "shards": 0, "members": len(bot.users)}
 ```
 
 ## Webhook or websocket... that is the question

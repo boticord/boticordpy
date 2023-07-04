@@ -54,20 +54,20 @@ class BoticordClient:
         self,
         bot_id: typing.Union[str, int],
         *,
-        servers: int = 0,
-        shards: int = 0,
-        users: int = 0,
+        servers: typing.Optional[int] = None,
+        shards: typing.Optional[int] = None,
+        users: typing.Optional[int] = None,
     ) -> boticord_types.ResourceBot:
         """Post Bot's stats.
 
         Args:
             bot_id (Union[:obj:`str`, :obj:`int`])
                 Id of the bot to post stats of.
-            servers ( :obj:`int` )
+            servers ( Optional[:obj:`int`] )
                 Bot's servers count
-            shards ( :obj:`int` )
+            shards ( Optional[:obj:`int`] )
                 Bot's shards count
-            users ( :obj:`int` )
+            users ( Optional[:obj:`int`] )
                 Bot's users count
 
         Returns:
@@ -77,7 +77,7 @@ class BoticordClient:
         _logger.info("Posting bot stats")
 
         response = await self.http.post_bot_stats(
-            bot_id, {"guilds": servers, "shards": shards, "members": users}
+            bot_id, {"servers": servers, "shards": shards, "members": users}
         )
         return boticord_types.ResourceBot.from_dict(response)
 

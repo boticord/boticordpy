@@ -19,8 +19,7 @@ class BotiCordWebsocket:
         self.loop = asyncio.get_event_loop()
         self.ws = None
         self._listeners = {}
-        self.not_closed = True
-
+        self.not_closed = False
         self._token = token
 
     def listener(self):

@@ -139,7 +139,7 @@ class BotiCordWebsocket:
         await self.connect()
 
     async def _send_ping(self) -> None:
-        if not self.ws.closed:
+        if self.not_closed:
             await asyncio.sleep(45)
             await self.ws.send_json({"event": "ping"})
 

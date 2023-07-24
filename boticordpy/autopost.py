@@ -24,6 +24,7 @@ class AutoPost:
         "_stats",
         "_task",
         "_stopped",
+        "bot_id"
     )
 
     _success: typing.Any

@@ -134,7 +134,8 @@ class BotiCordWebsocket:
             _logger.error("Token is invalid.")
             return
 
-        _logger.info("Disconnected from BotiCord. Reconnecting...")
+        _logger.info("Disconnected from BotiCord. Reconnecting in 1 second...")
+        await asyncio.sleep(1)
 
         await self.connect()
 

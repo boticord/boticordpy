@@ -56,7 +56,7 @@ bot = commands.Bot(command_prefix="!")
 
 # Function that will return the current bot's stats.
 async def get_stats():
-    return {"servers": len(bot.guilds), "shards": 0, "members": len(bot.users)}
+    return {"servers": len(bot.guilds), "shards": None, "members": len(bot.users)}
 
 
 # Function that will be called if stats are posted successfully.

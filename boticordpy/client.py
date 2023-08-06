@@ -60,6 +60,10 @@ class BoticordClient:
     ) -> boticord_types.ResourceBot:
         """Post Bot's stats.
 
+        .. warning::
+
+            None of the values must be equal to 0. Specify None instead of 0.
+
         Args:
             bot_id (Union[:obj:`str`, :obj:`int`])
                 Id of the bot to post stats of.

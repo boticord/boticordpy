@@ -4,5 +4,9 @@ These are the open source libraries we use:
 - sphinx (https://github.com/sphinx-doc/sphinx)
 - furo (https://github.com/pradyunsg/furo)
 
+These are users who have made a meaningful contribution to the development of the project:
+- mxdcxt (One of the developers of the v3 module update)
+- arslee07 (Updated logo of the project)
+
 It is also important to note that some developments of Melisa (https://github.com/MelisaDev/melisa) were used in the development of the project.
 I would also like to express my gratitude to the former admin staff of the BotiCord (until 06/02/2023) and the entire project community.

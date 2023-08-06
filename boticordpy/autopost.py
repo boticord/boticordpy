@@ -9,7 +9,7 @@ _logger = logging.getLogger("boticord.autopost")
 
 class AutoPost:
     """
-    You can use this class to post stats automatically.
+    You can use this to post stats automatically.
 
     Args:
         client (:obj:`~.client.BoticordClient`)
@@ -108,6 +108,10 @@ class AutoPost:
     def init_stats(self, callback: typing.Any = None):
         """
         Registers a function that will return stats. Registered Function Must return dictionary.
+
+        .. warning::
+
+            None of the values must be equal to 0. Specify None instead of 0.
 
         .. warning::
 

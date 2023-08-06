@@ -61,8 +61,10 @@ async def get_stats():
 ### Became:
 ```py
 async def get_stats():
-    return {"servers": len(bot.guilds), "shards": 0, "members": len(bot.users)}
+    return {"servers": len(bot.guilds), "shards": None, "members": len(bot.users)}
 ```
+
+p.s. None of the values must be equal to `0`. Specify `None` instead of `0`.
 
 ## Webhook or websocket... that is the question
 

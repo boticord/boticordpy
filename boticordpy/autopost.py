@@ -144,6 +144,7 @@ class AutoPost:
     def set_interval(self, seconds: int) -> "AutoPost":
         """
         Sets the interval between posting stats.
+        
         Args:
             seconds (:obj:`int`)
                 The interval.

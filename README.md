@@ -1,6 +1,7 @@
 <p align="center">
-<img width="560" src="https://github.com/boticord/boticordpy/assets/61203964/0936dbc3-6344-4ea2-a882-244cdaa9b95e" alt="">
+<img width="560" src="https://github.com/boticord/boticordpy/assets/61203964/913ae21b-c125-4f6e-9e50-6c0bd6c56967" alt="">
 </p>
+
 
 <p align="center">
   <b>
